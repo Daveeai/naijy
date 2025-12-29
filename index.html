@@ -2,19 +2,97 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Naijy — Nigeria’s National Digital Engine</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Naijy – Nigeria’s Unified Infrastructure</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #ffffff;
+      color: #111;
+    }
+    header {
+      padding: 40px 20px;
+      text-align: center;
+      position: relative;
+    }
+    header h1 { font-size: 42px; margin-bottom: 10px; }
+    header p { max-width: 900px; margin: 0 auto; font-size: 18px; line-height: 1.6; }
+
+    .section { padding: 60px 20px; max-width: 1200px; margin: auto; }
+    .section-title { font-size: 28px; margin-bottom: 30px; text-align: center; }
+
+    .grid { display: grid; gap: 20px; }
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+    .tile { border: 1px solid #e0e0e0; padding: 30px 15px; text-align: center; border-radius: 12px; background: #fafafa; }
+    .icon { width: 60px; height: 60px; background: #0b7a3b; border-radius: 50%; margin: 0 auto 15px; }
+
+    footer { background: #f5f5f5; padding: 50px 20px; text-align: center; }
+    footer p { max-width: 900px; margin: auto; font-size: 16px; line-height: 1.6; }
+
+    @media (max-width: 900px) { .grid-4, .grid-3 { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 500px) { .grid-4, .grid-3 { grid-template-columns: 1fr; } }
+  </style>
 </head>
 <body>
-  <h1>Naijy</h1>
-  <p>Nigeria’s National Digital Engine</p>
-  <p>Connecting platforms, people, and progress.</p>
 
-  <ul>
-    <li>Trust Infrastructure</li>
-    <li>Engines & Platforms</li>
-    <li>National Collaboration</li>
-    <li>Global Connection</li>
-  </ul>
+  <!-- HEADER -->
+  <header>
+    <h1>WELCOME TO NAIJY</h1>
+    <p>Nigeria’s digital operating system, connecting all sectors, platforms and services under one national hub.</p>
+  </header>
+
+  <!-- GENERAL CATEGORIES -->
+  <section class="section">
+    <div class="section-title">Explore Naijy</div>
+    <div class="grid grid-4" id="categories-grid"></div>
+  </section>
+
+  <!-- CORE SYSTEMS -->
+  <section class="section">
+    <div class="section-title">Core National Systems</div>
+    <div class="grid grid-3" id="core-grid"></div>
+  </section>
+
+  <!-- ABOUT -->
+  <footer>
+    <p>
+      <strong>Naijy</strong> is Nigeria's Unified Infrastructure — A platform of innovation, trust, and collaboration. It unites our platforms, empowers citizens, and connects our nation to the world. Guided by vision, driven by progress, Naijy is official, modern, and inclusive — for all Nigerians, by Nigerians.
+    </p>
+  </footer>
+
+  <script>
+    // JSON data for categories
+    const categories = [
+      "Business/Economy", "Security & Justice", "Youth", "Education & Leadership",
+      "Health", "Agriculture", "Energy & Environment", "Housing",
+      "Culture & Faith", "Media", "SporTertainment", "Hospitality",
+      "Technology", "Governance", "Industry", "Say Anything"
+    ];
+
+    const coreSystems = [
+      "NaijyShield", "NaijyPulse", "NaijyPolicy",
+      "Nigeria Public Revenue Map", "National Expenditure Map", "Federal Assets Register",
+      "National Mandate Map", "Infrastructure Reality Map", "Transparency & Responsibility Index"
+    ];
+
+    function renderTiles(containerId, items) {
+      const container = document.getElementById(containerId);
+      items.forEach(item => {
+        const tile = document.createElement("div");
+        tile.className = "tile";
+        tile.innerHTML = `<div class="icon"></div>${item}`;
+        container.appendChild(tile);
+      });
+    }
+
+    // Render categories and core systems
+    renderTiles("categories-grid", categories);
+    renderTiles("core-grid", coreSystems);
+  </script>
+
 </body>
 </html>
