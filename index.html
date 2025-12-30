@@ -3,58 +3,58 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Naijy - Nigeria’s National Digital Engine</title>
+  <title>Naijy - Nigeria’s Unified Infrastructure</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
-    <div class="container">
+    <div class="container header-flex">
       <h1>Naijy</h1>
-      <p>Nigeria’s National Digital Engine - Connecting platforms, people, and progress.</p>
       <nav>
-        <ul>
-          <li><a href="#categories">Categories</a></li>
+        <ul class="nav-links">
+          <li><a href="#explore">ExploreNaijy</a></li>
           <li><a href="#core-platforms">Core Platforms</a></li>
+          <li><a href="#about">About</a></li>
+          <li class="dropdown">
+            <button class="dropbtn">Founder</button>
+            <div class="dropdown-content">
+              <a href="#">Dashboard</a>
+              <a href="#">Settings</a>
+              <a href="#">Manage Platforms</a>
+            </div>
+          </li>
         </ul>
       </nav>
     </div>
   </header>
 
   <main>
-    <section id="categories">
-      <h2>National Categories</h2>
-      <div class="grid">
-        <div class="tile">Business/Economy</div>
-        <div class="tile">Security & Justice</div>
-        <div class="tile">Youth</div>
-        <div class="tile">Education & Leadership</div>
-        <div class="tile">Health</div>
-        <div class="tile">Agriculture</div>
-        <div class="tile">Energy & Environment</div>
-        <div class="tile">Housing</div>
-        <div class="tile">Culture & Faith</div>
-        <div class="tile">Media</div>
-        <div class="tile">SporTertainment</div>
-        <div class="tile">Hospitality</div>
-        <div class="tile">Transport & Infrastructure</div>
-        <div class="tile">Technology & Innovation</div>
-        <div class="tile">Trade & Industry</div>
-        <div class="tile">Foreign Affairs</div>
+    <!-- About Section -->
+    <section id="about">
+      <div class="about-container">
+        <h2>About Naijy</h2>
+        <p>
+          Naijy is Nigeria's Unified Infrastructure — A platform of innovation, trust, and collaboration. 
+          It unites our platforms, empowers citizens, and connects our nation to the world. 
+          Guided by vision, driven by progress, Naijy is official, modern, and inclusive — 
+          for all Nigerians, by Nigerians.
+        </p>
       </div>
     </section>
 
+    <!-- ExploreNaijy Categories -->
+    <section id="explore">
+      <h2>ExploreNaijy</h2>
+      <div class="grid" id="explore-grid">
+        <!-- Dynamic content injected here -->
+      </div>
+    </section>
+
+    <!-- Core Platforms -->
     <section id="core-platforms">
       <h2>Core Platforms</h2>
-      <div class="grid">
-        <div class="tile platform">Nigeria Public Revenue Map</div>
-        <div class="tile platform">Naijy Influence Network</div>
-        <div class="tile platform">Youth Empowerment Hub</div>
-        <div class="tile platform">National Education Portal</div>
-        <div class="tile platform">Healthcare Access Map</div>
-        <div class="tile platform">AgriTech Solutions</div>
-        <div class="tile platform">Energy & Environment Tracker</div>
-        <div class="tile platform">Housing & Urban Planning</div>
-        <div class="tile platform">Culture & Heritage Exchange</div>
+      <div class="grid" id="platform-grid">
+        <!-- Dynamic content injected here -->
       </div>
     </section>
   </main>
@@ -66,5 +66,59 @@
     </div>
   </footer>
 
+  <!-- JSON + Dynamic Rendering Script -->
+  <script>
+    // Shareable JSON structure
+    const data = {
+      exploreNaijy: [
+        "Business/Economy",
+        "Security & Justice",
+        "Youth",
+        "Education & Leadership",
+        "Health",
+        "Agriculture",
+        "Energy & Environment",
+        "Housing",
+        "Culture & Faith",
+        "Media",
+        "SporTertainment",
+        "Hospitality",
+        "Transport & Infrastructure",
+        "Technology & Innovation",
+        "Trade & Industry",
+        "Foreign Affairs"
+      ],
+      corePlatforms: [
+        "Nigeria Public Revenue Map",
+        "Naijy Influence Network",
+        "Youth Empowerment Hub",
+        "National Education Portal",
+        "Healthcare Access Map",
+        "AgriTech Solutions",
+        "Energy & Environment Tracker",
+        "Housing & Urban Planning",
+        "Culture & Heritage Exchange"
+      ]
+    };
+
+    // Function to render tiles dynamically
+    function renderTiles(array, containerId, platform=false) {
+      const container = document.getElementById(containerId);
+      array.forEach(item => {
+        const div = document.createElement("div");
+        div.classList.add("tile");
+        if(platform) div.classList.add("platform");
+        div.textContent = item;
+        container.appendChild(div);
+      });
+    }
+
+    // Inject dynamic content
+    renderTiles(data.exploreNaijy, "explore-grid");
+    renderTiles(data.corePlatforms, "platform-grid", true);
+
+    // Shareable for other platforms
+    window.NaijyData = data;
+  </script>
 </body>
 </html>
