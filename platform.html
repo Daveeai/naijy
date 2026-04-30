@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="page-title">Platform</title>
+<meta id="meta-desc" name="description" content="">
+<meta id="og-title"  property="og:title"       content="">
+<meta id="og-desc"   property="og:description"  content="">
+<meta id="og-url"    property="og:url"          content="">
+<meta               property="og:type"          content="website">
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: Arial, sans-serif;
+  background: #eef2f5;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 20px 16px 60px;
+}
+
+/* ── HEADER ── */
+.header {
+  background: linear-gradient(135deg, #1f5e43 0%, #2e7d5a 100%);
+  color: white;
+  text-align: center;
+  padding: 26px 22px 22px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 16px rgba(31,94,67,0.28);
+}
+.header .platform-name {
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+.header .tagline {
+  font-size: 15px;
+  margin-top: 7px;
+  opacity: 0.88;
+  font-weight: 400;
+  line-height: 1.45;
+}
+.header .intro {
+  font-size: 14px;
+  line-height: 1.65;
+  opacity: 0.88;
+  margin-top: 14px;
+  text-align: left;
+  background: rgba(0,0,0,0.18);
+  padding: 14px 16px;
+  border-radius: 8px;
+}
+
+/* ── NAV ── */
+.nav-links {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0 16px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.nav-links a {
+  text-decoration: none;
+  color: #1f5e43;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+/* ── STATUS TOGGLE ── */
+.status-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.status-badge {
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.status-live        { background: #d4edda; color: #155724; }
+.status-coming-soon { background: #fff3cd; color: #7d5a00; }
+.status-in-dev      { background: #cce5ff; color: #004085; }
+.status-beta        { background: #e2d9f3; color: #432874; }
+.status-paused      { background: #f8d7da; color: #721c24; }
+
+.status-toggle-btn {
+  background: #fff;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 12px;
+  cursor: pointer;
+  color: #444;
+  transition: background 0.15s;
+}
+.status-toggle-btn:hover { background: #f0f0f0; }
+
+.status-dropdown {
+  display: none;
+  position: absolute;
+  top: 36px;
+  right: 0;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 6px 22px rgba(0,0,0,0.13);
+  z-index: 300;
+  min-width: 180px;
+  overflow: hidden;
+}
+.status-dropdown.open { display: block; }
+.status-option {
+  display: block;
+  width: 100%;
+  padding: 11px 18px;
+  border: none;
+  background: none;
+  text-align: left;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.12s;
+}
+.status-option:hover    { background: #f5f5f5; }
+.status-option.selected { font-weight: 700; background: #f0faf5; color: #1f5e43; }
+
+/* ── CARDS ── */
+.card {
+  background: #fff;
+  margin-bottom: 14px;
+  padding: 18px 22px;
+  border-radius: 10px;
+  border-left: 5px solid #1f5e43;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.card h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1f5e43;
+  margin-bottom: 12px;
+}
+.card ul  { padding-left: 20px; }
+.card li  { font-size: 15px; margin-bottom: 8px; line-height: 1.55; }
+
+.cat-card {
+  text-align: center;
+  font-size: 14px;
+  color: #666;
+  border-left-color: #bbb;
+  padding: 10px 18px;
+}
+
+/* ── SUB-PLATFORMS ── */
+.sub-section {
+  background: #fff;
+  margin-bottom: 14px;
+  padding: 18px 22px;
+  border-radius: 10px;
+  border-left: 5px solid #2e7d5a;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.sub-section h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1f5e43;
+  margin-bottom: 14px;
+}
+.sub-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(195px, 1fr));
+  gap: 12px;
+}
+.sub-tile {
+  background: #f2faf6;
+  border: 1px solid #b8ddc8;
+  border-radius: 8px;
+  padding: 14px;
+  transition: box-shadow 0.15s, transform 0.15s;
+}
+.sub-tile:hover {
+  box-shadow: 0 4px 14px rgba(31,94,67,0.13);
+  transform: translateY(-2px);
+}
+.sub-tile h4      { font-size: 14px; font-weight: 700; color: #1f5e43; margin-bottom: 4px; }
+.sub-tile .sub-tag { font-size: 12px; color: #4a8a68; font-style: italic; margin-bottom: 8px; line-height: 1.35; }
+.sub-tile ul      { padding-left: 16px; }
+.sub-tile li      { font-size: 12px; color: #333; margin-bottom: 3px; line-height: 1.4; }
+
+/* ── ENGAGEMENT CARD ── */
+.engage-card {
+  background: #fff;
+  margin-bottom: 14px;
+  padding: 20px 22px;
+  border-radius: 10px;
+  border-left: 5px solid #1f5e43;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.engage-card h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1f5e43;
+  margin-bottom: 16px;
+}
+
+.section-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 9px;
+}
+.divider { height: 1px; background: #eee; margin: 16px 0; }
+
+/* reaction buttons */
+.eng-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+.eng-btn {
+  border: none;
+  padding: 10px 18px;
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  transition: opacity 0.15s, transform 0.1s;
+}
+.eng-btn:hover  { opacity: 0.82; transform: translateY(-1px); }
+.eng-btn:active { transform: translateY(0); }
+.btn-like     { background: #1f5e43; color: #fff; }
+.btn-interest { background: #f59e0b; color: #fff; }
+.btn-useful   { background: #eab308; color: #333; }
+.btn-yes      { background: #28a745; color: #fff; }
+.btn-no       { background: #dc3545; color: #fff; }
+
+/* partner button */
+.partner-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #1f5e43, #2e7d5a);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 12px 22px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: opacity 0.15s, transform 0.1s;
+  box-shadow: 0 3px 10px rgba(31,94,67,0.25);
+}
+.partner-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+
+/* share buttons */
+.share-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+.share-btn {
+  border: none;
+  padding: 9px 14px;
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: opacity 0.15s;
+}
+.share-btn:hover  { opacity: 0.82; }
+.btn-copy     { background: #6c757d; color: #fff; }
+.btn-whatsapp { background: #25D366; color: #fff; }
+.btn-twitter  { background: #1DA1F2; color: #fff; }
+.btn-facebook { background: #1877F2; color: #fff; }
+
+/* ── PREV / NEXT ── */
+.platform-nav { display: flex; gap: 10px; margin-top: 8px; align-items: stretch; }
+.nav-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 13px 15px;
+  border: 2px solid #1f5e43;
+  border-radius: 10px;
+  text-decoration: none;
+  color: #1f5e43;
+  font-weight: 700;
+  transition: background 0.15s, color 0.15s;
+}
+.nav-btn:hover { background: #1f5e43; color: #fff; }
+.nav-btn.prev  { text-align: left; }
+.nav-btn.next  { text-align: right; }
+.nav-btn .nav-dir  { font-size: 12px; font-weight: 400; opacity: 0.7; margin-bottom: 3px; }
+.nav-btn .nav-name { font-size: 14px; font-weight: 700; }
+.nav-btn.disabled  { opacity: 0.3; pointer-events: none; border-color: #ccc; color: #999; }
+
+/* current platform centre tile */
+.nav-current {
+  flex: 1.2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 13px 10px;
+  background: #1f5e43;
+  border: 2px solid #1f5e43;
+  border-radius: 10px;
+  text-align: center;
+}
+.nav-current .nav-num  { font-size: 11px; color: rgba(255,255,255,0.70); font-weight: 600; letter-spacing: 0.05em; margin-bottom: 4px; }
+.nav-current .nav-self { font-size: 13px; color: #fff; font-weight: 800; line-height: 1.3; }
+
+/* ── NOT FOUND ── */
+.not-found {
+  text-align: center;
+  padding: 60px 20px;
+  background: #fff;
+  border-radius: 12px;
+  margin-top: 40px;
+}
+.not-found h2 { color: #dc3545; font-size: 20px; margin-bottom: 10px; }
+.not-found a  { color: #1f5e43; display: inline-block; margin-top: 20px; font-weight: 700; }
+
+/* ── MOBILE ── */
+@media (max-width: 520px) {
+  .header .platform-name { font-size: 22px; }
+  .header .tagline       { font-size: 13px; }
+  .header .intro         { font-size: 13px; }
+  .eng-btn               { font-size: 13px; padding: 8px 12px; }
+  .share-btn             { font-size: 12px; padding: 7px 10px; }
+  .sub-grid              { grid-template-columns: 1fr; }
+  .partner-btn           { font-size: 14px; padding: 11px 16px; }
+}
+</style>
+
+<!-- CORE — loads first (identity, trust, notify, action format) -->
+<script src="core.js"></script>
+<!-- DATA — loads second -->
+<script src="data.js"></script>
+</head>
+<body>
+
+<script>
+// ============================================================
+//  CONFIG
+// ============================================================
+var WHATSAPP_NUMBER = "2349031347684";
+
+var STATUS_OPTIONS = [
+  { value:"Live",        label:"🟢 Live",          css:"status-live"        },
+  { value:"Coming Soon", label:"🟡 Coming Soon",    css:"status-coming-soon" },
+  { value:"In Dev",      label:"🔵 In Development", css:"status-in-dev"      },
+  { value:"Beta",        label:"🟣 Beta",           css:"status-beta"        },
+  { value:"Paused",      label:"🔴 Paused",         css:"status-paused"      }
+];
+
+function getStatusCss(s) {
+  var v = (s || "").toLowerCase();
+  if (v.includes("live"))   return "status-live";
+  if (v.includes("dev"))    return "status-in-dev";
+  if (v.includes("beta"))   return "status-beta";
+  if (v.includes("paused")) return "status-paused";
+  return "status-coming-soon";
+}
+
+// ============================================================
+//  HELPERS
+// ============================================================
+function makeList(items) {
+  if (!items || !items.length) return "";
+  return "<ul>" + items.map(function(i){ return "<li>" + i + "</li>"; }).join("") + "</ul>";
+}
+
+function card(title, items) {
+  if (!items || !items.length) return "";
+  return '<div class="card"><h3>' + title + '</h3>' + makeList(items) + '</div>';
+}
+
+function subHtml(subs) {
+  if (!subs || !subs.length) return "";
+  var tiles = subs.map(function(s) {
+    var feats = (s.features && s.features.length)
+      ? "<ul>" + s.features.map(function(f){ return "<li>" + f + "</li>"; }).join("") + "</ul>"
+      : "";
+    return '<div class="sub-tile"><h4>' + s.name + '</h4>' +
+           '<div class="sub-tag">' + (s.tagline || "") + '</div>' + feats + '</div>';
+  }).join("");
+  return '<div class="sub-section"><h3>🔧 Sub-Platforms</h3>' +
+         '<div class="sub-grid">' + tiles + '</div></div>';
+}
+
+function pad(n) { return n < 10 ? "0" + n : "" + n; }
+
+function navBtn(p, dir, pIdx) {
+  var total = platforms.length;
+  var lbl = dir === "prev" ? "← Previous" : "Next →";
+  if (!p) return '<div class="nav-btn ' + dir + ' disabled"><div class="nav-dir">' + lbl + '</div><div class="nav-name">—</div></div>';
+  var num = pad(pIdx + 1) + " / " + pad(total);
+  return '<a class="nav-btn ' + dir + '" href="platform.html?platform=' + p.key + '">' +
+         '<div class="nav-dir">' + lbl + ' &nbsp;<span style="font-size:11px;opacity:0.6;">' + num + '</span></div>' +
+         '<div class="nav-name">' + p.name + '</div></a>';
+}
+
+function navCurrent(p, pIdx) {
+  var total = platforms.length;
+  var num = pad(pIdx + 1) + " / " + pad(total);
+  return '<div class="nav-current">' +
+         '<div class="nav-num">' + num + '</div>' +
+         '<div class="nav-self">' + p.name + '</div>' +
+         '</div>';
+}
+
+// ============================================================
+//  LOAD PLATFORM
+// ============================================================
+var params     = new URLSearchParams(window.location.search);
+var platformId = (params.get("platform") || "safenation").toLowerCase().replace(/\s+/g, "");
+
+// Tell core.js which platform we are on
+window.CURRENT_PLATFORM = platformId;
+
+var idx      = platforms.findIndex(function(p){ return p.key === platformId; });
+var platform = idx >= 0 ? platforms[idx] : null;
+var prev     = idx > 0                    ? platforms[idx - 1] : null;
+var next     = idx < platforms.length - 1 ? platforms[idx + 1] : null;
+
+// ============================================================
+//  RENDER
+// ============================================================
+if (!platform) {
+
+  document.body.innerHTML =
+    '<div class="container"><div class="not-found">' +
+    '<h2>⚠️ Platform Not Found</h2>' +
+    '<p>No platform called <strong>' + platformId + '</strong> exists.</p>' +
+    '<a href="index.html">← Back to Index</a>' +
+    '</div></div>';
+
+} else {
+
+  var saved         = localStorage.getItem("status_" + platformId);
+  var currentStatus = saved || platform.status || "Coming Soon";
+
+  // Meta tags
+  document.getElementById("page-title").innerText  = platform.name + " | Naijy";
+  document.getElementById("meta-desc").content     = platform.tagline || platform.name;
+  document.getElementById("og-title").content      = platform.name;
+  document.getElementById("og-desc").content       = platform.tagline || platform.name;
+  document.getElementById("og-url").content        = window.location.href;
+
+  // Status toggle HTML
+  var optHtml = STATUS_OPTIONS.map(function(o) {
+    var sel = o.value === currentStatus ? " selected" : "";
+    return '<button class="status-option' + sel + '" onclick="setStatus(\'' + o.value + '\')">' + o.label + '</button>';
+  }).join("");
+
+  var statusHtml =
+    '<div class="status-container">' +
+      '<span id="status-badge" class="status-badge ' + getStatusCss(currentStatus) + '">' + currentStatus + '</span>' +
+      '<button class="status-toggle-btn" onclick="openMenu(event)">▾ Change</button>' +
+      '<div class="status-dropdown" id="status-dropdown">' + optHtml + '</div>' +
+    '</div>';
+
+  // WhatsApp partner link
+  var waMsg  = encodeURIComponent("Hello, I am interested in partnering with " + platform.name + " on Naijy. Please send me more details.");
+  var waLink = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + waMsg;
+
+  // Intro block — only shown if intro exists and is not empty
+  var introHtml = (platform.intro && platform.intro.length > 0)
+    ? '<div class="intro">' + platform.intro + '</div>'
+    : '';
+
+  // ── FULL PAGE ──────────────────────────────────────────────
+  document.body.innerHTML =
+    '<div class="container">' +
+
+    // HEADER
+    '<div class="header">' +
+      '<div class="platform-name">' + platform.name + '</div>' +
+      '<div class="tagline">' + (platform.tagline || "") + '</div>' +
+      introHtml +
+    '</div>' +
+
+    // NAV + STATUS
+    '<div class="nav-links">' +
+      '<a href="index.html">← Back to Index</a>' +
+      statusHtml +
+    '</div>' +
+
+    // CATEGORY BADGE
+    '<div class="card cat-card">📂 ' + platform.category + '</div>' +
+
+    // CONTENT CARDS
+    card("📌 Problem",                   platform.problem)   +
+    card("👥 Who It Is For",             platform.who)       +
+    card("⚙️ What It Does",              platform.does)      +
+    card("✨ Key Features",               platform.features)  +
+    card("🔄 How It Works",              platform.how)       +
+    card("💥 Value / Impact",            platform.impact)    +
+    card("🇳🇬 Why It Matters (Nigeria)", platform.nigeria)   +
+    card("🤝 For Investors",             platform.investors) +
+    card("🚀 Future Potential",          platform.future)    +
+
+    // SUB-PLATFORMS
+    subHtml(platform.subPlatforms) +
+
+    // STATUS CARD
+    '<div class="card">' +
+      '<h3>📊 Status</h3>' +
+      '<p style="font-size:15px;" id="status-text">' + currentStatus + '</p>' +
+    '</div>' +
+
+    // ENGAGEMENT CARD
+    '<div class="engage-card">' +
+      '<h3>💬 Engagement</h3>' +
+
+      '<div class="section-label">React</div>' +
+      '<div class="eng-row">' +
+        '<button class="eng-btn btn-like"     onclick="doLike()">👍 Like (<span id="likeCount">0</span>)</button>' +
+        '<button class="eng-btn btn-interest" onclick="doInterest()">🔥 Show Interest</button>' +
+        '<button class="eng-btn btn-useful"   onclick="doUseful()">💡 Useful</button>' +
+      '</div>' +
+
+      '<div class="divider"></div>' +
+
+      '<div class="section-label">Partner With This Platform</div>' +
+      '<div style="margin-bottom:4px;">' +
+        '<a class="partner-btn" href="' + waLink + '" target="_blank">' +
+          '💰 Partner / Advertise on ' + platform.name +
+        '</a>' +
+      '</div>' +
+      '<p style="font-size:12px;color:#888;margin-top:8px;">Opens WhatsApp — we reply within 24 hours.</p>' +
+
+      '<div class="divider"></div>' +
+
+      '<div class="section-label">Share This Platform</div>' +
+      '<div class="share-row">' +
+        '<button class="share-btn btn-copy"     onclick="copyLink()">🔗 Copy Link</button>' +
+        '<button class="share-btn btn-whatsapp" onclick="shareWhatsApp()">📱 WhatsApp</button>' +
+        '<button class="share-btn btn-twitter"  onclick="shareTwitter()">𝕏 Twitter</button>' +
+        '<button class="share-btn btn-facebook" onclick="shareFacebook()">📘 Facebook</button>' +
+      '</div>' +
+
+      '<div class="divider"></div>' +
+
+      '<div class="section-label">Quick Feedback — Is this useful?</div>' +
+      '<div class="eng-row">' +
+        '<button class="eng-btn btn-yes" onclick="voteYes()">👍 Yes (<span id="yesCount">0</span>)</button>' +
+        '<button class="eng-btn btn-no"  onclick="voteNo()">👎 No (<span id="noCount">0</span>)</button>' +
+      '</div>' +
+
+    '</div>' +
+
+    // PREV / NEXT
+    '<div class="platform-nav">' + navBtn(prev, "prev", idx - 1) + navCurrent(platform, idx) + navBtn(next, "next", idx + 1) + '</div>' +
+
+    '</div>'; // /container
+}
+</script>
+
+<script>
+// ============================================================
+//  STATUS TOGGLE
+// ============================================================
+function openMenu(e) {
+  e.stopPropagation();
+  var dd = document.getElementById("status-dropdown");
+  if (dd) dd.classList.toggle("open");
+}
+
+function setStatus(value) {
+  var params = new URLSearchParams(window.location.search);
+  var key    = (params.get("platform") || "").toLowerCase().replace(/\s+/g, "");
+  localStorage.setItem("status_" + key, value);
+
+  var badge = document.getElementById("status-badge");
+  var text  = document.getElementById("status-text");
+  var dd    = document.getElementById("status-dropdown");
+
+  if (badge) { badge.innerText = value; badge.className = "status-badge " + getStatusCss(value); }
+  if (text)    text.innerText  = value;
+  if (dd) {
+    dd.classList.remove("open");
+    dd.querySelectorAll(".status-option").forEach(function(o) {
+      o.classList.toggle("selected", o.innerText.includes(value.split(" ")[0]));
+    });
+  }
+
+  // Log the status change as a core action
+  if (typeof logAction === "function") {
+    logAction("status_change", "Status changed to: " + value);
+  }
+}
+
+document.addEventListener("click", function() {
+  var dd = document.getElementById("status-dropdown");
+  if (dd) dd.classList.remove("open");
+});
+
+// ============================================================
+//  ENGAGEMENT
+// ============================================================
+var _likes = 0, _yes = 0, _no = 0;
+
+function doLike() {
+  _likes++;
+  var e = document.getElementById("likeCount");
+  if (e) e.innerText = _likes;
+  if (typeof logAction === "function") logAction("like", platform ? platform.name : "");
+}
+
+function doInterest() {
+  if (typeof notify === "function") notify("🔥 Interest noted! Thank you.", "info");
+  if (typeof logAction === "function") logAction("interest", platform ? platform.name : "");
+}
+
+function doUseful() {
+  if (typeof notify === "function") notify("💡 Thanks for your feedback!", "info");
+  if (typeof logAction === "function") logAction("useful", platform ? platform.name : "");
+}
+
+function voteYes() {
+  _yes++;
+  var e = document.getElementById("yesCount");
+  if (e) e.innerText = _yes;
+  if (typeof logAction === "function") logAction("vote_yes", platform ? platform.name : "");
+}
+
+function voteNo() {
+  _no++;
+  var e = document.getElementById("noCount");
+  if (e) e.innerText = _no;
+  if (typeof logAction === "function") logAction("vote_no", platform ? platform.name : "");
+}
+
+function copyLink() {
+  navigator.clipboard.writeText(window.location.href)
+    .then(function(){ if (typeof notify === "function") notify("Link copied!", "info"); })
+    .catch(function(){ prompt("Copy this link:", window.location.href); });
+
+function shareWhatsApp() { window.open("https://wa.me/?text=" + encodeURIComponent(window.location.href), "_blank"); }
+function shareTwitter()  { window.open("https://twitter.com/intent/tweet?url=" + encodeURIComponent(window.location.href), "_blank"); }
+function shareFacebook() { window.open("https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(window.location.href), "_blank"); }
+</script>
+
+<style>
+#categoryFilters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 16px;
+  background: #f4f7f5;
+  border-top: 2px solid #d4e4da;
+  margin-top: 12px;
+}
+#categoryFilters button {
+  padding: 7px 16px;
+  border-radius: 20px;
+  border: 1.5px solid #1f5e43;
+  background: #fff;
+  color: #1f5e43;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+#categoryFilters button:hover,
+#categoryFilters button.active {
+  background: #1f5e43;
+  color: #fff;
+}
+#platformExplorer {
+  padding: 14px 16px 40px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 10px;
+  background: #f4f7f5;
+}
+.exp-card {
+  background: #fff;
+  border: 1.5px solid #d4e4da;
+  border-radius: 10px;
+  padding: 13px 14px;
+  text-decoration: none;
+  color: #1a2e23;
+  display: block;
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+}
+.exp-card:hover {
+  border-color: #1f5e43;
+  box-shadow: 0 4px 14px rgba(31,94,67,0.12);
+  transform: translateY(-2px);
+}
+.exp-card .exp-num  { font-size: 10px; color: #6b8070; font-weight: 700; margin-bottom: 3px; }
+.exp-card .exp-name { font-size: 14px; font-weight: 800; color: #1f5e43; margin-bottom: 3px; line-height: 1.2; }
+.exp-card .exp-tag  { font-size: 11px; color: #6b8070; margin-bottom: 7px; line-height: 1.4; }
+.exp-card .exp-cat  { font-size: 10px; color: #2e7d5a; background: #e8f5ee; padding: 2px 8px; border-radius: 20px; font-weight: 600; }
+</style>
+
+<div id="categoryFilters"></div>
+<div id="platformExplorer"></div>
+
+<script>
+(function() {
+  if (typeof platforms === "undefined") return;
+
+  // Build category list from actual data
+  var CATS = ["All"];
+  platforms.forEach(function(p) {
+    if (p.category && CATS.indexOf(p.category) === -1) CATS.push(p.category);
+  });
+
+  var filterBar = document.getElementById("categoryFilters");
+  var explorer  = document.getElementById("platformExplorer");
+  if (!filterBar || !explorer) return;
+
+  var active = "All";
+
+  // Build filter buttons using EXACT category strings from data.js
+  filterBar.innerHTML = "";
+  CATS.forEach(function(cat) {
+    var btn = document.createElement("button");
+    btn.textContent = cat === "All" ? "All (" + platforms.length + ")" : cat;
+    if (cat === "All") btn.classList.add("active");
+    btn.dataset.cat = cat; // store exact string
+    btn.addEventListener("click", function() {
+      active = cat;
+      filterBar.querySelectorAll("button").forEach(function(b){
+        b.classList.remove("active");
+      });
+      btn.classList.add("active");
+      render();
+    });
+    filterBar.appendChild(btn);
+  });
+
+  function pad(n) { return n < 10 ? "0" + n : String(n); }
+
+  function render() {
+    // Filter using EXACT category match
+    var list = (active === "All")
+      ? platforms
+      : platforms.filter(function(p){ return p.category === active; });
+
+    explorer.innerHTML = "";
+
+    list.forEach(function(p) {
+      var globalIdx = platforms.indexOf(p);
+      // Use p.key — the exact field data.js uses and the loader reads
+      var key = p.key || "";
+      var a = document.createElement("a");
+      a.className = "exp-card";
+      a.href = "platform.html?platform=" + key;
+      a.innerHTML =
+        '<div class="exp-num">' + pad(globalIdx + 1) + " / " + pad(platforms.length) + '</div>' +
+        '<div class="exp-name">' + (p.name || "") + '</div>' +
+        '<div class="exp-tag">'  + (p.tagline || "") + '</div>' +
+        '<span class="exp-cat">' + (p.category || "") + '</span>';
+      explorer.appendChild(a);
+    });
+
+    if (!list.length) {
+      explorer.innerHTML = '<p style="padding:20px;color:#6b8070;">No platforms in this category yet.</p>';
+    }
+  }
+
+  render();
+})();
+</script>
+
+</body>
+</html>

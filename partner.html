@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Become a Founding Partner — Naijy</title>
+<meta name="description" content="Join Naijy as a Founding Partner. Be part of Nigeria's national digital infrastructure before it goes fully public.">
+<meta property="og:title"       content="Naijy Founding Partner Opportunity">
+<meta property="og:description" content="110 platforms. 16 sectors. One national digital infrastructure. Partner with Naijy today.">
+<meta property="og:type"        content="website">
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: Arial, sans-serif;
+  background: #eef2f5;
+  color: #102018;
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+/* ── HEADER ── */
+.top-nav {
+  background: #1a5c3f;
+  padding: 14px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.top-nav a {
+  color: rgba(255,255,255,0.85);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+}
+.top-nav a:hover { color: #fff; }
+.top-nav .site-name {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+/* ── HERO ── */
+.hero {
+  background: linear-gradient(135deg, #1a5c3f 0%, #2e7d5a 60%, #3a9e70 100%);
+  color: #fff;
+  text-align: center;
+  padding: 70px 24px 60px;
+}
+.hero .label {
+  display: inline-block;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 20px;
+  padding: 5px 18px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.hero h1 {
+  font-size: 42px;
+  font-weight: 800;
+  line-height: 1.15;
+  margin-bottom: 16px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.hero p {
+  font-size: 18px;
+  opacity: 0.9;
+  max-width: 600px;
+  margin: 0 auto 30px;
+  line-height: 1.55;
+}
+.hero-btn {
+  display: inline-block;
+  background: #fff;
+  color: #1a5c3f;
+  font-weight: 800;
+  font-size: 16px;
+  padding: 14px 34px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: transform 0.15s, box-shadow 0.15s;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+.hero-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+}
+
+/* ── STATS BAR ── */
+.stats-bar {
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0;
+  border-bottom: 2px solid #e0ede6;
+}
+.stat-item {
+  padding: 22px 40px;
+  text-align: center;
+  border-right: 1px solid #e0ede6;
+}
+.stat-item:last-child { border-right: none; }
+.stat-num {
+  font-size: 32px;
+  font-weight: 800;
+  color: #1a5c3f;
+  line-height: 1;
+}
+.stat-label {
+  font-size: 13px;
+  color: #666;
+  margin-top: 4px;
+}
+
+/* ── CONTAINER ── */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 20px 80px;
+}
+
+/* ── SECTION ── */
+.section {
+  background: #fff;
+  border-radius: 12px;
+  padding: 36px 36px;
+  margin: 28px 0;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  border-left: 5px solid #1a5c3f;
+}
+.section h2 {
+  font-size: 22px;
+  font-weight: 800;
+  color: #1a5c3f;
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e8f5ed;
+}
+.section p {
+  font-size: 15px;
+  color: #333;
+  margin-bottom: 12px;
+  line-height: 1.65;
+}
+.section p:last-child { margin-bottom: 0; }
+
+/* ── BENEFITS GRID ── */
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 14px;
+  margin-top: 6px;
+}
+.benefit-item {
+  background: #f2faf6;
+  border: 1px solid #b8ddc8;
+  border-radius: 8px;
+  padding: 16px 18px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.benefit-icon {
+  font-size: 22px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.benefit-text {
+  font-size: 14px;
+  color: #1a3a2a;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/* ── SECTORS GRID ── */
+.sectors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 10px;
+  margin-top: 14px;
+}
+.sector-tile {
+  background: #1a5c3f;
+  color: #fff;
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.3;
+}
+.sector-tile:nth-child(2)  { background: #1c5a47; }
+.sector-tile:nth-child(3)  { background: #206652; }
+.sector-tile:nth-child(4)  { background: #1a4f60; }
+.sector-tile:nth-child(5)  { background: #1b5e52; }
+.sector-tile:nth-child(6)  { background: #2e6f40; }
+.sector-tile:nth-child(7)  { background: #155e63; }
+.sector-tile:nth-child(8)  { background: #205d4b; }
+.sector-tile:nth-child(9)  { background: #375a3c; }
+.sector-tile:nth-child(10) { background: #204f66; }
+.sector-tile:nth-child(11) { background: #1c6b55; }
+.sector-tile:nth-child(12) { background: #25604d; }
+.sector-tile:nth-child(13) { background: #174e5a; }
+.sector-tile:nth-child(14) { background: #1d5746; }
+.sector-tile:nth-child(15) { background: #2b624a; }
+.sector-tile:nth-child(16) { background: #1f5e43; }
+
+/* ── PRICING CARDS ── */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+  margin-top: 14px;
+}
+.pricing-card {
+  border: 2px solid #b8ddc8;
+  border-radius: 10px;
+  padding: 24px 20px;
+  text-align: center;
+  background: #fff;
+  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+}
+.pricing-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(26,92,63,0.12);
+  border-color: #1a5c3f;
+}
+.pricing-card.featured {
+  border-color: #1a5c3f;
+  background: #f2faf6;
+}
+.pricing-tier {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1a5c3f;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 8px;
+}
+.pricing-price {
+  font-size: 26px;
+  font-weight: 800;
+  color: #102018;
+  margin-bottom: 6px;
+  line-height: 1.2;
+}
+.pricing-covers {
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 16px;
+  line-height: 1.4;
+}
+.pricing-btn {
+  display: inline-block;
+  background: #1a5c3f;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 9px 22px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: opacity 0.15s;
+}
+.pricing-btn:hover { opacity: 0.85; }
+
+/* ── BULLET LIST ── */
+.bullet-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+}
+.bullet-list li {
+  font-size: 15px;
+  color: #333;
+  padding: 6px 0 6px 26px;
+  position: relative;
+  border-bottom: 1px solid #f0f5f2;
+}
+.bullet-list li:last-child { border-bottom: none; }
+.bullet-list li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #1a5c3f;
+  font-weight: 700;
+}
+
+/* ── CONTACT SECTION ── */
+.contact-section {
+  background: linear-gradient(135deg, #1a5c3f 0%, #2e7d5a 100%);
+  border-radius: 12px;
+  padding: 40px 36px;
+  margin: 28px 0;
+  color: #fff;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(26,92,63,0.25);
+}
+.contact-section h2 {
+  font-size: 26px;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+.contact-section p {
+  font-size: 16px;
+  opacity: 0.9;
+  margin-bottom: 30px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 12px;
+  max-width: 700px;
+  margin: 0 auto 28px;
+}
+.contact-item {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 8px;
+  padding: 14px 16px;
+}
+.contact-item .c-label {
+  font-size: 11px;
+  font-weight: 700;
+  opacity: 0.75;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 5px;
+}
+.contact-item .c-value {
+  font-size: 14px;
+  font-weight: 700;
+  word-break: break-all;
+}
+.contact-item a {
+  color: #fff;
+  text-decoration: none;
+}
+.contact-item a:hover { text-decoration: underline; }
+
+.cta-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.cta-wa {
+  background: #25D366;
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+  padding: 13px 28px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: opacity 0.15s;
+}
+.cta-wa:hover { opacity: 0.88; }
+.cta-email {
+  background: rgba(255,255,255,0.15);
+  border: 2px solid rgba(255,255,255,0.5);
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+  padding: 13px 28px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+.cta-email:hover { background: rgba(255,255,255,0.25); }
+
+/* ── FOOTER ── */
+footer {
+  background: #000;
+  color: rgba(255,255,255,0.7);
+  text-align: center;
+  padding: 20px;
+  font-size: 13px;
+}
+footer a { color: rgba(255,255,255,0.85); text-decoration: none; }
+
+/* ── MOBILE ── */
+@media (max-width: 600px) {
+  .hero h1        { font-size: 28px; }
+  .hero p         { font-size: 16px; }
+  .stat-item      { padding: 16px 20px; }
+  .stat-num       { font-size: 24px; }
+  .section        { padding: 24px 18px; }
+  .contact-section{ padding: 30px 18px; }
+  .pricing-grid   { grid-template-columns: 1fr; }
+  .sectors-grid   { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav class="top-nav">
+  <span class="site-name">NAIJY</span>
+  <a href="index.html">← Back to Index</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="label">Founding Partner Opportunity</div>
+  <h1>Be Part of Nigeria's Digital Future — From Day One</h1>
+  <p>Naijy is building Nigeria's national digital infrastructure. 110 platforms. 16 sectors. One connected system. Partner with us before we go fully public.</p>
+  <a href="#contact" class="hero-btn">Become a Founding Partner →</a>
+</div>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-num">110</div>
+    <div class="stat-label">Platforms</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">16</div>
+    <div class="stat-label">Sectors</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">220M+</div>
+    <div class="stat-label">Nigerians to Reach</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">1</div>
+    <div class="stat-label">Connected Ecosystem</div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="container">
+
+  <!-- WHAT IS NAIJY -->
+  <div class="section">
+    <h2>What is Naijy?</h2>
+    <p>Naijy is Nigeria's national digital infrastructure. It is a network of 110 platforms, each focused on a key sector of the country — from health and education to security, business, and governance.</p>
+    <p>Each platform is designed to connect citizens, businesses, and government in one place. Some platforms are already live. Others are being built. Together, they form one connected national system for Nigeria.</p>
+    <p>Naijy is not just an app. It is a movement to digitise Nigeria, sector by sector — and you can be part of it from the very beginning.</p>
+  </div>
+
+  <!-- WHAT YOU GET -->
+  <div class="section">
+    <h2>What You Get as a Founding Partner</h2>
+    <div class="benefits-grid">
+      <div class="benefit-item">
+        <div class="benefit-icon">🏷️</div>
+        <div class="benefit-text">Your brand name and logo on your chosen platform page</div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon">🌐</div>
+        <div class="benefit-text">Listed as official Founding Partner on the Naijy homepage</div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon">📊</div>
+        <div class="benefit-text">First access to platform data and user insights</div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon">🚀</div>
+        <div class="benefit-text">Priority placement when the platform goes fully live</div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon">🏅</div>
+        <div class="benefit-text">Official Certificate of Founding Partnership</div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon">📣</div>
+        <div class="benefit-text">Mentioned in all Naijy press and launch communications</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTORS -->
+  <div class="section">
+    <h2>16 Sectors — 110 Platforms</h2>
+    <p>Every major sector of Nigeria is covered. You choose the platform that fits your organisation best.</p>
+    <div class="sectors-grid">
+      <div class="sector-tile">Security & Justice</div>
+      <div class="sector-tile">Business & Economy</div>
+      <div class="sector-tile">Health</div>
+      <div class="sector-tile">Agriculture</div>
+      <div class="sector-tile">Education & Leadership</div>
+      <div class="sector-tile">Youth</div>
+      <div class="sector-tile">Energy & Environment</div>
+      <div class="sector-tile">Housing</div>
+      <div class="sector-tile">Culture & Faith</div>
+      <div class="sector-tile">Media</div>
+      <div class="sector-tile">SporTertainment</div>
+      <div class="sector-tile">Hospitality</div>
+      <div class="sector-tile">Technology</div>
+      <div class="sector-tile">Governance</div>
+      <div class="sector-tile">Industry</div>
+      <div class="sector-tile">Say Something</div>
+    </div>
+  </div>
+
+  <!-- PRICING -->
+  <div class="section">
+    <h2>Partnership Investment</h2>
+    <p>Founding Partner pricing is at an early-stage rate. This increases once platforms go public. Lock in your position now.</p>
+    <div class="pricing-grid">
+
+      <div class="pricing-card">
+        <div class="pricing-tier">Platform Sponsor</div>
+        <div class="pricing-price">From ₦500,000</div>
+        <div class="pricing-covers">1 platform of your choice across any sector</div>
+        <a href="#contact" class="pricing-btn">Get Started</a>
+      </div>
+
+      <div class="pricing-card featured">
+        <div class="pricing-tier">⭐ Category Sponsor</div>
+        <div class="pricing-price">From ₦2,000,000</div>
+        <div class="pricing-covers">All platforms within one full category</div>
+        <a href="#contact" class="pricing-btn">Get Started</a>
+      </div>
+
+      <div class="pricing-card">
+        <div class="pricing-tier">National Partner</div>
+        <div class="pricing-price">From ₦10,000,000</div>
+        <div class="pricing-covers">Multiple categories plus homepage visibility</div>
+        <a href="#contact" class="pricing-btn">Get Started</a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- WHY NOW -->
+  <div class="section">
+    <h2>Why Partner Now?</h2>
+    <ul class="bullet-list">
+      <li>Naijy is growing fast. Early partners get the best positioning before prices increase</li>
+      <li>Nigeria has over 220 million people — the digital opportunity is the largest in Africa</li>
+      <li>Your brand will be seen by citizens, investors, and government from day one</li>
+      <li>Founding Partner status cannot be bought after public launch — only now</li>
+      <li>This is not advertising. This is association with Nigeria's digital future</li>
+      <li>First movers in every category will define how the sector is represented nationally</li>
+    </ul>
+  </div>
+
+  <!-- WHO SHOULD PARTNER -->
+  <div class="section">
+    <h2>Who Should Partner With Us?</h2>
+    <p>Any organisation that wants to be seen as part of Nigeria's progress. This includes:</p>
+    <ul class="bullet-list">
+      <li>Banks and financial institutions</li>
+      <li>Telecoms and technology companies</li>
+      <li>Healthcare and pharmaceutical companies</li>
+      <li>Agricultural businesses and cooperatives</li>
+      <li>NGOs and development organisations</li>
+      <li>Government agencies and parastatals</li>
+      <li>Media and entertainment companies</li>
+      <li>Any business that serves Nigerian citizens</li>
+    </ul>
+  </div>
+
+  <!-- HOW TO START -->
+  <div class="section">
+    <h2>How to Get Started</h2>
+    <p>Three steps only:</p>
+    <ul class="bullet-list">
+      <li><strong>Step 1</strong> — Browse the 110 platforms and choose the one or category that fits your organisation</li>
+      <li><strong>Step 2</strong> — Contact us via WhatsApp or email to confirm your interest</li>
+      <li><strong>Step 3</strong> — Your brand goes live on Naijy as an official Founding Partner</li>
+    </ul>
+  </div>
+
+  <!-- ABOUT -->
+  <div class="section">
+    <h2>About the Founder</h2>
+    <p>Naijy is founded and led by DigVessel — a digital venture focused on building Nigeria's national digital layer, one platform at a time. DigVessel created and owns the Naijy infrastructure and is committed to growing it into the most comprehensive digital ecosystem Nigeria has ever seen.</p>
+    <p>We are currently in the founding phase — the most exciting and most valuable stage to be part of. Every partner who joins now becomes part of the founding story of Nigeria's digital future.</p>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="contact-section" id="contact">
+    <h2>Contact Us Today</h2>
+    <p>Ready to become a Founding Partner? Reach us directly — we respond fast.</p>
+
+    <div class="contact-grid">
+      <div class="contact-item">
+        <div class="c-label">Website</div>
+        <div class="c-value"><a href="index.html">naijy.ng</a></div>
+      </div>
+      <div class="contact-item">
+        <div class="c-label">Email</div>
+        <div class="c-value"><a href="mailto:digvessel@gmail.com">digvessel@gmail.com</a></div>
+      </div>
+      <div class="contact-item">
+        <div class="c-label">Phone</div>
+        <div class="c-value"><a href="tel:+2347065512489">+234 706 551 2489</a></div>
+      </div>
+      <div class="contact-item">
+        <div class="c-label">WhatsApp</div>
+        <div class="c-value"><a href="https://wa.me/2349031347684" target="_blank">+234 903 134 7684</a></div>
+      </div>
+    </div>
+
+    <div class="cta-buttons">
+      <a href="https://wa.me/2349031347684?text=Hello%2C%20I%20am%20interested%20in%20becoming%20a%20Founding%20Partner%20on%20Naijy." target="_blank" class="cta-wa">📱 Message on WhatsApp</a>
+      <a href="mailto:digvessel@gmail.com?subject=Naijy%20Founding%20Partner%20Enquiry" class="cta-email">✉️ Send an Email</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>Naijy — Nigeria's National Digital Infrastructure &nbsp;|&nbsp; A DigVessel Initiative</p>
+  <p style="margin-top:6px;"><a href="index.html">← Back to Index</a></p>
+</footer>
+
+</body>
+</html>
