@@ -650,7 +650,7 @@ function copyLink() {
   navigator.clipboard.writeText(window.location.href)
     .then(function(){ if (typeof notify === "function") notify("Link copied!", "info"); })
     .catch(function(){ prompt("Copy this link:", window.location.href); });
-
+}
 function shareWhatsApp() { window.open("https://wa.me/?text=" + encodeURIComponent(window.location.href), "_blank"); }
 function shareTwitter()  { window.open("https://twitter.com/intent/tweet?url=" + encodeURIComponent(window.location.href), "_blank"); }
 function shareFacebook() { window.open("https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(window.location.href), "_blank"); }
