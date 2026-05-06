@@ -323,12 +323,7 @@ function doResetPassword() {
 }
 
 function showUserMenu() {
-  var name = naijyUser ? (naijyUser.displayName || naijyUser.email) : "User";
-  if (confirm("Signed in as: " + name + "\n\nClick OK to sign out.")) {
-    naijySignOut(function() {
-      alert("Signed out successfully.");
-    });
-  }
+  window.location.href = "profile.html";
 }
 
 // ============================================================
