@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Profile — Naijy</title>
+<link rel="icon" href="images/favicon.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --green:      #1f5e43;
+  --green-mid:  #2e7d5a;
+  --green-light:#e8f5ee;
+  --gold:       #c8922a;
+  --gold-light: #fef3dc;
+  --white:      #ffffff;
+  --offwhite:   #f4f7f5;
+  --text:       #1a2e23;
+  --muted:      #6b8070;
+  --border:     #d4e4da;
+  --radius:     12px;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--offwhite);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ── TOPBAR ── */
+.topbar {
+  background: var(--green);
+  color: #fff;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+}
+.topbar a { color: #fff; text-decoration: none; opacity: 0.85; }
+.topbar a:hover { opacity: 1; }
+.topbar-right { display: flex; gap: 14px; align-items: center; }
+.signout-btn {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: #fff;
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.2s;
+}
+.signout-btn:hover { background: rgba(255,255,255,0.25); }
+
+/* ── HERO ── */
+.profile-hero {
+  background: linear-gradient(135deg, #1a3d2b 0%, #1f5e43 100%);
+  padding: 36px 20px 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.profile-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 70% 30%, rgba(200,146,42,0.12) 0%, transparent 60%);
+  pointer-events: none;
+}
+.avatar-ring {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold), #e8a83a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Syne', sans-serif;
+  font-size: 34px;
+  font-weight: 800;
+  color: #fff;
+  margin: 0 auto 12px;
+  box-shadow: 0 0 0 4px rgba(255,255,255,0.15), 0 8px 24px rgba(0,0,0,0.2);
+}
+.profile-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 4px;
+}
+.profile-email {
+  font-size: 13px;
+  color: rgba(255,255,255,0.65);
+  margin-bottom: 16px;
+}
+.profile-badges {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+.badge {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  letter-spacing: 0.04em;
+}
+.badge.gold { background: var(--gold); border-color: var(--gold); }
+
+/* ── TRUST SCORE CARD ── */
+.trust-card {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: var(--radius) var(--radius) 0 0;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+.trust-score-big {
+  font-family: 'Syne', sans-serif;
+  font-size: 40px;
+  font-weight: 800;
+  color: var(--gold);
+  line-height: 1;
+  flex-shrink: 0;
+}
+.trust-details { flex: 1; }
+.trust-label { font-size: 12px; color: rgba(255,255,255,0.6); margin-bottom: 6px; }
+.trust-bar-track {
+  height: 8px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.trust-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--green-mid), var(--gold));
+  border-radius: 4px;
+  transition: width 1s ease;
+}
+.trust-level { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 4px; }
+
+/* ── MAIN ── */
+.main { max-width: 700px; margin: 0 auto; padding: 20px 16px 60px; }
+
+/* ── STATS ROW ── */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.stat-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 12px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+.stat-card .s-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--green);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.stat-card .s-lbl { font-size: 11px; color: var(--muted); font-weight: 600; }
+
+/* ── SECTION CARD ── */
+.section-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  margin-bottom: 14px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+.section-card h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--green);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--green-light);
+}
+
+/* ── ACTIVITY FEED ── */
+.activity-feed { list-style: none; }
+.activity-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--green-light);
+}
+.activity-item:last-child { border-bottom: none; }
+.act-icon {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: var(--green-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  flex-shrink: 0;
+}
+.act-info { flex: 1; }
+.act-type  { font-size: 13px; font-weight: 700; color: var(--text); }
+.act-detail { font-size: 12px; color: var(--muted); margin-top: 1px; }
+.act-time  { font-size: 11px; color: var(--muted); white-space: nowrap; }
+.act-empty { font-size: 13px; color: var(--muted); font-style: italic; padding: 8px 0; }
+
+/* ── EDIT PROFILE ── */
+.edit-form label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+  margin-bottom: 4px;
+  margin-top: 12px;
+}
+.edit-form input, .edit-form select {
+  width: 100%;
+  padding: 10px 13px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  transition: border 0.2s;
+  background: #fafafa;
+  color: var(--text);
+}
+.edit-form input:focus, .edit-form select:focus {
+  border-color: var(--green);
+  background: #fff;
+}
+.save-btn {
+  margin-top: 16px;
+  width: 100%;
+  padding: 12px;
+  background: var(--green);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  transition: opacity 0.15s;
+}
+.save-btn:hover { opacity: 0.88; }
+.save-success {
+  display: none;
+  margin-top: 10px;
+  padding: 10px;
+  background: #d4edda;
+  border-radius: 8px;
+  color: #155724;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* ── NOT SIGNED IN ── */
+.not-signed-in {
+  text-align: center;
+  padding: 60px 20px;
+}
+.not-signed-in h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: 22px;
+  color: var(--green);
+  margin-bottom: 10px;
+}
+.not-signed-in p { font-size: 14px; color: var(--muted); margin-bottom: 20px; }
+.signin-big-btn {
+  padding: 14px 32px;
+  background: var(--green);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+/* ── LOADING ── */
+.loading {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+/* ── MOBILE ── */
+@media (max-width: 480px) {
+  .stats-row { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .stat-card .s-num { font-size: 20px; }
+  .trust-card { flex-direction: column; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <a href="index.html">← Naijy Home</a>
+  <div class="topbar-right">
+    <span id="topbar-name" style="opacity:0.8;">Loading...</span>
+    <button class="signout-btn" onclick="doSignOut()">Sign Out</button>
+  </div>
+</div>
+
+<!-- PROFILE HERO -->
+<div class="profile-hero" id="profile-hero" style="display:none;">
+  <div class="avatar-ring" id="profile-avatar">?</div>
+  <div class="profile-name" id="profile-name">Loading...</div>
+  <div class="profile-email" id="profile-email"></div>
+  <div class="profile-badges" id="profile-badges">
+    <span class="badge">🇳🇬 Naijy Member</span>
+  </div>
+  <div class="trust-card">
+    <div class="trust-score-big" id="trust-score-big">50</div>
+    <div class="trust-details">
+      <div class="trust-label">Trust Score</div>
+      <div class="trust-bar-track">
+        <div class="trust-bar-fill" id="trust-bar" style="width:50%;"></div>
+      </div>
+      <div class="trust-level" id="trust-level">Trusted Member</div>
+    </div>
+  </div>
+</div>
+
+<!-- LOADING STATE -->
+<div class="loading" id="loading-state">Loading your profile...</div>
+
+<!-- NOT SIGNED IN -->
+<div class="not-signed-in" id="not-signed-in" style="display:none;">
+  <div style="font-size:48px;margin-bottom:16px;">👤</div>
+  <h2>Sign in to view your profile</h2>
+  <p>Your activity, trust score, and history are stored in your Naijy account.</p>
+  <button class="signin-big-btn" onclick="showAuthModal()">Sign In / Create Account</button>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main" id="profile-main" style="display:none;">
+
+  <!-- STATS ROW -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="s-num" id="stat-reports">0</div>
+      <div class="s-lbl">Reports</div>
+    </div>
+    <div class="stat-card">
+      <div class="s-num" id="stat-listings">0</div>
+      <div class="s-lbl">Listings</div>
+    </div>
+    <div class="stat-card">
+      <div class="s-num" id="stat-bookings">0</div>
+      <div class="s-lbl">Bookings</div>
+    </div>
+  </div>
+
+  <!-- ACTIVITY FEED -->
+  <div class="section-card">
+    <h3>📋 Recent Activity</h3>
+    <ul class="activity-feed" id="activity-feed">
+      <li class="act-empty">No activity yet. Visit a platform and submit a report, listing, or booking.</li>
+    </ul>
+  </div>
+
+  <!-- MY REPORTS -->
+  <div class="section-card">
+    <h3>📢 My Reports</h3>
+    <ul class="activity-feed" id="my-reports">
+      <li class="act-empty">No reports submitted yet.</li>
+    </ul>
+  </div>
+
+  <!-- MY LISTINGS -->
+  <div class="section-card">
+    <h3>📦 My Listings</h3>
+    <ul class="activity-feed" id="my-listings">
+      <li class="act-empty">No listings posted yet.</li>
+    </ul>
+  </div>
+
+  <!-- EDIT PROFILE -->
+  <div class="section-card">
+    <h3>✏️ Edit Profile</h3>
+    <div class="edit-form">
+      <label>Display Name</label>
+      <input type="text" id="edit-name" placeholder="Your name">
+      <label>State</label>
+      <select id="edit-state">
+        <option value="">-- Select State --</option>
+        <option>Abia</option><option>Adamawa</option><option>Akwa Ibom</option>
+        <option>Anambra</option><option>Bauchi</option><option>Bayelsa</option>
+        <option>Benue</option><option>Borno</option><option>Cross River</option>
+        <option>Delta</option><option>Ebonyi</option><option>Edo</option>
+        <option>Ekiti</option><option>Enugu</option><option>FCT Abuja</option>
+        <option>Gombe</option><option>Imo</option><option>Jigawa</option>
+        <option>Kaduna</option><option>Kano</option><option>Katsina</option>
+        <option>Kebbi</option><option>Kogi</option><option>Kwara</option>
+        <option>Lagos</option><option>Nasarawa</option><option>Niger</option>
+        <option>Ogun</option><option>Ondo</option><option>Osun</option>
+        <option>Oyo</option><option>Plateau</option><option>Rivers</option>
+        <option>Sokoto</option><option>Taraba</option><option>Yobe</option>
+        <option>Zamfara</option>
+      </select>
+      <label>Phone / WhatsApp</label>
+      <input type="tel" id="edit-phone" placeholder="e.g. 08012345678">
+      <button class="save-btn" onclick="saveProfile()">💾 Save Changes</button>
+      <div class="save-success" id="save-success">✅ Profile updated successfully.</div>
+    </div>
+  </div>
+
+  <!-- DANGER ZONE -->
+  <div class="section-card" style="border-color:#f8d7da;">
+    <h3 style="color:#721c24;border-color:#f8d7da;">⚠️ Account</h3>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:12px;">Sign out of your Naijy account on this device.</p>
+    <button onclick="doSignOut()" style="padding:10px 20px;background:#721c24;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;">Sign Out</button>
+  </div>
+
+</div>
+
+<!-- SCRIPTS -->
+<script src="core.js"></script>
+<script src="data.js"></script>
+<script src="firebase.js"></script>
+
+<script>
+window.CURRENT_PLATFORM = "profile";
+
+// Wait for Firebase to be ready then check auth
+var authCheckInterval = setInterval(function() {
+  if (typeof firebase !== "undefined" && firebase.apps && firebase.apps.length) {
+    clearInterval(authCheckInterval);
+    firebase.auth().onAuthStateChanged(function(user) {
+      document.getElementById("loading-state").style.display = "none";
+      if (user) {
+        showProfile(user);
+      } else {
+        document.getElementById("not-signed-in").style.display = "block";
+      }
+    });
+  }
+}, 300);
+
+function showProfile(user) {
+  var name  = user.displayName || "Naijy User";
+  var email = user.email || "";
+  var init  = name.charAt(0).toUpperCase();
+
+  // Show sections
+  document.getElementById("profile-hero").style.display = "block";
+  document.getElementById("profile-main").style.display = "block";
+
+  // Fill hero
+  document.getElementById("profile-avatar").innerText = init;
+  document.getElementById("profile-name").innerText   = name;
+  document.getElementById("profile-email").innerText  = email;
+  document.getElementById("topbar-name").innerText    = name;
+
+  // Fill edit form
+  document.getElementById("edit-name").value = name;
+
+  // Load Firestore data
+  if (typeof db !== "undefined" && db) {
+    loadUserData(user.uid);
+    loadReports(user.uid);
+    loadListings(user.uid);
+  }
+}
+
+function getTrustLevel(score) {
+  if (score >= 90) return "🏆 Elite Member";
+  if (score >= 75) return "⭐ Trusted Member";
+  if (score >= 60) return "✅ Active Member";
+  if (score >= 40) return "🌱 Growing Member";
+  return "👋 New Member";
+}
+
+function loadUserData(uid) {
+  db.collection("users").doc(uid).get().then(function(doc) {
+    if (!doc.exists) return;
+    var data  = doc.data();
+    var score = data.trustScore || 50;
+
+    document.getElementById("trust-score-big").innerText = score;
+    document.getElementById("trust-bar").style.width     = score + "%";
+    document.getElementById("trust-level").innerText     = getTrustLevel(score);
+
+    if (data.state) document.getElementById("edit-state").value = data.state;
+    if (data.phone) document.getElementById("edit-phone").value = data.phone;
+
+    // Badges
+    var badges = data.badges || [];
+    var badgeEl = document.getElementById("profile-badges");
+    var html = '<span class="badge">🇳🇬 Naijy Member</span>';
+    if (score >= 75) html += '<span class="badge gold">⭐ Trusted</span>';
+    if (badges.includes("reporter"))  html += '<span class="badge">📢 Reporter</span>';
+    if (badges.includes("trader"))    html += '<span class="badge">📦 Trader</span>';
+    if (badges.includes("verified"))  html += '<span class="badge gold">✅ Verified</span>';
+    badgeEl.innerHTML = html;
+  });
+}
+
+function loadReports(uid) {
+  db.collection("reports")
+    .where("userId", "==", uid)
+    .orderBy("createdAt", "desc")
+    .limit(10)
+    .get()
+    .then(function(snap) {
+      var count = snap.size;
+      document.getElementById("stat-reports").innerText = count;
+
+      if (count === 0) return;
+
+      var html = "";
+      snap.forEach(function(doc) {
+        var d = doc.data();
+        html += activityItem("📢", d.type || "Report", d.platform || "", d.createdAt);
+      });
+      document.getElementById("my-reports").innerHTML = html;
+      updateActivityFeed();
+    }).catch(function() {});
+}
+
+function loadListings(uid) {
+  db.collection("listings")
+    .where("userId", "==", uid)
+    .orderBy("createdAt", "desc")
+    .limit(10)
+    .get()
+    .then(function(snap) {
+      var count = snap.size;
+      document.getElementById("stat-listings").innerText = count;
+
+      if (count === 0) return;
+
+      var html = "";
+      snap.forEach(function(doc) {
+        var d = doc.data();
+        html += activityItem("📦", d.title || "Listing", d.platform || "", d.createdAt);
+      });
+      document.getElementById("my-listings").innerHTML = html;
+      updateActivityFeed();
+    }).catch(function() {});
+}
+
+function activityItem(icon, type, platform, ts) {
+  var time = ts && ts.toDate ? timeAgo(ts.toDate()) : "Recently";
+  return '<li class="activity-item">' +
+    '<div class="act-icon">' + icon + '</div>' +
+    '<div class="act-info">' +
+      '<div class="act-type">' + type + '</div>' +
+      '<div class="act-detail">on ' + (platform || "Naijy") + '</div>' +
+    '</div>' +
+    '<div class="act-time">' + time + '</div>' +
+  '</li>';
+}
+
+function updateActivityFeed() {
+  // Pull items from reports and listings into combined feed
+  var reports  = document.getElementById("my-reports").innerHTML;
+  var listings = document.getElementById("my-listings").innerHTML;
+  var combined = reports + listings;
+  if (combined.trim()) {
+    document.getElementById("activity-feed").innerHTML = combined;
+  }
+}
+
+function timeAgo(date) {
+  var seconds = Math.floor((new Date() - date) / 1000);
+  if (seconds < 60)   return "Just now";
+  if (seconds < 3600) return Math.floor(seconds / 60) + "m ago";
+  if (seconds < 86400)return Math.floor(seconds / 3600) + "h ago";
+  return Math.floor(seconds / 86400) + "d ago";
+}
+
+function saveProfile() {
+  var user = firebase.auth().currentUser;
+  if (!user) return;
+
+  var name  = document.getElementById("edit-name").value.trim();
+  var state = document.getElementById("edit-state").value;
+  var phone = document.getElementById("edit-phone").value.trim();
+
+  if (!name) { alert("Please enter your name."); return; }
+
+  // Update Firebase display name
+  user.updateProfile({ displayName: name }).then(function() {
+    // Update Firestore
+    return db.collection("users").doc(user.uid).update({
+      name:  name,
+      state: state,
+      phone: phone
+    });
+  }).then(function() {
+    document.getElementById("profile-name").innerText   = name;
+    document.getElementById("profile-avatar").innerText = name.charAt(0).toUpperCase();
+    document.getElementById("topbar-name").innerText    = name;
+    document.getElementById("save-success").style.display = "block";
+    setTimeout(function() {
+      document.getElementById("save-success").style.display = "none";
+    }, 3000);
+  }).catch(function(err) {
+    alert("Error saving: " + err.message);
+  });
+}
+
+function doSignOut() {
+  firebase.auth().signOut().then(function() {
+    window.location.href = "index.html";
+  });
+}
+</script>
+
+</body>
+</html>
