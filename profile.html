@@ -450,6 +450,7 @@ body {
 <script src="core.js"></script>
 <script src="data.js"></script>
 <script src="firebase.js"></script>
+<script src="supabase.js"></script>
 
 <script>
 window.CURRENT_PLATFORM = "profile";
@@ -487,12 +488,11 @@ function showProfile(user) {
   // Fill edit form
   document.getElementById("edit-name").value = name;
 
-  // Load Firestore data
-  if (typeof db !== "undefined" && db) {
-    loadUserData(user.uid);
-    loadReports(user.uid);
-    loadListings(user.uid);
-  }
+  // Load Supabase data
+  loadUserData(user.uid);
+  loadReports(user.uid);
+  loadListings(user.uid);
+  loadBookings(user.uid);
 }
 
 function getTrustLevel(score) {
@@ -504,76 +504,56 @@ function getTrustLevel(score) {
 }
 
 function loadUserData(uid) {
-  db.collection("users").doc(uid).get().then(function(doc) {
-    if (!doc.exists) return;
-    var data  = doc.data();
-    var score = data.trustScore || 50;
-
+  getUserProfile(uid, function(data) {
+    if (!data) return;
+    var score = data.trust_score || 50;
     document.getElementById("trust-score-big").innerText = score;
     document.getElementById("trust-bar").style.width     = score + "%";
     document.getElementById("trust-level").innerText     = getTrustLevel(score);
-
     if (data.state) document.getElementById("edit-state").value = data.state;
     if (data.phone) document.getElementById("edit-phone").value = data.phone;
-
-    // Badges
-    var badges = data.badges || [];
     var badgeEl = document.getElementById("profile-badges");
     var html = '<span class="badge">🇳🇬 Naijy Member</span>';
     if (score >= 75) html += '<span class="badge gold">⭐ Trusted</span>';
-    if (badges.includes("reporter"))  html += '<span class="badge">📢 Reporter</span>';
-    if (badges.includes("trader"))    html += '<span class="badge">📦 Trader</span>';
-    if (badges.includes("verified"))  html += '<span class="badge gold">✅ Verified</span>';
     badgeEl.innerHTML = html;
   });
 }
 
 function loadReports(uid) {
-  db.collection("reports")
-    .where("userId", "==", uid)
-    .orderBy("createdAt", "desc")
-    .limit(10)
-    .get()
-    .then(function(snap) {
-      var count = snap.size;
-      document.getElementById("stat-reports").innerText = count;
-
-      if (count === 0) return;
-
-      var html = "";
-      snap.forEach(function(doc) {
-        var d = doc.data();
-        html += activityItem("📢", d.type || "Report", d.platform || "", d.createdAt);
-      });
-      document.getElementById("my-reports").innerHTML = html;
-      updateActivityFeed();
-    }).catch(function() {});
+  getUserReports(uid, function(data) {
+    var count = data.length;
+    document.getElementById("stat-reports").innerText = count;
+    if (!count) return;
+    var html = data.map(function(d) {
+      return activityItem("📢", d.type || "Report", d.platform || "", d.created_at);
+    }).join("");
+    document.getElementById("my-reports").innerHTML = html;
+    updateActivityFeed();
+  });
 }
 
 function loadListings(uid) {
-  db.collection("listings")
-    .where("userId", "==", uid)
-    .orderBy("createdAt", "desc")
-    .limit(10)
-    .get()
-    .then(function(snap) {
-      var count = snap.size;
-      document.getElementById("stat-listings").innerText = count;
+  getUserListings(uid, function(data) {
+    var count = data.length;
+    document.getElementById("stat-listings").innerText = count;
+    if (!count) return;
+    var html = data.map(function(d) {
+      return activityItem("📦", d.title || "Listing", d.platform || "", d.created_at);
+    }).join("");
+    document.getElementById("my-listings").innerHTML = html;
+    updateActivityFeed();
+  });
+}
 
-      if (count === 0) return;
-
-      var html = "";
-      snap.forEach(function(doc) {
-        var d = doc.data();
-        html += activityItem("📦", d.title || "Listing", d.platform || "", d.createdAt);
-      });
-      document.getElementById("my-listings").innerHTML = html;
-      updateActivityFeed();
-    }).catch(function() {});
+function loadBookings(uid) {
+  getUserBookings(uid, function(data) {
+    var count = data.length;
+    document.getElementById("stat-bookings").innerText = count;
+  });
 }
 
 function activityItem(icon, type, platform, ts) {
-  var time = ts && ts.toDate ? timeAgo(ts.toDate()) : "Recently";
+  var time = ts ? timeAgo(new Date(ts)) : "Recently";
   return '<li class="activity-item">' +
     '<div class="act-icon">' + icon + '</div>' +
     '<div class="act-info">' +
@@ -585,7 +565,6 @@ function activityItem(icon, type, platform, ts) {
 }
 
 function updateActivityFeed() {
-  // Pull items from reports and listings into combined feed
   var reports  = document.getElementById("my-reports").innerHTML;
   var listings = document.getElementById("my-listings").innerHTML;
   var combined = reports + listings;
@@ -596,40 +575,30 @@ function updateActivityFeed() {
 
 function timeAgo(date) {
   var seconds = Math.floor((new Date() - date) / 1000);
-  if (seconds < 60)   return "Just now";
-  if (seconds < 3600) return Math.floor(seconds / 60) + "m ago";
-  if (seconds < 86400)return Math.floor(seconds / 3600) + "h ago";
+  if (seconds < 60)    return "Just now";
+  if (seconds < 3600)  return Math.floor(seconds / 60) + "m ago";
+  if (seconds < 86400) return Math.floor(seconds / 3600) + "h ago";
   return Math.floor(seconds / 86400) + "d ago";
 }
 
 function saveProfile() {
   var user = firebase.auth().currentUser;
   if (!user) return;
-
   var name  = document.getElementById("edit-name").value.trim();
   var state = document.getElementById("edit-state").value;
   var phone = document.getElementById("edit-phone").value.trim();
-
   if (!name) { alert("Please enter your name."); return; }
-
-  // Update Firebase display name
   user.updateProfile({ displayName: name }).then(function() {
-    // Update Firestore
-    return db.collection("users").doc(user.uid).update({
-      name:  name,
-      state: state,
-      phone: phone
+    saveUserProfile({ name: name, state: state, phone: phone }, function(res) {
+      if (res && res.error) { alert("Error: " + res.error); return; }
+      document.getElementById("profile-name").innerText   = name;
+      document.getElementById("profile-avatar").innerText = name.charAt(0).toUpperCase();
+      document.getElementById("topbar-name").innerText    = name;
+      document.getElementById("save-success").style.display = "block";
+      setTimeout(function() {
+        document.getElementById("save-success").style.display = "none";
+      }, 3000);
     });
-  }).then(function() {
-    document.getElementById("profile-name").innerText   = name;
-    document.getElementById("profile-avatar").innerText = name.charAt(0).toUpperCase();
-    document.getElementById("topbar-name").innerText    = name;
-    document.getElementById("save-success").style.display = "block";
-    setTimeout(function() {
-      document.getElementById("save-success").style.display = "none";
-    }, 3000);
-  }).catch(function(err) {
-    alert("Error saving: " + err.message);
   });
 }
 
