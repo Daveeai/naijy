@@ -1297,11 +1297,18 @@ function submitReport() {
   var desc = document.getElementById("rf-desc").value.trim();
   if (!type) { alert("Please select a report type."); return; }
   if (!desc)  { alert("Please describe the issue."); return; }
-  var ref = genRef();
-  document.getElementById("rf-ref").innerText = ref;
-  document.getElementById("rf-success").style.display = "block";
-  if (typeof logAction === "function") logAction("report_submitted", "Report: " + type);
-  if (typeof increaseTrust === "function") increaseTrust("user_001", 5);
+  var data = {
+    type:        type,
+    location:    document.getElementById("rf-loc").value,
+    description: desc,
+    evidence:    document.getElementById("rf-evidence").value
+  };
+  saveReport(data, function(res) {
+    if (res.error) { alert(res.error); return; }
+    document.getElementById("rf-ref").innerText = res.ref;
+    document.getElementById("rf-success").style.display = "block";
+    if (typeof logAction === "function") logAction("report_submitted", type);
+  });
 }
 
 function submitListing() {
@@ -1309,21 +1316,20 @@ function submitListing() {
   var price = document.getElementById("lf-price").value.trim();
   if (!title) { alert("Please enter a listing title."); return; }
   if (!price)  { alert("Please enter a price or rate."); return; }
-  var ref = genRef();
-  document.getElementById("lf-ref").innerText = ref;
-  document.getElementById("lf-success").style.display = "block";
-  // Add to sample grid
-  var grid = document.getElementById("lf-grid");
-  if (grid) {
-    var card = document.createElement("div");
-    card.className = "listing-card";
-    card.innerHTML = '<div class="l-name">' + title + '</div>' +
-      '<div class="l-price">' + price + '</div>' +
-      '<div class="l-loc">📍 ' + (document.getElementById("lf-loc").value || "Nigeria") + '</div>';
-    grid.prepend(card);
-  }
-  if (typeof logAction === "function") logAction("listing_posted", title);
-  if (typeof increaseTrust === "function") increaseTrust("user_001", 5);
+  var data = {
+    title:       title,
+    category:    document.getElementById("lf-cat").value,
+    price:       price,
+    location:    document.getElementById("lf-loc").value,
+    contact:     document.getElementById("lf-contact").value,
+    description: document.getElementById("lf-desc").value
+  };
+  saveListing(data, function(res) {
+    if (res.error) { alert(res.error); return; }
+    document.getElementById("lf-ref").innerText = res.ref;
+    document.getElementById("lf-success").style.display = "block";
+    if (typeof logAction === "function") logAction("listing_posted", title);
+  });
 }
 
 function submitDirectory() {
@@ -1367,13 +1373,21 @@ function submitBooking() {
   if (!service) { alert("Please select a service type."); return; }
   if (!date)    { alert("Please select a date."); return; }
   if (!time)    { alert("Please select a time slot."); return; }
-  var ref = genRef();
-  document.getElementById("bk-ref").innerText = ref;
-  document.getElementById("bk-success").style.display = "block";
-  if (typeof logAction === "function") logAction("booking_made", service + " on " + date + " at " + time);
-  if (typeof increaseTrust === "function") increaseTrust("user_001", 5);
+  var data = {
+    name:    name,
+    phone:   document.getElementById("bk-phone").value,
+    service: service,
+    date:    date,
+    time:    time,
+    notes:   document.getElementById("bk-notes").value
+  };
+  saveBooking(data, function(res) {
+    if (res.error) { alert(res.error); return; }
+    document.getElementById("bk-ref").innerText = res.ref;
+    document.getElementById("bk-success").style.display = "block";
+    if (typeof logAction === "function") logAction("booking_made", service);
+  });
 }
-
 function trackCase() {
   var id  = document.getElementById("tr-id").value.trim();
   var res = document.getElementById("tr-result");
