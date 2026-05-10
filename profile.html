@@ -449,20 +449,20 @@ body {
 <!-- SCRIPTS -->
 <script src="core.js"></script>
 <script src="data.js"></script>
-<script src="firebase.js"></script>
-<script src="supabase.js"></script>
+<script src="auth.js"></script>
 
 <script>
 window.CURRENT_PLATFORM = "profile";
 
-// Wait for Firebase to be ready then check auth
+// Wait for Supabase auth to be ready
 var authCheckInterval = setInterval(function() {
-  if (typeof firebase !== "undefined" && firebase.apps && firebase.apps.length) {
+  if (typeof sb !== "undefined" && sb) {
     clearInterval(authCheckInterval);
-    firebase.auth().onAuthStateChanged(function(user) {
+    sb.auth.getSession().then(function(res) {
       document.getElementById("loading-state").style.display = "none";
-      if (user) {
-        showProfile(user);
+      var session = res.data && res.data.session;
+      if (session && session.user) {
+        showProfile(session.user);
       } else {
         document.getElementById("not-signed-in").style.display = "block";
       }
@@ -471,7 +471,7 @@ var authCheckInterval = setInterval(function() {
 }, 300);
 
 function showProfile(user) {
-  var name  = user.displayName || "Naijy User";
+  var name  = (user.user_metadata && user.user_metadata.full_name) || user.email || "Naijy User";
   var email = user.email || "";
   var init  = name.charAt(0).toUpperCase();
 
@@ -488,11 +488,12 @@ function showProfile(user) {
   // Fill edit form
   document.getElementById("edit-name").value = name;
 
-  // Load Supabase data
-  loadUserData(user.uid);
-  loadReports(user.uid);
-  loadListings(user.uid);
-  loadBookings(user.uid);
+  // Load data from Supabase
+  var uid = user.id;
+  loadUserData(uid);
+  loadReports(uid);
+  loadListings(uid);
+  loadBookings(uid);
 }
 
 function getTrustLevel(score) {
@@ -582,28 +583,26 @@ function timeAgo(date) {
 }
 
 function saveProfile() {
-  var user = firebase.auth().currentUser;
-  if (!user) return;
+  var user = getCurrentNaijyUser();
+  if (!user) { alert("Please sign in first."); return; }
   var name  = document.getElementById("edit-name").value.trim();
   var state = document.getElementById("edit-state").value;
   var phone = document.getElementById("edit-phone").value.trim();
   if (!name) { alert("Please enter your name."); return; }
-  user.updateProfile({ displayName: name }).then(function() {
-    saveUserProfile({ name: name, state: state, phone: phone }, function(res) {
-      if (res && res.error) { alert("Error: " + res.error); return; }
-      document.getElementById("profile-name").innerText   = name;
-      document.getElementById("profile-avatar").innerText = name.charAt(0).toUpperCase();
-      document.getElementById("topbar-name").innerText    = name;
-      document.getElementById("save-success").style.display = "block";
-      setTimeout(function() {
-        document.getElementById("save-success").style.display = "none";
-      }, 3000);
-    });
+  saveUserProfile({ name: name, state: state, phone: phone }, function(res) {
+    if (res && res.error) { alert("Error: " + res.error); return; }
+    document.getElementById("profile-name").innerText   = name;
+    document.getElementById("profile-avatar").innerText = name.charAt(0).toUpperCase();
+    document.getElementById("topbar-name").innerText    = name;
+    document.getElementById("save-success").style.display = "block";
+    setTimeout(function() {
+      document.getElementById("save-success").style.display = "none";
+    }, 3000);
   });
 }
 
 function doSignOut() {
-  firebase.auth().signOut().then(function() {
+  naijySignOut(function() {
     window.location.href = "index.html";
   });
 }
