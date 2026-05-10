@@ -350,6 +350,10 @@ body {
 <script src="core.js"></script>
 <!-- DATA — loads second -->
 <script src="data.js"></script>
+<!-- FIREBASE — authentication -->
+<script src="firebase.js"></script>
+<!-- SUPABASE — data storage -->
+<script src="supabase.js"></script>
 </head>
 <body>
 
@@ -1336,18 +1340,26 @@ function submitDirectory() {
   var name = document.getElementById("dir-name").value.trim();
   var role = document.getElementById("dir-role").value.trim();
   if (!name) { alert("Please enter your name."); return; }
-  document.getElementById("dir-success").style.display = "block";
-  var grid = document.getElementById("dir-grid");
-  if (grid) {
-    var card = document.createElement("div");
-    card.className = "dir-card";
-    card.innerHTML = '<div class="dir-name">' + name + '</div>' +
-      '<div class="dir-role">' + (role || "Member") + '</div>' +
-      '<div class="dir-loc">📍 ' + (document.getElementById("dir-loc").value || "Nigeria") + '</div>';
-    grid.prepend(card);
-  }
-  if (typeof logAction === "function") logAction("directory_signup", name);
-  if (typeof increaseTrust === "function") increaseTrust("user_001", 5);
+  var data = {
+    name:     name,
+    role:     role || "Member",
+    location: document.getElementById("dir-loc").value || "Nigeria",
+    contact:  document.getElementById("dir-contact").value || ""
+  };
+  saveDirectoryEntry(data, function(res) {
+    if (res && res.error) { alert(res.error); return; }
+    document.getElementById("dir-success").style.display = "block";
+    var grid = document.getElementById("dir-grid");
+    if (grid) {
+      var card = document.createElement("div");
+      card.className = "dir-card";
+      card.innerHTML = '<div class="dir-name">' + name + '</div>' +
+        '<div class="dir-role">' + (role || "Member") + '</div>' +
+        '<div class="dir-loc">📍 ' + (data.location) + '</div>';
+      grid.prepend(card);
+    }
+    if (typeof logAction === "function") logAction("directory_signup", name);
+  });
 }
 
 function filterDir(val) {
@@ -1463,6 +1475,5 @@ var types = WIDGET_MAP[key] || ["learning"];
   mount.innerHTML = html;
 })();
 </script>
-<script src="supabase.js"></script>
 </body>
 </html>
