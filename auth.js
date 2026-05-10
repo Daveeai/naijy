@@ -240,11 +240,11 @@ function doSignUp() {
   if (!email)          { showAuthError("Please enter your email."); return; }
   if (pass.length < 6) { showAuthError("Password must be at least 6 characters."); return; }
   naijySignUp(email, pass, name, function(res) {
-    if (res.error) { showAuthError(res.error); }
-    else {
+    if (res.error) { showAuthError(res.error); return; }
+    // Auto sign in immediately after signup
+    naijySignIn(email, pass, function(res2) {
       closeAuthModal();
-      alert("✅ Account created! Check your email to confirm, then sign in.");
-    }
+    });
   });
 }
 
