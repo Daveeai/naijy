@@ -488,12 +488,14 @@ function showProfile(user) {
   // Fill edit form
   document.getElementById("edit-name").value = name;
 
-  // Load data from Supabase
+  // Load data from Supabase — small delay ensures sb is ready
   var uid = user.id;
-  loadUserData(uid);
-  loadReports(uid);
-  loadListings(uid);
-  loadBookings(uid);
+  setTimeout(function() {
+    loadUserData(uid);
+    loadReports(uid);
+    loadListings(uid);
+    loadBookings(uid);
+  }, 800);
 }
 
 function getTrustLevel(score) {
@@ -522,7 +524,7 @@ function loadUserData(uid) {
 
 function loadReports(uid) {
   getUserReports(uid, function(data) {
-    var count = data.length;
+    var count = data ? data.length : 0;
     document.getElementById("stat-reports").innerText = count;
     if (!count) return;
     var html = data.map(function(d) {
@@ -535,7 +537,7 @@ function loadReports(uid) {
 
 function loadListings(uid) {
   getUserListings(uid, function(data) {
-    var count = data.length;
+    var count = data ? data.length : 0;
     document.getElementById("stat-listings").innerText = count;
     if (!count) return;
     var html = data.map(function(d) {
@@ -548,7 +550,7 @@ function loadListings(uid) {
 
 function loadBookings(uid) {
   getUserBookings(uid, function(data) {
-    var count = data.length;
+    var count = data ? data.length : 0;
     document.getElementById("stat-bookings").innerText = count;
   });
 }
