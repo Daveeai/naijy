@@ -244,6 +244,9 @@ function doSignUp() {
     // Auto sign in immediately after signup
     naijySignIn(email, pass, function(res2) {
       closeAuthModal();
+      // First time user — send to onboarding
+      localStorage.removeItem("naijy_onboarded");
+      window.location.href = "onboarding.html";
     });
   });
 }
