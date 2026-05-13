@@ -192,10 +192,10 @@ body {
   box-shadow: 0 4px 14px rgba(31,94,67,0.13);
   transform: translateY(-2px);
 }
-.sub-tile h4      { font-size: 14px; font-weight: 700; color: #1f5e43; margin-bottom: 4px; }
+.sub-tile h4       { font-size: 14px; font-weight: 700; color: #1f5e43; margin-bottom: 4px; }
 .sub-tile .sub-tag { font-size: 12px; color: #4a8a68; font-style: italic; margin-bottom: 8px; line-height: 1.35; }
-.sub-tile ul      { padding-left: 16px; }
-.sub-tile li      { font-size: 12px; color: #333; margin-bottom: 3px; line-height: 1.4; }
+.sub-tile ul       { padding-left: 16px; }
+.sub-tile li       { font-size: 12px; color: #333; margin-bottom: 3px; line-height: 1.4; }
 
 /* ── ENGAGEMENT CARD ── */
 .engage-card {
@@ -307,7 +307,6 @@ body {
 .nav-btn .nav-name { font-size: 14px; font-weight: 700; }
 .nav-btn.disabled  { opacity: 0.3; pointer-events: none; border-color: #ccc; color: #999; }
 
-/* current platform centre tile */
 .nav-current {
   flex: 1.2;
   display: flex;
@@ -350,7 +349,7 @@ body {
 <script src="core.js"></script>
 <!-- DATA — loads second -->
 <script src="data.js"></script>
-  <script src="firebase.js"></script>
+<script src="auth.js"></script>
 </head>
 <body>
 
@@ -603,7 +602,6 @@ function setStatus(value) {
     });
   }
 
-  // Log the status change as a core action
   if (typeof logAction === "function") {
     logAction("status_change", "Status changed to: " + value);
   }
@@ -733,13 +731,12 @@ function shareFacebook() { window.open("https://www.facebook.com/sharer/sharer.p
 
   var active = "All";
 
-  // Build filter buttons using EXACT category strings from data.js
   filterBar.innerHTML = "";
   CATS.forEach(function(cat) {
     var btn = document.createElement("button");
     btn.textContent = cat === "All" ? "All (" + platforms.length + ")" : cat;
     if (cat === "All") btn.classList.add("active");
-    btn.dataset.cat = cat; // store exact string
+    btn.dataset.cat = cat;
     btn.addEventListener("click", function() {
       active = cat;
       filterBar.querySelectorAll("button").forEach(function(b){
@@ -754,7 +751,6 @@ function shareFacebook() { window.open("https://www.facebook.com/sharer/sharer.p
   function pad(n) { return n < 10 ? "0" + n : String(n); }
 
   function render() {
-    // Filter using EXACT category match
     var list = (active === "All")
       ? platforms
       : platforms.filter(function(p){ return p.category === active; });
@@ -763,7 +759,6 @@ function shareFacebook() { window.open("https://www.facebook.com/sharer/sharer.p
 
     list.forEach(function(p) {
       var globalIdx = platforms.indexOf(p);
-      // Use p.key — the exact field data.js uses and the loader reads
       var key = p.key || "";
       var a = document.createElement("a");
       a.className = "exp-card";
@@ -784,12 +779,6 @@ function shareFacebook() { window.open("https://www.facebook.com/sharer/sharer.p
   render();
 })();
 </script>
-
-<!-- ============================================================
-     NAIJY PLATFORM WIDGETS — 7 WIDGET TYPES
-     Paste this entire block just before </body> in platform.html
-     Each widget auto-activates based on platform.key from data.js
-     ============================================================ -->
 
 <style>
 /* ── WIDGET SHARED STYLES ── */
@@ -930,7 +919,7 @@ function shareFacebook() { window.open("https://www.facebook.com/sharer/sharer.p
   transition: background 0.15s;
 }
 .lesson-item:hover { background: #e0f2e9; }
-.lesson-num  { font-size: 12px; font-weight: 800; color: #fff; background: #1f5e43; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.lesson-num   { font-size: 12px; font-weight: 800; color: #fff; background: #1f5e43; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .lesson-title { font-size: 14px; font-weight: 700; color: #1a2e23; }
 .lesson-dur   { font-size: 11px; color: #888; margin-left: auto; white-space: nowrap; }
 
@@ -984,13 +973,11 @@ function shareFacebook() { window.open("https://www.facebook.com/sharer/sharer.p
 //  injects the right widget(s) into #widget-mount
 // ============================================================
 
-// Map: platform keys → widget types
 var WIDGET_MAP = {
 
   // REPORT FORM
   "safenation":    ["report-form", "map"],
   "justicenow":    ["report-form", "tracker"],
-  "gomentwatch":   ["report-form", "tracker"],
   "gomentwatch":   ["report-form", "tracker"],
   "environmental": ["report-form", "map"],
   "waterconnect":  ["report-form", "map"],
@@ -1021,17 +1008,17 @@ var WIDGET_MAP = {
   "sportseco":     ["listing-form"],
 
   // DIRECTORY
-  "lawsimple":     ["directory"],
-  "legalsure":     ["directory"],
-  "judicialbar":   ["directory"],
-  "medconnect":    ["directory"],
-  "pharmabiotech": ["directory"],
-  "fulaconnect":   ["directory"],
-  "ethnichub":     ["directory"],
-  "iboprentice":   ["directory"],
-  "youthemploy":   ["directory"],
-  "ngohub":        ["directory"],
-  "diasporalink":  ["directory"],
+  "lawsimple":        ["directory"],
+  "legalsure":        ["directory", "learning"],
+  "judicialbar":      ["directory"],
+  "medconnect":       ["directory"],
+  "pharmabiotech":    ["directory"],
+  "fulaconnect":      ["directory"],
+  "ethnichub":        ["directory"],
+  "iboprentice":      ["directory", "learning"],
+  "youthemploy":      ["directory"],
+  "ngohub":           ["directory"],
+  "diasporalink":     ["directory"],
   "versitiesconnect": ["directory"],
 
   // BOOKING FORM
@@ -1043,12 +1030,12 @@ var WIDGET_MAP = {
   "retireeshub":   ["booking-form"],
 
   // TRACKER
-  "casetrack":     ["tracker"],
-  "expendituremap":["tracker"],
-  "revenuemap":    ["tracker"],
-  "infraassets":   ["tracker"],
-  "logisticschain":["tracker"],
-  "transport360":  ["tracker"],
+  "casetrack":      ["tracker"],
+  "expendituremap": ["tracker"],
+  "revenuemap":     ["tracker"],
+  "infraassets":    ["tracker"],
+  "logisticschain": ["tracker"],
+  "transport360":   ["tracker"],
 
   // MAP
   "movecity":      ["map"],
@@ -1059,17 +1046,14 @@ var WIDGET_MAP = {
   "marinehub":     ["map"],
 
   // LEARNING MODULE
-  "educahub":      ["learning"],
-  "healthpro":     ["learning"],
-  "spacekids":     ["learning"],
-  "youthspace":    ["learning"],
+  "educahub":         ["learning"],
+  "healthpro":        ["learning"],
+  "spacekids":        ["learning"],
+  "youthspace":       ["learning"],
   "naijysciencetech": ["learning"],
-  "blockchainnet": ["learning"],
-  "robotai":       ["learning"],
-  "innovatelab":   ["learning"],
-  "iboprentice":   ["directory", "learning"],
-  "legalsure":     ["directory", "learning"],
-  "iboprentice":   ["directory", "learning"]
+  "blockchainnet":    ["learning"],
+  "robotai":          ["learning"],
+  "innovatelab":      ["learning"]
 };
 
 // ── WIDGET BUILDERS ──────────────────────────────────────
@@ -1235,11 +1219,12 @@ function buildLearning(pName) {
   '</div>';
 }
 
+// ── LESSON CONTENT — platform-aware, declared once ───────
 var LESSON_CONTENT = [
   platform ? (platform.intro || "This platform is part of Naijy — Nigeria's national digital ecosystem.") : "This platform is part of Naijy.",
   platform ? ("It is built for: " + (platform.who ? platform.who.join(", ") : "all Nigerians") + ".") : "It serves all Nigerians.",
-  platform ? ("To use it: browse the sections above, then use the tools below to submit a report, listing, or booking.") : "Use the tools below.",
-  platform ? ("Your first action: scroll down and use the tool below. It takes less than 2 minutes.") : "Try the tool below now.",
+  "To use this platform: browse the sections above, then use the tools below to submit a report, listing, or booking.",
+  "Your first action: scroll down and use the tool below. It takes less than 2 minutes.",
   "Quiz: What is the main purpose of this platform? Answer: " + (platform ? (platform.tagline || platform.name) : "Serving Nigerians") + "."
 ];
 
@@ -1247,13 +1232,13 @@ var LESSON_CONTENT = [
 
 function sampleListings() {
   var items = [
-    { name: "Sample Listing 1", price: "₦10,000", loc: "Lagos" },
+    { name: "Sample Listing 1", price: "₦10,000",   loc: "Lagos" },
     { name: "Sample Listing 2", price: "Negotiable", loc: "Abuja" },
-    { name: "Sample Listing 3", price: "₦25,000", loc: "Kano" }
+    { name: "Sample Listing 3", price: "₦25,000",   loc: "Kano"  }
   ];
   return items.map(function(i) {
     return '<div class="listing-card">' +
-      '<div class="l-name">' + i.name + '</div>' +
+      '<div class="l-name">'  + i.name  + '</div>' +
       '<div class="l-price">' + i.price + '</div>' +
       '<div class="l-loc">📍 ' + i.loc + '</div>' +
     '</div>';
@@ -1262,10 +1247,10 @@ function sampleListings() {
 
 function sampleDirectory() {
   var items = [
-    { name: "Sample Profile 1", role: "Member", loc: "Lagos" },
-    { name: "Sample Profile 2", role: "Member", loc: "Abuja" },
-    { name: "Sample Profile 3", role: "Member", loc: "Kano" },
-    { name: "Sample Profile 4", role: "Member", loc: "Enugu" }
+    { name: "Sample Profile 1", role: "Member", loc: "Lagos"  },
+    { name: "Sample Profile 2", role: "Member", loc: "Abuja"  },
+    { name: "Sample Profile 3", role: "Member", loc: "Kano"   },
+    { name: "Sample Profile 4", role: "Member", loc: "Enugu"  }
   ];
   return items.map(function(i) {
     return '<div class="dir-card">' +
@@ -1278,17 +1263,17 @@ function sampleDirectory() {
 
 function sampleTrackerItems() {
   var items = [
-    { id: "NJY-2026-001", title: "Report submitted — under review", status: "In Review", dot: "" },
-    { id: "NJY-2026-002", title: "Case escalated to relevant agency", status: "Escalated", dot: "" },
-    { id: "NJY-2026-003", title: "Awaiting agency response", status: "Pending", dot: "pending" },
-    { id: "NJY-2026-004", title: "Issue resolved and closed", status: "Closed", dot: "closed" }
+    { id: "NJY-2026-001", title: "Report submitted — under review",     status: "In Review", dot: ""        },
+    { id: "NJY-2026-002", title: "Case escalated to relevant agency",   status: "Escalated", dot: ""        },
+    { id: "NJY-2026-003", title: "Awaiting agency response",            status: "Pending",   dot: "pending" },
+    { id: "NJY-2026-004", title: "Issue resolved and closed",           status: "Closed",    dot: "closed"  }
   ];
   return items.map(function(i) {
     return '<li class="tracker-item">' +
       '<div class="tracker-dot ' + i.dot + '"></div>' +
       '<div class="tracker-info">' +
-        '<div class="t-id">' + i.id + '</div>' +
-        '<div class="t-title">' + i.title + '</div>' +
+        '<div class="t-id">'     + i.id     + '</div>' +
+        '<div class="t-title">'  + i.title  + '</div>' +
         '<div class="t-status">' + i.status + '</div>' +
       '</div>' +
     '</li>';
@@ -1309,8 +1294,8 @@ function submitReport() {
   var ref = genRef();
   document.getElementById("rf-ref").innerText = ref;
   document.getElementById("rf-success").style.display = "block";
-  if (typeof logAction === "function") logAction("report_submitted", "Report: " + type);
-  if (typeof increaseTrust === "function") increaseTrust("user_001", 5);
+  if (typeof logAction      === "function") logAction("report_submitted", "Report: " + type);
+  if (typeof increaseTrust  === "function") increaseTrust("user_001", 5);
 }
 
 function submitListing() {
@@ -1321,17 +1306,16 @@ function submitListing() {
   var ref = genRef();
   document.getElementById("lf-ref").innerText = ref;
   document.getElementById("lf-success").style.display = "block";
-  // Add to sample grid
   var grid = document.getElementById("lf-grid");
   if (grid) {
-    var card = document.createElement("div");
-    card.className = "listing-card";
-    card.innerHTML = '<div class="l-name">' + title + '</div>' +
+    var c = document.createElement("div");
+    c.className = "listing-card";
+    c.innerHTML = '<div class="l-name">'  + title + '</div>' +
       '<div class="l-price">' + price + '</div>' +
       '<div class="l-loc">📍 ' + (document.getElementById("lf-loc").value || "Nigeria") + '</div>';
-    grid.prepend(card);
+    grid.prepend(c);
   }
-  if (typeof logAction === "function") logAction("listing_posted", title);
+  if (typeof logAction     === "function") logAction("listing_posted", title);
   if (typeof increaseTrust === "function") increaseTrust("user_001", 5);
 }
 
@@ -1342,21 +1326,20 @@ function submitDirectory() {
   document.getElementById("dir-success").style.display = "block";
   var grid = document.getElementById("dir-grid");
   if (grid) {
-    var card = document.createElement("div");
-    card.className = "dir-card";
-    card.innerHTML = '<div class="dir-name">' + name + '</div>' +
+    var c = document.createElement("div");
+    c.className = "dir-card";
+    c.innerHTML = '<div class="dir-name">' + name + '</div>' +
       '<div class="dir-role">' + (role || "Member") + '</div>' +
       '<div class="dir-loc">📍 ' + (document.getElementById("dir-loc").value || "Nigeria") + '</div>';
-    grid.prepend(card);
+    grid.prepend(c);
   }
-  if (typeof logAction === "function") logAction("directory_signup", name);
+  if (typeof logAction     === "function") logAction("directory_signup", name);
   if (typeof increaseTrust === "function") increaseTrust("user_001", 5);
 }
 
 function filterDir(val) {
   val = val.toLowerCase();
-  var cards = document.querySelectorAll(".dir-card");
-  cards.forEach(function(c) {
+  document.querySelectorAll(".dir-card").forEach(function(c) {
     c.style.display = c.innerText.toLowerCase().includes(val) ? "" : "none";
   });
 }
@@ -1379,7 +1362,7 @@ function submitBooking() {
   var ref = genRef();
   document.getElementById("bk-ref").innerText = ref;
   document.getElementById("bk-success").style.display = "block";
-  if (typeof logAction === "function") logAction("booking_made", service + " on " + date + " at " + time);
+  if (typeof logAction     === "function") logAction("booking_made", service + " on " + date + " at " + time);
   if (typeof increaseTrust === "function") increaseTrust("user_001", 5);
 }
 
@@ -1387,16 +1370,18 @@ function trackCase() {
   var id  = document.getElementById("tr-id").value.trim();
   var res = document.getElementById("tr-result");
   if (!id) { alert("Please enter a reference number."); return; }
-  res.innerHTML = '<div style="padding:12px;background:#e8f5ee;border-radius:8px;margin-bottom:14px;">' +
-    '<strong style="color:#1f5e43;">Reference: ' + id + '</strong><br>' +
-    '<span style="font-size:13px;color:#444;">Status: <strong>Under Review</strong> — Our team is processing this. Expected response: 48–72 hours.</span>' +
-  '</div>';
+  res.innerHTML =
+    '<div style="padding:12px;background:#e8f5ee;border-radius:8px;margin-bottom:14px;">' +
+      '<strong style="color:#1f5e43;">Reference: ' + id + '</strong><br>' +
+      '<span style="font-size:13px;color:#444;">Status: <strong>Under Review</strong> — Our team is processing this. Expected response: 48–72 hours.</span>' +
+    '</div>';
 }
 
 function reportLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(pos) {
-      alert("📍 Location captured:\nLat: " + pos.coords.latitude.toFixed(4) + "\nLng: " + pos.coords.longitude.toFixed(4) + "\n\nThis will be pinned on the map.");
+      alert("📍 Location captured:\nLat: " + pos.coords.latitude.toFixed(4) +
+            "\nLng: " + pos.coords.longitude.toFixed(4) + "\n\nThis will be pinned on the map.");
       if (typeof logAction === "function") logAction("location_pinned", "Map pin added");
     }, function() {
       alert("Location access denied. Please enter your location manually.");
@@ -1406,23 +1391,16 @@ function reportLocation() {
   }
 }
 
-var LESSON_CONTENT = [
-  "This platform is part of Naijy — Nigeria's national digital ecosystem. It was created to solve a specific problem facing Nigerians and to connect people who need solutions to people who can provide them.",
-  "Every Naijy platform has a category, a clear purpose, and a set of tools. Key concepts: Platform Key (the unique ID), Status (Live, Coming Soon, In Dev), Category (the sector it belongs to), and Sub-Platforms (the tools within it).",
-  "To use this platform: browse the content sections to understand its purpose, use the widget tools to submit reports, listings, or bookings, and navigate to other platforms using the Previous and Next buttons.",
-  "Across Nigeria, thousands of people face the problems this platform addresses every day. These are real Nigerian stories — from farmers losing produce to middlemen, to citizens with no legal protection, to communities with no voice.",
-  "Quiz coming soon — this will test your understanding of the platform and award you a participation badge on your Naijy profile."
-];
-
 function openLesson(i) {
   document.querySelector(".lesson-list").style.display = "none";
-  var lc = document.getElementById("lesson-content");
-  document.getElementById("lesson-title").innerText = ["Introduction","Key Concepts","How to Use","Real Examples","Quiz"][i] || "Lesson " + (i+1);
-  document.getElementById("lesson-body").innerText  = LESSON_CONTENT[i] || "Content coming soon.";
-  lc.style.display = "block";
-  if (typeof logAction === "function") logAction("lesson_opened", "Lesson " + (i+1));
+  document.getElementById("lesson-title").innerText =
+    ["Introduction", "Key Concepts", "How to Use", "Real Examples", "Quiz"][i] || "Lesson " + (i + 1);
+  document.getElementById("lesson-body").innerText = LESSON_CONTENT[i] || "Content coming soon.";
+  document.getElementById("lesson-content").style.display = "block";
+  if (typeof logAction     === "function") logAction("lesson_opened", "Lesson " + (i + 1));
   if (typeof increaseTrust === "function") increaseTrust("user_001", 2);
 }
+
 function closeLesson() {
   document.querySelector(".lesson-list").style.display = "";
   document.getElementById("lesson-content").style.display = "none";
@@ -1437,8 +1415,7 @@ function closeLesson() {
   var key = (typeof platformId !== "undefined") ? platformId : "";
   if (!key) return;
 
-var types = WIDGET_MAP[key] || ["learning"];
-
+  var types = WIDGET_MAP[key] || ["learning"];
   var pName = (typeof platform !== "undefined" && platform && platform.name) ? platform.name : "this platform";
 
   var html = '<div style="margin-top:6px;">' +
