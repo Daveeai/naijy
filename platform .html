@@ -1210,11 +1210,11 @@ function buildMap(pName) {
 
 function buildLearning(pName) {
   var lessons = [
-    { title: "Introduction to " + pName, dur: "5 min" },
-    { title: "Key Concepts and Definitions",  dur: "8 min" },
-    { title: "How to Use This Platform",      dur: "6 min" },
-    { title: "Real Examples from Nigeria",    dur: "10 min" },
-    { title: "Quiz — Test Your Knowledge",    dur: "5 min" }
+    { title: "What is " + pName + "?", dur: "2 min" },
+    { title: "Who is it for?",          dur: "2 min" },
+    { title: "How to use it",           dur: "3 min" },
+    { title: "Your first action",       dur: "2 min" },
+    { title: "Quick quiz",              dur: "2 min" }
   ];
   var items = lessons.map(function(l, i) {
     return '<li class="lesson-item" onclick="openLesson(' + i + ')">' +
@@ -1224,16 +1224,24 @@ function buildLearning(pName) {
     '</li>';
   }).join("");
   return '<div class="widget-section" id="w-learning">' +
-    '<h3>📚 Learning Module</h3>' +
-    '<p style="font-size:13px;color:#6b8070;margin-bottom:14px;">Complete these lessons to understand ' + pName + ' and earn your participation badge.</p>' +
+    '<h3>📚 Quick Guide — ' + pName + '</h3>' +
+    '<p style="font-size:13px;color:#6b8070;margin-bottom:14px;">Learn how to use ' + pName + ' in under 10 minutes.</p>' +
     '<ul class="lesson-list">' + items + '</ul>' +
     '<div id="lesson-content" style="display:none;margin-top:16px;padding:16px;background:#f2faf6;border-radius:8px;border-left:4px solid #1f5e43;">' +
       '<h4 id="lesson-title" style="color:#1f5e43;margin-bottom:8px;"></h4>' +
       '<p id="lesson-body" style="font-size:14px;line-height:1.6;"></p>' +
-      '<button style="margin-top:12px;padding:8px 18px;background:#1f5e43;color:#fff;border:none;border-radius:7px;cursor:pointer;font-weight:700;" onclick="closeLesson()">← Back to Lessons</button>' +
+      '<button style="margin-top:12px;padding:8px 18px;background:#1f5e43;color:#fff;border:none;border-radius:7px;cursor:pointer;font-weight:700;" onclick="closeLesson()">← Back</button>' +
     '</div>' +
   '</div>';
 }
+
+var LESSON_CONTENT = [
+  platform ? (platform.intro || "This platform is part of Naijy — Nigeria's national digital ecosystem.") : "This platform is part of Naijy.",
+  platform ? ("It is built for: " + (platform.who ? platform.who.join(", ") : "all Nigerians") + ".") : "It serves all Nigerians.",
+  platform ? ("To use it: browse the sections above, then use the tools below to submit a report, listing, or booking.") : "Use the tools below.",
+  platform ? ("Your first action: scroll down and use the tool below. It takes less than 2 minutes.") : "Try the tool below now.",
+  "Quiz: What is the main purpose of this platform? Answer: " + (platform ? (platform.tagline || platform.name) : "Serving Nigerians") + "."
+];
 
 // ── SAMPLE DATA ──────────────────────────────────────────
 
