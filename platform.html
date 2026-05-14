@@ -350,8 +350,7 @@ body {
 <script src="core.js"></script>
 <!-- DATA — loads second -->
 <script src="data.js"></script>
-<!-- AUTH — Supabase auth and data -->
-<script src="auth.js"></script>
+  <script src="auth.js"></script>
 </head>
 <body>
 
@@ -1344,20 +1343,16 @@ function submitDirectory() {
     location: document.getElementById("dir-loc").value || "Nigeria",
     contact:  document.getElementById("dir-contact").value || ""
   };
-  saveDirectoryEntry(data, function(res) {
-    if (res && res.error) { alert(res.error); return; }
+  if (typeof saveDirectoryEntry === "function") {
+    saveDirectoryEntry(data, function(res) {
+      if (res && res.error) { alert(res.error); return; }
+      document.getElementById("dir-success").style.display = "block";
+      if (typeof logAction === "function") logAction("directory_signup", name);
+    });
+  } else {
     document.getElementById("dir-success").style.display = "block";
-    var grid = document.getElementById("dir-grid");
-    if (grid) {
-      var card = document.createElement("div");
-      card.className = "dir-card";
-      card.innerHTML = '<div class="dir-name">' + name + '</div>' +
-        '<div class="dir-role">' + (role || "Member") + '</div>' +
-        '<div class="dir-loc">📍 ' + (data.location) + '</div>';
-      grid.prepend(card);
-    }
     if (typeof logAction === "function") logAction("directory_signup", name);
-  });
+  }
 }
 
 function filterDir(val) {
@@ -1422,17 +1417,18 @@ function reportLocation() {
 }
 
 var LESSON_CONTENT = [
-  "This platform is part of Naijy — Nigeria's national digital ecosystem. It was created to solve a specific problem facing Nigerians and to connect people who need solutions to people who can provide them.",
-  "Every Naijy platform has a category, a clear purpose, and a set of tools. Key concepts: Platform Key (the unique ID), Status (Live, Coming Soon, In Dev), Category (the sector it belongs to), and Sub-Platforms (the tools within it).",
-  "To use this platform: browse the content sections to understand its purpose, use the widget tools to submit reports, listings, or bookings, and navigate to other platforms using the Previous and Next buttons.",
-  "Across Nigeria, thousands of people face the problems this platform addresses every day. These are real Nigerian stories — from farmers losing produce to middlemen, to citizens with no legal protection, to communities with no voice.",
-  "Quiz coming soon — this will test your understanding of the platform and award you a participation badge on your Naijy profile."
+  platform ? (platform.intro || "This platform is part of Naijy.") : "This platform is part of Naijy.",
+  platform ? ("Built for: " + (platform.who ? platform.who.join(", ") : "all Nigerians") + ".") : "It serves all Nigerians.",
+  "To use it: browse the content sections above, then use the tools below to submit a report, listing, or booking.",
+  "Your first action: scroll down and use the tool widget below. It takes less than 2 minutes.",
+  "Quiz: What is the main purpose of this platform? Answer: " + (platform ? (platform.tagline || platform.name) : "Serving Nigerians") + "."
 ];
 
 function openLesson(i) {
   document.querySelector(".lesson-list").style.display = "none";
   var lc = document.getElementById("lesson-content");
-  document.getElementById("lesson-title").innerText = ["Introduction","Key Concepts","How to Use","Real Examples","Quiz"][i] || "Lesson " + (i+1);
+  var titles = ["What is this?", "Who is it for?", "How to use it", "Your first action", "Quick quiz"];
+  document.getElementById("lesson-title").innerText = titles[i] || "Lesson " + (i+1);
   document.getElementById("lesson-body").innerText  = LESSON_CONTENT[i] || "Content coming soon.";
   lc.style.display = "block";
   if (typeof logAction === "function") logAction("lesson_opened", "Lesson " + (i+1));
