@@ -1,274 +1,856 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Naijy – Nigeria's National Digital Engine</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Naijy is Nigeria's national digital infrastructure — a connected ecosystem of 110+ platforms serving youth, education, health, business, agriculture, and more." />
+  <!-- Open Graph -->
+  <meta property="og:title" content="Naijy – Nigeria's National Digital Engine" />
+  <meta property="og:description" content="110+ platforms connecting people, sectors, and progress across Nigeria." />
+  <meta property="og:url" content="https://naijy.ng/" />
+  <meta property="og:type" content="website" />
 
-  <!-- ============================= -->
-  <!-- FAVICON -->
-  <!-- ============================= -->
-  <!-- Relative path -->
-  <link rel="icon" href="images/favicon.png" type="image/png">
-  <!-- Absolute path fallback -->
-  <link rel="icon" href="https://naijy.ng/homepage folder/image folder/favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
 
-  <!-- ============================= -->
-  <!-- CSS -->
-  <!-- ============================= -->
-  <link rel="stylesheet" href="styles.css">
+  <style>
+    :root {
+      --green:    #008751;
+      --green-dk: #005c38;
+      --green-lt: #00b86a;
+      --white:    #ffffff;
+      --off:      #f4f8f5;
+      --ink:      #0d1f16;
+      --muted:    #4a6358;
+      --accent:   #00e07a;
+      --border:   #c8ddd4;
+      --card-bg:  #ffffff;
+      --radius:   12px;
+      --nav-h:    64px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--white);
+      color: var(--ink);
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--green-dk);
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      padding: 0 5vw;
+      gap: 2rem;
+      box-shadow: 0 2px 16px rgba(0,0,0,.25);
+    }
+
+    .nav-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: -.5px;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+      margin-left: auto;
+    }
+
+    .nav-links a {
+      color: rgba(255,255,255,.82);
+      text-decoration: none;
+      font-size: .9rem;
+      font-weight: 500;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    .nav-cta {
+      background: var(--accent);
+      color: var(--green-dk) !important;
+      font-weight: 700 !important;
+      padding: .4rem 1rem;
+      border-radius: 6px;
+    }
+
+    /* search */
+    .nav-search {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      background: rgba(255,255,255,.12);
+      border-radius: 8px;
+      padding: .3rem .8rem;
+      gap: .4rem;
+    }
+    .nav-search input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: white;
+      font-size: .85rem;
+      width: 180px;
+    }
+    .nav-search input::placeholder { color: rgba(255,255,255,.5); }
+    .nav-search svg { color: rgba(255,255,255,.5); flex-shrink:0; }
+
+    /* hamburger */
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: white;
+      margin-left: auto;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 88vh;
+      background:
+        linear-gradient(160deg, rgba(0,55,30,.92) 0%, rgba(0,135,81,.75) 60%, rgba(0,224,122,.2) 100%),
+        url('https://images.unsplash.com/photo-1596526131083-e8c633c948d2?w=1400&q=80') center/cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 5vw;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 60% 40%, rgba(0,224,122,.12) 0%, transparent 70%);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(0,224,122,.18);
+      border: 1px solid rgba(0,224,122,.4);
+      color: var(--accent);
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: .35rem .9rem;
+      border-radius: 100px;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.4rem, 6vw, 4.4rem);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.1;
+      max-width: 820px;
+      margin-bottom: 1.2rem;
+      position: relative;
+    }
+
+    .hero h1 span { color: var(--accent); }
+
+    .hero p {
+      color: rgba(255,255,255,.82);
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      max-width: 560px;
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      position: relative;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--green-dk);
+      font-weight: 700;
+      font-size: 1rem;
+      padding: .85rem 2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: transform .15s, box-shadow .15s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,224,122,.35); }
+
+    .btn-outline {
+      border: 2px solid rgba(255,255,255,.45);
+      color: white;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: .85rem 2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: border-color .15s, background .15s;
+    }
+    .btn-outline:hover { border-color: white; background: rgba(255,255,255,.1); }
+
+    /* stats bar */
+    .hero-stats {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0,20,10,.55);
+      backdrop-filter: blur(12px);
+      display: flex;
+      justify-content: center;
+      gap: 4vw;
+      padding: 1.2rem 5vw;
+      flex-wrap: wrap;
+    }
+    .stat-item { text-align: center; }
+    .stat-num {
+      display: block;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: .75rem;
+      color: rgba(255,255,255,.65);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    /* ── SECTION COMMONS ── */
+    section { padding: 5rem 5vw; }
+
+    .section-label {
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: .6rem;
+    }
+
+    .section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.2;
+      margin-bottom: .8rem;
+    }
+
+    .section-sub {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 520px;
+      margin-bottom: 2.8rem;
+    }
+
+    /* ── CATEGORIES ── */
+    #categories { background: var(--off); }
+
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 1rem;
+    }
+
+    .cat-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.4rem 1rem;
+      text-align: center;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform .15s, box-shadow .15s, border-color .15s;
+    }
+    .cat-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0,135,81,.12);
+      border-color: var(--green-lt);
+    }
+
+    .cat-icon {
+      font-size: 2rem;
+      display: block;
+      margin-bottom: .5rem;
+    }
+    .cat-name {
+      font-size: .85rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    /* ── LIVE PLATFORMS ── */
+    #platforms { background: white; }
+
+    .platforms-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2.4rem;
+    }
+
+    .tab-pills {
+      display: flex;
+      gap: .5rem;
+      background: var(--off);
+      padding: .3rem;
+      border-radius: 8px;
+    }
+    .tab-pill {
+      padding: .4rem 1rem;
+      border-radius: 6px;
+      font-size: .85rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      transition: background .15s, color .15s;
+    }
+    .tab-pill.active {
+      background: var(--green);
+      color: white;
+    }
+
+    .platforms-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .platform-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: .8rem;
+      transition: box-shadow .15s, transform .15s;
+    }
+    .platform-card:hover {
+      box-shadow: 0 8px 28px rgba(0,135,81,.12);
+      transform: translateY(-2px);
+    }
+
+    .platform-top {
+      display: flex;
+      align-items: center;
+      gap: .9rem;
+    }
+
+    .platform-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .platform-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .platform-cat {
+      font-size: .72rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .platform-desc {
+      font-size: .88rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .platform-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+    }
+
+    .status-badge {
+      font-size: .72rem;
+      font-weight: 700;
+      padding: .25rem .65rem;
+      border-radius: 100px;
+      letter-spacing: .04em;
+    }
+    .status-live { background: #dcfce7; color: #166534; }
+    .status-dev  { background: #fef9c3; color: #854d0e; }
+    .status-soon { background: #e0e7ff; color: #3730a3; }
+
+    .platform-link {
+      font-size: .82rem;
+      font-weight: 600;
+      color: var(--green);
+      text-decoration: none;
+    }
+    .platform-link:hover { text-decoration: underline; }
+
+    /* ── ABOUT ── */
+    #about {
+      background: var(--green-dk);
+      color: white;
+    }
+    #about .section-label { color: var(--accent); }
+    #about .section-title { color: white; }
+    #about .section-sub { color: rgba(255,255,255,.7); max-width: 100%; }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .about-points {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      margin-top: 2rem;
+    }
+    .about-point {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .about-point-icon {
+      font-size: 1.4rem;
+      flex-shrink: 0;
+      margin-top: .1rem;
+    }
+    .about-point-text strong {
+      display: block;
+      font-weight: 600;
+      margin-bottom: .2rem;
+    }
+    .about-point-text span { font-size: .9rem; color: rgba(255,255,255,.65); }
+
+    .about-visual {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: var(--radius);
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .metric-box {
+      background: rgba(0,224,122,.08);
+      border: 1px solid rgba(0,224,122,.2);
+      border-radius: 10px;
+      padding: 1.4rem 1rem;
+      text-align: center;
+    }
+    .metric-box .num {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      display: block;
+    }
+    .metric-box .lbl {
+      font-size: .78rem;
+      color: rgba(255,255,255,.6);
+      margin-top: .3rem;
+    }
+
+    /* ── NEWSLETTER ── */
+    #newsletter {
+      background: var(--off);
+      text-align: center;
+    }
+    .newsletter-box {
+      max-width: 520px;
+      margin: 0 auto;
+    }
+    .newsletter-form {
+      display: flex;
+      gap: .6rem;
+      margin-top: 1.8rem;
+      flex-wrap: wrap;
+    }
+    .newsletter-form input {
+      flex: 1;
+      min-width: 220px;
+      padding: .85rem 1.1rem;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-size: .95rem;
+      outline: none;
+      font-family: inherit;
+      transition: border-color .2s;
+    }
+    .newsletter-form input:focus { border-color: var(--green); }
+    .newsletter-form button {
+      background: var(--green);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: .85rem 1.6rem;
+      font-weight: 700;
+      font-size: .95rem;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background .15s;
+    }
+    .newsletter-form button:hover { background: var(--green-dk); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      color: rgba(255,255,255,.65);
+      padding: 3rem 5vw 2rem;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 2.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .footer-brand .logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--accent);
+      display: block;
+      margin-bottom: .8rem;
+    }
+    .footer-brand p { font-size: .88rem; line-height: 1.6; max-width: 260px; }
+    .footer-social { display: flex; gap: .7rem; margin-top: 1.2rem; flex-wrap: wrap; }
+    .social-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: rgba(255,255,255,.08);
+      color: white;
+      text-decoration: none;
+      font-size: .85rem;
+      transition: background .15s;
+    }
+    .social-btn:hover { background: var(--green); }
+    .footer-col h4 {
+      font-size: .8rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.4);
+      margin-bottom: 1rem;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: .55rem; }
+    .footer-col a { color: rgba(255,255,255,.65); text-decoration: none; font-size: .88rem; transition: color .15s; }
+    .footer-col a:hover { color: var(--accent); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.08);
+      padding-top: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: .8rem;
+    }
+    .footer-bottom a { color: rgba(255,255,255,.45); text-decoration: none; }
+    .footer-bottom a:hover { color: rgba(255,255,255,.75); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .nav-links, .nav-search { display: none; }
+      .hamburger { display: block; }
+      .about-grid, .footer-grid { grid-template-columns: 1fr; }
+      .footer-grid { gap: 2rem; }
+      .hero-stats { gap: 2rem; }
+      .categories-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- xxxx BLOCK 3 — MAIN LAYOUT xxxx -->
-  <div class="main-layout">
+<!-- ── NAV ── -->
+<nav>
+  <a class="nav-logo" href="#">Naijy</a>
+  <div class="nav-search">
+    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="search" placeholder="Search platforms…" />
+  </div>
+  <ul class="nav-links">
+    <li><a href="#categories">Categories</a></li>
+    <li><a href="#platforms">Platforms</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#">Blog</a></li>
+    <li><a href="#newsletter" class="nav-cta">Stay Updated</a></li>
+  </ul>
+  <button class="hamburger" aria-label="Menu">
+    <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <path d="M3 12h18M3 6h18M3 18h18"/>
+    </svg>
+  </button>
+</nav>
 
-    <!-- xxxx BLOCK 3a — MAIN CONTENT xxxx -->
-    <div class="main-wrapper">
+<!-- ── HERO ── -->
+<section class="hero">
+  <span class="hero-badge">🇳🇬 Nigeria's National Digital Engine</span>
+  <h1>One Ecosystem.<br><span>110+ Platforms.</span><br>Built for Nigeria.</h1>
+  <p>Naijy connects every major sector — youth, education, health, business, agriculture, security — into a single, structured national digital infrastructure.</p>
+  <div class="hero-btns">
+    <a href="#platforms" class="btn-primary">Explore All Platforms</a>
+    <a href="#about" class="btn-outline">Learn About Naijy</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-item">
+      <span class="stat-num">12</span>
+      <span class="stat-label">Live Platforms</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">34</span>
+      <span class="stat-label">In Development</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">64</span>
+      <span class="stat-label">Planned</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">110+</span>
+      <span class="stat-label">Total Platforms</span>
+    </div>
+  </div>
+</section>
 
-      <!-- xxxx BLOCK 4 — HERO SECTION xxxx -->
-      <header class="hero-section">
-        <div class="hero-content">
-          <img src="logo.png" alt="Naijy Logo" class="hero-logo">
-          <p class="lead">Welcome to Naijy</p>
-          <h1>Naijy – Nigeria’s Digital Infrastructure</h1>
-          <h3 class="hero-highlight">
-            Connecting 100+ Platforms, People, and Progress Across Nigeria
-          </h3>
-          <p class="hero-cta">
-            Browse the platforms below to see what is live, what is being built, and what is coming next.
-          </p>
-        </div>
-      </header>
+<!-- ── CATEGORIES ── -->
+<section id="categories">
+  <div class="section-label">Browse by Sector</div>
+  <div class="section-title">What Does Naijy Cover?</div>
+  <p class="section-sub">Every major sector of Nigerian life has a dedicated platform in the Naijy ecosystem.</p>
+  <div class="categories-grid">
+    <a href="#" class="cat-card"><span class="cat-icon">🎓</span><span class="cat-name">Education</span></a>
+    <a href="#" class="cat-card"><span class="cat-icon">💼</span><span class="cat-name">Business</span></a>
+    <a href="#" class="cat-card"><span class="cat-icon">🏥</span><span class="cat-name">Health</span></a>
+    <a href="#" class="cat-card"><span class="cat-icon">👨‍🌾</span><span class="cat-name">Agriculture</span></a>
+    <a href="#" class="cat-card"><span class="cat-icon">🔒</span><span class="cat-name">Security</span></a>
+    <a href="#" class="cat-card"><span class="cat-icon">🧑‍💻</span><span class="cat-name">Youth & Tech</span></a>
+    <a href="#" class="cat-card"><span class="cat-icon">⚡</span><span class="cat-name">Energy</span></a>
+    <a href="#" class="cat-card"><span class="cat-icon">🏙️</span><span class="cat-name">Urban Dev</span></a>
+    <a href="#" class="cat-card"><span class="cat-icon">🎶</span><span class="cat-name">Culture</span></a>
+    <a href="#" class="cat-card"><span class="cat-icon">🌍</span><span class="cat-name">Diaspora</span></a>
+    <a href="#" class="cat-card"><span class="cat-icon">⚖️</span><span class="cat-name">Governance</span></a>
+    <a href="#" class="cat-card"><span class="cat-icon">🚀</span><span class="cat-name">Innovation</span></a>
+  </div>
+</section>
 
-      <!-- xxxx BLOCK 5 — NAVIGATION xxxx -->
-      <nav class="primary-nav">
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="index.html">Platforms</a></li>
-          <li><a href="landing.html">About Naijy</a></li>
-          <li><a href="partner.html">Partner With Us</a></li>
+<!-- ── PLATFORMS ── -->
+<section id="platforms">
+  <div class="platforms-header">
+    <div>
+      <div class="section-label">The Ecosystem</div>
+      <div class="section-title">Featured Platforms</div>
+    </div>
+    <div class="tab-pills">
+      <button class="tab-pill active" onclick="filterPlatforms('all', this)">All</button>
+      <button class="tab-pill" onclick="filterPlatforms('live', this)">Live</button>
+      <button class="tab-pill" onclick="filterPlatforms('dev', this)">In Dev</button>
+      <button class="tab-pill" onclick="filterPlatforms('soon', this)">Coming Soon</button>
+    </div>
+  </div>
+  <div class="platforms-grid" id="platformGrid">
+    <!-- cards injected by JS -->
+  </div>
+</section>
 
-          <!-- Single Founder Menu -->
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle">
-              Founder Menu <span class="arrow">▼</span>
-            </a>
-            <ul class="dropdown-menu">
-              <li><a href="#">Founders Message</a></li>
-              <li><a href="#">Vision</a></li>
-              <li><a href="#">Team</a></li>
-              <li><a href="#">Projects</a></li>
-              <li><a href="#">Contact</a></li>
-            </ul>
-          </li>
-        </ul>
-      </nav>
-
-      <!-- ABOUT SECTION -->
-      <section class="about-section">
-        <h2>About Naijy</h2>
-        <p>
-          Naijy is Nigeria’s national digital infrastructure. It’s a network of structured platforms designed to organize key sectors, support citizens, and strengthen collaboration across the country. Each platform focuses on a specific area — including youth, education, business, health, security, and more. Some platforms are already live, while others are in development, all forming one connected ecosystem.
-        </p>
-      </section>
-
-      <!-- SEARCH SECTION -->
-      <section class="search-section">
-        <h2 class="explore-title">Explore Naijy Platforms</h2>
-        <input
-          type="text"
-          id="search-input"
-          placeholder="Search platforms..."
-          style="max-width: 420px; width: 100%;"
-        />
-      </section>
-
-      <!-- ECOSYSTEM STRUCTURE -->
-      <section class="ecosystem-explainer">
-        <h2>How Naijy Is Structured</h2>
-        <p>
-          Naijy is organised into a network of connected platforms. Each platform focuses on an important sector of Nigeria.
-        </p>
-        <ul>
-          <li><strong>Categories</strong> – The main sectors such as youth, education, business, health, and more.</li>
-          <li><strong>Special Platforms</strong> – Key systems that power the Naijy ecosystem.</li>
-          <li><strong>Strategic Platforms</strong> – Platforms designed for national coordination and long-term impact.</li>
-        </ul>
-      </section>
-
-      <!-- CATEGORIES GRID -->
-      <section class="explore-section">
-        <div class="categories-wrapper">
-          <div class="categories-grid" id="categories">
-            <!-- Tiles injected by data.js -->
+<!-- ── ABOUT ── -->
+<section id="about">
+  <div class="about-grid">
+    <div>
+      <div class="section-label">About Naijy</div>
+      <div class="section-title" style="color:white">Nigeria's Digital Infrastructure, Built from the Ground Up</div>
+      <p class="section-sub">Naijy is not a single app — it is a national network of focused platforms, each designed to solve a specific problem for Nigerians at home and abroad.</p>
+      <div class="about-points">
+        <div class="about-point">
+          <span class="about-point-icon">🔗</span>
+          <div class="about-point-text">
+            <strong>Interconnected by Design</strong>
+            <span>Every platform shares a common backbone, so citizens, businesses, and institutions can collaborate across sectors.</span>
           </div>
         </div>
-      </section>
-
-      <!-- CORE PLATFORMS -->
-      <section class="core-section">
-        <h2 class="section-title">Special Platforms</h2>
-        <div class="core-grid" id="core-platforms">
-          <!-- Injected by scripts.js -->
+        <div class="about-point">
+          <span class="about-point-icon">🇳🇬</span>
+          <div class="about-point-text">
+            <strong>Built for Every Nigerian</strong>
+            <span>From rural farmers to Lagos entrepreneurs to Nigerians in the diaspora — Naijy covers every segment.</span>
+          </div>
         </div>
-      </section>
-
-      <!-- STRATEGIC PLATFORMS -->
-      <section class="strategic-section">
-        <h2>Strategic Platforms</h2>
-        <div class="strategic-grid" id="strategic-platforms">
-          <!-- Injected by scripts.js -->
+        <div class="about-point">
+          <span class="about-point-icon">📈</span>
+          <div class="about-point-text">
+            <strong>Always Expanding</strong>
+            <span>New platforms are added as needs grow. The ecosystem is never complete — it grows with Nigeria.</span>
+          </div>
         </div>
-      </section>
-<!-- MORE COMING SECTION -->
-<section style="text-align:center; padding: 40px 20px 50px; background: #f4f7f5;">
-
-  <p style="font-size: 13px; font-weight: 700; letter-spacing: 0.12em; color: #1f5e43; text-transform: uppercase; margin-bottom: 6px;">110 Platforms and counting</p>
-
-  <h2 style="font-size: 22px; font-weight: 800; color: #1a2e23; margin-bottom: 6px;">More:</h2>
-
-  <p style="font-size: 14px; color: #6b8070; margin-bottom: 28px;">New platforms and solutions will be built. Always expanding.</p>
-
-  <!-- ROW 1 — 5 circles -->
-  <div style="display:flex; justify-content:center; gap:14px; flex-wrap:wrap; margin-bottom:14px;">
-    <div style="width:100px; height:100px; border-radius:50%; background:#1f5e43; opacity:0.15;"></div>
-    <div style="width:100px; height:100px; border-radius:50%; background:#1f5e43; opacity:0.20;"></div>
-    <div style="width:100px; height:100px; border-radius:50%; background:#1f5e43; opacity:0.25;"></div>
-    <div style="width:100px; height:100px; border-radius:50%; background:#1f5e43; opacity:0.30;"></div>
-    <div style="width:100px; height:100px; border-radius:50%; background:#1f5e43; opacity:0.35;"></div>
+      </div>
+    </div>
+    <div class="about-visual">
+      <div class="metric-box"><span class="num">12</span><div class="lbl">Live Now</div></div>
+      <div class="metric-box"><span class="num">34</span><div class="lbl">In Development</div></div>
+      <div class="metric-box"><span class="num">64</span><div class="lbl">Planned</div></div>
+      <div class="metric-box"><span class="num">2026</span><div class="lbl">Launch Year</div></div>
+    </div>
   </div>
-
-  <!-- ROW 2 — 4 circles + plus sign -->
-  <div style="display:flex; justify-content:center; gap:14px; flex-wrap:wrap; align-items:center;">
-    <div style="width:64px; height:64px; border-radius:50%; background:#1f5e43; opacity:0.40;"></div>
-    <div style="width:64px; height:64px; border-radius:50%; background:#1f5e43; opacity:0.45;"></div>
-    <div style="width:64px; height:64px; border-radius:50%; background:#1f5e43; opacity:0.50;"></div>
-    <div style="width:64px; height:64px; border-radius:50%; background:#1f5e43; opacity:0.55;"></div>
-    <div style="width:64px; height:64px; border-radius:50%; background:#c8922a; display:flex; align-items:center; justify-content:center; font-size:32px; font-weight:800; color:#fff; opacity:1;">+</div>
-  </div>
-
-  <p style="margin-top:24px; font-size:13px; color:#6b8070;">For Newer platforms. <a href="#" style="color:#1f5e43; font-weight:700; text-decoration:none;">Stay updated →</a></p>
-
 </section>
-    </div>
-    <!-- end main-wrapper -->
 
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-
-      <!-- Platform Stats -->
-      <div class="platform-stats">
-        <h4>Platform Stats</h4>
-
-        <div class="stat-row">
-          <span class="stat-label">Categories</span>
-          <span class="stat-number" id="stat-categories"></span>
-        </div>
-
-        <div class="stat-row">
-          <span class="stat-label">Special Platforms</span>
-          <span class="stat-number" id="stat-special"></span>
-        </div>
-
-        <div class="stat-row">
-          <span class="stat-label">Strategic Platforms</span>
-          <span class="stat-number" id="stat-strategic"></span>
-        </div>
-
-        <div class="stat-row highlight">
-          <span class="stat-label">Total Clicks</span>
-          <span class="stat-number" id="total-clicks">0</span>
-        </div>
-      </div>
-
-      <!-- Quick Actions -->
-      <div class="sidebar-card">
-        <h3>Quick Actions</h3>
-        <ul class="quick-links">
-          <li><a href="#categories">View Categories</a></li>
-          <li><a href="#core-platforms">Explore Special Platforms</a></li>
-          <li><a href="#strategic-platforms">Explore Strategic Platforms</a></li>
-          <li><a href="about.html">About Naijy</a></li>
-        </ul>
-      </div>
-
-      <!-- Featured Books -->
-      <div class="sidebar-book">
-        <h4>📚 Our Books</h4>
-
-        <div class="book-item" style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid #d4e4da;">
-          <img src="images/book1.jpg" alt="Book 1" style="width:100%;border-radius:6px;margin-bottom:8px;">
-          <p style="font-size:13px;font-weight:700;color:#1a2e23;margin-bottom:4px;">The Digital Future of Nigeria</p>
-          <p style="font-size:11px;color:#6b8070;margin-bottom:8px;">By Davidwise</p>
-          <a href="#" class="book-btn">View Book</a>
-        </div>
-
-        <div class="book-item" style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid #d4e4da;">
-          <img src="images/book2.jpg" alt="Book 2" style="width:100%;border-radius:6px;margin-bottom:8px;background:#e8f5ee;min-height:80px;display:flex;align-items:center;justify-content:center;">
-          <p style="font-size:13px;font-weight:700;color:#1a2e23;margin-bottom:4px;">Coming Soon</p>
-          <p style="font-size:11px;color:#6b8070;margin-bottom:8px;">New Title</p>
-          <a href="#" class="book-btn" style="opacity:0.5;pointer-events:none;">Coming Soon</a>
-        </div>
-
-        <div class="book-item" style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid #d4e4da;">
-          <img src="images/book3.jpg" alt="Book 3" style="width:100%;border-radius:6px;margin-bottom:8px;background:#e8f5ee;min-height:80px;">
-          <p style="font-size:13px;font-weight:700;color:#1a2e23;margin-bottom:4px;">Coming Soon</p>
-          <p style="font-size:11px;color:#6b8070;margin-bottom:8px;">New Title</p>
-          <a href="#" class="book-btn" style="opacity:0.5;pointer-events:none;">Coming Soon</a>
-        </div>
-
-        <div class="book-item" style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid #d4e4da;">
-          <img src="images/book4.jpg" alt="Book 4" style="width:100%;border-radius:6px;margin-bottom:8px;background:#e8f5ee;min-height:80px;">
-          <p style="font-size:13px;font-weight:700;color:#1a2e23;margin-bottom:4px;">Coming Soon</p>
-          <p style="font-size:11px;color:#6b8070;margin-bottom:8px;">New Title</p>
-          <a href="#" class="book-btn" style="opacity:0.5;pointer-events:none;">Coming Soon</a>
-        </div>
-
-        <div class="book-item">
-          <img src="images/book5.jpg" alt="Book 5" style="width:100%;border-radius:6px;margin-bottom:8px;background:#e8f5ee;min-height:80px;">
-          <p style="font-size:13px;font-weight:700;color:#1a2e23;margin-bottom:4px;">Coming Soon</p>
-          <p style="font-size:11px;color:#6b8070;margin-bottom:8px;">New Title</p>
-          <a href="#" class="book-btn" style="opacity:0.5;pointer-events:none;">Coming Soon</a>
-        </div>
-
-      </div>
-
-    </aside>
-    <!-- end sidebar -->
-
+<!-- ── NEWSLETTER ── -->
+<section id="newsletter">
+  <div class="newsletter-box">
+    <div class="section-label" style="text-align:center">Stay in the Loop</div>
+    <div class="section-title" style="text-align:center">Get Naijy Updates</div>
+    <p class="section-sub" style="text-align:center;margin:0 auto">Be the first to know when new platforms go live. No spam — just real updates on Nigeria's digital growth.</p>
+    <form class="newsletter-form" onsubmit="handleSignup(event)">
+      <input type="email" placeholder="Enter your email address" required />
+      <button type="submit">Subscribe</button>
+    </form>
   </div>
-  <!-- end main-layout -->
+</section>
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="footer-container">
-      <h2>Naijy (DigVessel)</h2>
-      <p class="footer-tagline">
-        A Unified national and global digital infrastructure · Naijy · LessBlues · Yankey · Samba · and more
-      </p>
-      <div class="footer-socials">
-        <a href="#">X</a>
-        <a href="#">Facebook</a>
-        <a href="#">LinkedIn</a>
-        <a href="#">WhatsApp</a>
-        <a href="#">TikTok</a>
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <span class="logo">Naijy</span>
+      <p>Nigeria's national digital infrastructure — a connected ecosystem of 110+ platforms serving every major sector.</p>
+      <div class="footer-social">
+        <a href="#" class="social-btn" title="X / Twitter">𝕏</a>
+        <a href="#" class="social-btn" title="Facebook">f</a>
+        <a href="#" class="social-btn" title="LinkedIn">in</a>
+        <a href="#" class="social-btn" title="WhatsApp">W</a>
+        <a href="#" class="social-btn" title="TikTok">♪</a>
       </div>
-      <div class="footer-share">
-        <span>Share:</span>
-        <a href="#">Copy Link</a>
-        <a href="#">Email</a>
-      </div>
-      <p class="footer-copy">
-        © 2026 Naijy Digital Infrastructure. All rights reserved.
-      </p>
     </div>
-  </footer>
+    <div class="footer-col">
+      <h4>Platforms</h4>
+      <ul>
+        <li><a href="#">Live Platforms</a></li>
+        <li><a href="#">In Development</a></li>
+        <li><a href="#">Coming Soon</a></li>
+        <li><a href="#">All Categories</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Naijy</h4>
+      <ul>
+        <li><a href="#">About</a></li>
+        <li><a href="#">The Founder</a></li>
+        <li><a href="#">Vision</a></li>
+        <li><a href="#">Blog / News</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="#">Partner With Us</a></li>
+        <li><a href="#">Submit a Platform Idea</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Naijy Digital Infrastructure. All rights reserved.</span>
+    <div style="display:flex;gap:1.5rem">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Use</a>
+    </div>
+  </div>
+</footer>
 
-  <!-- JS Scripts -->
-  <script src="data.js"></script>
-  <script src="auth.js"></script>
-<script src="scripts.js"></script>
+<script>
+  const platforms = [
+    { name: 'Naijy Youth Hub', cat: 'Youth & Tech', icon: '🧑‍💻', bg: '#dcfce7', desc: 'A central platform connecting Nigerian youth to opportunities, skills, and mentorship networks nationwide.', status: 'live', link: '#' },
+    { name: 'NaiEdu', cat: 'Education', icon: '🎓', bg: '#dbeafe', desc: 'Nigeria\'s structured education data platform — tracking schools, resources, and outcomes across all 36 states.', status: 'live', link: '#' },
+    { name: 'NaijAgri', cat: 'Agriculture', icon: '👨‍🌾', bg: '#d1fae5', desc: 'Connecting farmers to markets, weather data, supply chains, and government agricultural programs.', status: 'live', link: '#' },
+    { name: 'LessBlues', cat: 'Mental Health', icon: '💙', bg: '#e0e7ff', desc: 'A mental wellness platform designed specifically for Nigerians, combining community support with professional help.', status: 'live', link: '#' },
+    { name: 'NaijBiz', cat: 'Business', icon: '💼', bg: '#fef9c3', desc: 'Business registration, funding discovery, and B2B networking for Nigerian entrepreneurs and SMEs.', status: 'dev', link: '#' },
+    { name: 'NaijHealth', cat: 'Health', icon: '🏥', bg: '#fce7f3', desc: 'A national health data and telemedicine coordination platform for citizens and providers.', status: 'dev', link: '#' },
+    { name: 'Yankey', cat: 'Diaspora', icon: '🌍', bg: '#ede9fe', desc: 'Keeping Nigerians abroad connected to home — for investments, culture, and community.', status: 'dev', link: '#' },
+    { name: 'Samba', cat: 'Culture', icon: '🎶', bg: '#fef3c7', desc: 'A platform celebrating Nigerian arts, culture, and entertainment — music, film, literature, and fashion.', status: 'soon', link: '#' },
+    { name: 'NaijSec', cat: 'Security', icon: '🔒', bg: '#fee2e2', desc: 'A citizen-facing platform for reporting, tracking, and coordinating community security information.', status: 'soon', link: '#' },
+  ];
+
+  let currentFilter = 'all';
+
+  function renderPlatforms(filter) {
+    const grid = document.getElementById('platformGrid');
+    const filtered = filter === 'all' ? platforms : platforms.filter(p => p.status === filter);
+    grid.innerHTML = filtered.map(p => `
+      <div class="platform-card" data-status="${p.status}">
+        <div class="platform-top">
+          <div class="platform-icon" style="background:${p.bg}">${p.icon}</div>
+          <div>
+            <div class="platform-name">${p.name}</div>
+            <div class="platform-cat">${p.cat}</div>
+          </div>
+        </div>
+        <p class="platform-desc">${p.desc}</p>
+        <div class="platform-footer">
+          <span class="status-badge status-${p.status}">${p.status === 'live' ? '● Live' : p.status === 'dev' ? '◑ In Development' : '○ Coming Soon'}</span>
+          <a href="${p.link}" class="platform-link">${p.status === 'live' ? 'Visit →' : 'Learn more →'}</a>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function filterPlatforms(filter, btn) {
+    currentFilter = filter;
+    document.querySelectorAll('.tab-pill').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderPlatforms(filter);
+  }
+
+  function handleSignup(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('button');
+    btn.textContent = '✓ Subscribed!';
+    btn.style.background = '#005c38';
+    setTimeout(() => { btn.textContent = 'Subscribe'; btn.style.background = ''; }, 3000);
+  }
+
+  renderPlatforms('all');
+</script>
 
 </body>
 </html>
