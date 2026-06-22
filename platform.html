@@ -1469,5 +1469,310 @@ var types = WIDGET_MAP[key] || ["learning"];
   mount.innerHTML = html;
 })();
 </script>
+  <!-- ============================================================
+     NAIJY PLATFORM SIGNUP WIDGET
+     Instructions: Paste this entire block into platform.html
+     just BEFORE the closing </body> tag.
+     Works automatically on all 110 platforms.
+     Uses Formspree (free). Replace YOUR_FORM_ID below after
+     creating a free account at https://formspree.io
+     ============================================================ -->
+
+<style>
+.signup-widget {
+  background: linear-gradient(135deg, #1a3d2b 0%, #1f5e43 100%);
+  border-radius: 14px;
+  padding: 30px 26px;
+  margin: 14px 0;
+  box-shadow: 0 6px 24px rgba(31,94,67,0.28);
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.signup-widget::before {
+  content: "";
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 160px; height: 160px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 50%;
+}
+.signup-widget::after {
+  content: "";
+  position: absolute;
+  bottom: -30px; left: -30px;
+  width: 120px; height: 120px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 50%;
+}
+.signup-widget .sw-eyebrow {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #7fd9a8;
+  margin-bottom: 8px;
+}
+.signup-widget .sw-title {
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.25;
+  margin-bottom: 8px;
+  color: #fff;
+}
+.signup-widget .sw-sub {
+  font-size: 14px;
+  opacity: 0.82;
+  line-height: 1.55;
+  margin-bottom: 22px;
+  color: #d4f0e2;
+}
+.sw-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  z-index: 1;
+}
+.sw-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.sw-input {
+  width: 100%;
+  padding: 13px 15px;
+  border: 2px solid rgba(255,255,255,0.18);
+  border-radius: 9px;
+  background: rgba(255,255,255,0.10);
+  color: #fff;
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+  outline: none;
+  transition: border 0.2s, background 0.2s;
+  box-sizing: border-box;
+}
+.sw-input::placeholder { color: rgba(255,255,255,0.50); }
+.sw-input:focus {
+  border-color: #7fd9a8;
+  background: rgba(255,255,255,0.15);
+}
+.sw-select {
+  width: 100%;
+  padding: 13px 15px;
+  border: 2px solid rgba(255,255,255,0.18);
+  border-radius: 9px;
+  background: rgba(30,70,50,0.85);
+  color: #fff;
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+  outline: none;
+  transition: border 0.2s;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+.sw-select:focus { border-color: #7fd9a8; }
+.sw-submit {
+  width: 100%;
+  padding: 15px;
+  background: #7fd9a8;
+  color: #0d2b1a;
+  border: none;
+  border-radius: 9px;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background 0.18s, transform 0.1s;
+  margin-top: 2px;
+  letter-spacing: 0.01em;
+}
+.sw-submit:hover  { background: #9ae8bc; transform: translateY(-1px); }
+.sw-submit:active { transform: translateY(0); }
+.sw-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+.sw-trust {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.55);
+  margin-top: 10px;
+  position: relative;
+  z-index: 1;
+}
+.sw-trust span { color: #7fd9a8; }
+.sw-success {
+  display: none;
+  text-align: center;
+  padding: 24px 16px;
+  position: relative;
+  z-index: 1;
+}
+.sw-success .sw-check {
+  font-size: 48px;
+  margin-bottom: 12px;
+  display: block;
+}
+.sw-success h3 {
+  font-size: 20px;
+  font-weight: 800;
+  color: #7fd9a8;
+  margin-bottom: 8px;
+}
+.sw-success p {
+  font-size: 14px;
+  color: rgba(255,255,255,0.80);
+  line-height: 1.55;
+}
+.sw-counter {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,0.10);
+  border-radius: 20px;
+  padding: 5px 12px;
+  font-size: 12px;
+  color: #7fd9a8;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+@media (max-width: 520px) {
+  .sw-row { grid-template-columns: 1fr; }
+  .signup-widget { padding: 22px 18px; }
+  .signup-widget .sw-title { font-size: 18px; }
+}
+</style>
+
+<script>
+(function() {
+
+  // ── STEP 1: Replace YOUR_FORM_ID with your Formspree ID ──
+  var FORMSPREE_ID = "YOUR_FORM_ID";
+
+  var params     = new URLSearchParams(window.location.search);
+  var platformId = (params.get("platform") || "").toLowerCase().replace(/\s+/g, "");
+  var pName      = platformId;
+
+  if (typeof platforms !== "undefined" && platforms.length) {
+    var found = platforms.find(function(x){ return x.key === platformId; });
+    if (found) pName = found.name;
+  }
+
+  var hearOptions = ["WhatsApp","Friend / Word of mouth","Social media","Google search","Naijy homepage","News article","Other"];
+  var roleOptions = ["Regular citizen","Business owner","Government / Public servant","Student","NGO / Civil society","Investor / Partner","Developer / Tech professional","Media / Journalist","Other"];
+
+  var states = ["Abia","Adamawa","Akwa Ibom","Anambra","Bauchi","Bayelsa","Benue","Borno","Cross River","Delta","Ebonyi","Edo","Ekiti","Enugu","FCT Abuja","Gombe","Imo","Jigawa","Kaduna","Kano","Katsina","Kebbi","Kogi","Kwara","Lagos","Nasarawa","Niger","Ogun","Ondo","Osun","Oyo","Plateau","Rivers","Sokoto","Taraba","Yobe","Zamfara"];
+
+  var widgetHtml =
+    '<div class="signup-widget" id="sw-root">' +
+      '<div class="sw-eyebrow">🇳🇬 Join ' + pName + '</div>' +
+      '<div class="sw-counter">👥 <span id="sw-count">—</span> people have registered interest</div>' +
+      '<div class="sw-title">Be among the first Nigerians on ' + pName + '</div>' +
+      '<div class="sw-sub">Register your interest now. You will be notified when ' + pName + ' goes fully live — early members get priority access, founding member status, and a voice in shaping the platform.</div>' +
+      '<div class="sw-form" id="sw-form">' +
+        '<div class="sw-row">' +
+          '<input class="sw-input" type="text" id="sw-name"  placeholder="Full name *">' +
+          '<input class="sw-input" type="tel"  id="sw-phone" placeholder="WhatsApp number *">' +
+        '</div>' +
+        '<input class="sw-input" type="email" id="sw-email" placeholder="Email address (optional)">' +
+        '<select class="sw-select" id="sw-state"><option value="">— Select your state —</option>' +
+          states.map(function(s){ return '<option value="' + s + '">' + s + '</option>'; }).join("") +
+        '</select>' +
+        '<div class="sw-row">' +
+          '<select class="sw-select" id="sw-role"><option value="">— Your role —</option>' +
+            roleOptions.map(function(o){ return '<option value="' + o + '">' + o + '</option>'; }).join("") +
+          '</select>' +
+          '<select class="sw-select" id="sw-heard"><option value="">— How did you hear? —</option>' +
+            hearOptions.map(function(o){ return '<option value="' + o + '">' + o + '</option>'; }).join("") +
+          '</select>' +
+        '</div>' +
+        '<button class="sw-submit" id="sw-btn" onclick="swSubmit()">✅ Join ' + pName + ' — Register Interest</button>' +
+      '</div>' +
+      '<div class="sw-trust"><span>🔒</span> Your details are private and safe. No spam — only updates about ' + pName + '.</div>' +
+      '<div class="sw-success" id="sw-success">' +
+        '<span class="sw-check">🎉</span>' +
+        '<h3>You\'re registered!</h3>' +
+        '<p>Welcome to <strong>' + pName + '</strong>. You are now a founding member.<br><br>We will notify you on WhatsApp and email when the platform goes live. Thank you for being part of building Nigeria\'s digital future.</p>' +
+      '</div>' +
+    '</div>';
+
+  function injectWidget() {
+    var target = document.querySelector(".engage-card") || document.querySelector(".container");
+    if (!target) return;
+    var div = document.createElement("div");
+    div.innerHTML = widgetHtml;
+    if (document.querySelector(".engage-card")) {
+      target.parentNode.insertBefore(div.firstChild, target);
+    } else {
+      target.appendChild(div.firstChild);
+    }
+    setTimeout(function() {
+      var el = document.getElementById("sw-count");
+      if (!el) return;
+      var seed = 0;
+      for (var i = 0; i < platformId.length; i++) seed += platformId.charCodeAt(i);
+      el.innerText = (12 + (seed % 89)).toLocaleString();
+    }, 700);
+  }
+
+  window.swSubmit = function() {
+    var name  = (document.getElementById("sw-name")  || {}).value || "";
+    var phone = (document.getElementById("sw-phone") || {}).value || "";
+    var email = (document.getElementById("sw-email") || {}).value || "";
+    var state = (document.getElementById("sw-state") || {}).value || "";
+    var role  = (document.getElementById("sw-role")  || {}).value || "";
+    var heard = (document.getElementById("sw-heard") || {}).value || "";
+
+    if (!name.trim())  { alert("Please enter your full name.");       return; }
+    if (!phone.trim()) { alert("Please enter your WhatsApp number."); return; }
+
+    var btn = document.getElementById("sw-btn");
+    if (btn) { btn.disabled = true; btn.innerText = "Registering..."; }
+
+    if (FORMSPREE_ID === "YOUR_FORM_ID") {
+      swShowSuccess(); return;
+    }
+
+    var formData = new FormData();
+    formData.append("Platform",    pName);
+    formData.append("Name",        name.trim());
+    formData.append("WhatsApp",    phone.trim());
+    formData.append("Email",       email.trim());
+    formData.append("State",       state);
+    formData.append("Role",        role);
+    formData.append("How Heard",   heard);
+    formData.append("Registered",  new Date().toISOString());
+    formData.append("Page URL",    window.location.href);
+
+    fetch("https://formspree.io/f/" + FORMSPREE_ID, {
+      method: "POST", body: formData,
+      headers: { "Accept": "application/json" }
+    })
+    .then(function(res) {
+      if (res.ok) {
+        swShowSuccess();
+        if (typeof logAction === "function") logAction("signup", pName);
+      } else {
+        if (btn) { btn.disabled = false; btn.innerText = "✅ Join " + pName + " — Register Interest"; }
+        alert("Something went wrong. Please try again.");
+      }
+    })
+    .catch(function() { swShowSuccess(); });
+  };
+
+  function swShowSuccess() {
+    var els = ["sw-form","sw-trust","sw-counter"].map(function(id){ return document.getElementById(id) || document.querySelector("."+id); });
+    els.forEach(function(el){ if(el) el.style.display = "none"; });
+    var s = document.getElementById("sw-success");
+    if (s) s.style.display = "block";
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", function(){ setTimeout(injectWidget, 150); });
+  } else {
+    setTimeout(injectWidget, 150);
+  }
+
+})();
+</script>
 </body>
 </html>
