@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgricoNet — From Farm to Pot, No Middleman</title>
+<meta name="description" content="Buy directly from Nigerian farmers. Post your produce. No middlemen. Fresh food, fair prices.">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--green:#1f5e43;--green2:#2e7d5a;--earth:#8B4513;--gold:#c8922a;--light:#f4f9f0;--white:#fff;--text:#1a2e23;--muted:#5a7a5a;--border:#c8ddc0}
+body{font-family:Arial,sans-serif;background:var(--light);color:var(--text);font-size:16px;line-height:1.6}
+.hero{background:linear-gradient(135deg,#0d2b0a 0%,#1f5e43 55%,#2e7d5a 100%);color:#fff;padding:40px 20px 36px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:"🌾";position:absolute;font-size:140px;opacity:0.07;right:-20px;top:-10px}
+.hero::after{content:"🚜";position:absolute;font-size:100px;opacity:0.06;left:-10px;bottom:-20px}
+.hero .badge{display:inline-block;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);border-radius:20px;padding:5px 16px;font-size:12px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#a8e6b8;margin-bottom:16px}
+.hero h1{font-size:32px;font-weight:900;margin-bottom:8px}
+.hero h1 span{color:#f0c040}
+.hero p{font-size:15px;opacity:0.85;max-width:520px;margin:0 auto 24px;line-height:1.6}
+.hero-stats{display:flex;justify-content:center;gap:32px;flex-wrap:wrap}
+.stat .num{font-size:26px;font-weight:900;color:#a8e6b8}
+.stat .lbl{font-size:11px;opacity:0.65;text-transform:uppercase;letter-spacing:0.07em}
+.container{max-width:900px;margin:0 auto;padding:20px 16px 60px}
+.tabs{display:flex;gap:0;margin:20px 0 0;border-radius:10px;overflow:hidden;border:2px solid var(--border);background:#fff}
+.tab{flex:1;padding:13px 10px;border:none;background:none;font-size:14px;font-weight:700;color:var(--muted);cursor:pointer;transition:all 0.2s;text-align:center}
+.tab.active{background:var(--green);color:#fff}
+.tab:not(.active):hover{background:#f0faf5;color:var(--green)}
+.panel{display:none}.panel.active{display:block}
+/* FORM */
+.form-card{background:#fff;border-radius:14px;padding:28px 24px;margin-top:16px;border-left:5px solid var(--gold);box-shadow:0 2px 14px rgba(0,0,0,0.07)}
+.form-card h2{font-size:18px;font-weight:800;color:var(--green);margin-bottom:6px}
+.form-card .sub{font-size:13px;color:var(--muted);margin-bottom:20px}
+label{display:block;font-size:13px;font-weight:700;color:#444;margin:14px 0 5px}
+input,textarea,select{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;font-family:Arial,sans-serif;outline:none;transition:border 0.2s;background:#fafefa}
+input:focus,textarea:focus,select:focus{border-color:var(--green);background:#fff}
+textarea{min-height:90px;resize:vertical}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.submit-btn{width:100%;margin-top:18px;padding:15px;background:var(--green);color:#fff;border:none;border-radius:10px;font-size:16px;font-weight:800;cursor:pointer;transition:all 0.18s}
+.submit-btn:hover{background:var(--green2);transform:translateY(-1px)}
+.submit-btn:disabled{opacity:0.5;cursor:not-allowed;transform:none}
+.success-box{display:none;margin-top:16px;padding:22px;background:#d4edda;border-radius:12px;text-align:center;border:2px solid #b8ddc8}
+.success-box .big{font-size:40px;margin-bottom:8px}
+.success-box h3{color:var(--green);font-size:17px;margin-bottom:6px}
+/* MARKETPLACE */
+.market-header{display:flex;align-items:center;justify-content:space-between;margin:20px 0 14px;flex-wrap:wrap;gap:10px}
+.market-header h2{font-size:18px;font-weight:800;color:var(--green)}
+.search-row{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.search-row input{flex:1;min-width:180px}
+.search-row select{width:auto;min-width:140px}
+.product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.product-card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,0.07);transition:all 0.18s;border:1px solid var(--border)}
+.product-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(31,94,67,0.14)}
+.pc-img{background:linear-gradient(135deg,#e8f5ee,#d4edda);height:100px;display:flex;align-items:center;justify-content:center;font-size:48px}
+.pc-body{padding:14px}
+.pc-name{font-size:15px;font-weight:800;color:var(--text);margin-bottom:3px}
+.pc-price{font-size:16px;font-weight:900;color:var(--gold);margin-bottom:4px}
+.pc-desc{font-size:12px;color:var(--muted);margin-bottom:8px;line-height:1.4}
+.pc-meta{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px}
+.pc-loc{font-size:11px;color:var(--muted)}
+.pc-contact{padding:7px 14px;background:var(--green);color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;transition:opacity 0.15s;text-decoration:none;display:inline-block}
+.pc-contact:hover{opacity:0.85}
+.pc-category{font-size:10px;font-weight:800;text-transform:uppercase;background:#e8f5ee;color:var(--green);padding:2px 8px;border-radius:10px;margin-bottom:6px;display:inline-block}
+.share-row{display:flex;gap:5px;margin-top:8px}
+.share-btn{padding:5px 10px;border:none;border-radius:5px;font-size:11px;font-weight:700;cursor:pointer;transition:opacity 0.15s}
+.share-btn:hover{opacity:0.82}
+.s-wa{background:#25D366;color:#fff}.s-copy{background:#6c757d;color:#fff}
+.loading{text-align:center;padding:40px;color:var(--muted)}
+.empty{text-align:center;padding:40px;color:var(--muted)}
+.emoji-map{font-size:28px}
+@media(max-width:540px){.hero h1{font-size:24px}.row2,.row3{grid-template-columns:1fr}.product-grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="badge">🇳🇬 Naijy Platform</div>
+  <h1>Agrico<span>Net</span></h1>
+  <p>From Farm to Pot — No Middleman. Buy fresh produce directly from Nigerian farmers. Fair prices, fresh food, real connections.</p>
+  <div class="hero-stats">
+    <div class="stat"><div class="num" id="total-listings">—</div><div class="lbl">Active listings</div></div>
+    <div class="stat"><div class="num" id="total-farmers">—</div><div class="lbl">Farmers registered</div></div>
+    <div class="stat"><div class="num" id="total-states">—</div><div class="lbl">States covered</div></div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('market')">🛒 Marketplace</button>
+    <button class="tab" onclick="switchTab('post')">🌱 Post Your Produce</button>
+    <button class="tab" onclick="switchTab('buy')">📦 Place an Order</button>
+  </div>
+
+  <!-- MARKETPLACE -->
+  <div class="panel active" id="panel-market">
+    <div class="market-header">
+      <h2>🌾 Fresh Produce — Direct from Farmers</h2>
+    </div>
+    <div class="search-row">
+      <input type="text" id="search-input" placeholder="Search produce, farmer, location..." oninput="searchListings()">
+      <select id="cat-filter" onchange="searchListings()">
+        <option value="">All Categories</option>
+        <option>Grains & Cereals</option>
+        <option>Vegetables</option>
+        <option>Fruits</option>
+        <option>Tubers & Roots</option>
+        <option>Legumes</option>
+        <option>Poultry & Eggs</option>
+        <option>Livestock</option>
+        <option>Fish & Seafood</option>
+        <option>Spices & Condiments</option>
+        <option>Palm Products</option>
+        <option>Cash Crops</option>
+        <option>Processed Farm Products</option>
+      </select>
+    </div>
+    <div class="product-grid" id="product-grid"><div class="loading">⏳ Loading fresh produce...</div></div>
+  </div>
+
+  <!-- POST -->
+  <div class="panel" id="panel-post">
+    <div class="form-card">
+      <h2>🌱 Post Your Farm Produce</h2>
+      <div class="sub">List what you have available. Buyers contact you directly — no commission, no middleman.</div>
+
+      <label>Produce Name *</label>
+      <input type="text" id="p-name" placeholder="e.g. Sweet potatoes, Fresh tomatoes, Maize">
+
+      <div class="row2">
+        <div>
+          <label>Category *</label>
+          <select id="p-cat">
+            <option value="">— Select category —</option>
+            <option>Grains & Cereals</option>
+            <option>Vegetables</option>
+            <option>Fruits</option>
+            <option>Tubers & Roots</option>
+            <option>Legumes</option>
+            <option>Poultry & Eggs</option>
+            <option>Livestock</option>
+            <option>Fish & Seafood</option>
+            <option>Spices & Condiments</option>
+            <option>Palm Products</option>
+            <option>Cash Crops</option>
+            <option>Processed Farm Products</option>
+          </select>
+        </div>
+        <div>
+          <label>Unit *</label>
+          <select id="p-unit">
+            <option value="">— Unit of sale —</option>
+            <option>Per kg</option>
+            <option>Per bag (50kg)</option>
+            <option>Per bag (100kg)</option>
+            <option>Per crate</option>
+            <option>Per basket</option>
+            <option>Per dozen</option>
+            <option>Per litre</option>
+            <option>Per piece</option>
+            <option>Per head</option>
+            <option>Negotiable</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row3">
+        <div>
+          <label>Price (₦) *</label>
+          <input type="text" id="p-price" placeholder="e.g. 5000">
+        </div>
+        <div>
+          <label>Quantity Available</label>
+          <input type="text" id="p-qty" placeholder="e.g. 20 bags">
+        </div>
+        <div>
+          <label>State *</label>
+          <select id="p-state">
+            <option value="">— State —</option>
+            <option>Abia</option><option>Adamawa</option><option>Akwa Ibom</option><option>Anambra</option><option>Bauchi</option><option>Bayelsa</option><option>Benue</option><option>Borno</option><option>Cross River</option><option>Delta</option><option>Ebonyi</option><option>Edo</option><option>Ekiti</option><option>Enugu</option><option>FCT Abuja</option><option>Gombe</option><option>Imo</option><option>Jigawa</option><option>Kaduna</option><option>Kano</option><option>Katsina</option><option>Kebbi</option><option>Kogi</option><option>Kwara</option><option>Lagos</option><option>Nasarawa</option><option>Niger</option><option>Ogun</option><option>Ondo</option><option>Osun</option><option>Oyo</option><option>Plateau</option><option>Rivers</option><option>Sokoto</option><option>Taraba</option><option>Yobe</option><option>Zamfara</option>
+          </select>
+        </div>
+      </div>
+
+      <label>Farm Location / LGA</label>
+      <input type="text" id="p-lga" placeholder="e.g. Benue State, Gboko LGA">
+
+      <label>Description</label>
+      <textarea id="p-desc" placeholder="Describe your produce — how fresh, how it was grown, any special qualities, delivery options..."></textarea>
+
+      <div class="row2">
+        <div>
+          <label>Your Name / Farm Name *</label>
+          <input type="text" id="p-farmer" placeholder="e.g. Musa Farms or Iya Agbo">
+        </div>
+        <div>
+          <label>WhatsApp Number *</label>
+          <input type="tel" id="p-phone" placeholder="Buyers will contact you here">
+        </div>
+      </div>
+
+      <button class="submit-btn" id="post-btn" onclick="postListing()">🌾 List My Produce on AgricoNet</button>
+
+      <div class="success-box" id="post-success">
+        <div class="big">🌱</div>
+        <h3>Your produce is listed!</h3>
+        <p>Buyers across Nigeria can now find and contact you directly. Share your listing to reach more buyers.</p>
+        <div style="display:flex;gap:8px;justify-content:center;margin-top:14px">
+          <button class="share-btn s-wa" onclick="shareListing('wa')" style="padding:10px 18px;font-size:13px">📱 Share on WhatsApp</button>
+          <button class="share-btn s-copy" onclick="shareListing('copy')" style="padding:10px 18px;font-size:13px">🔗 Copy Link</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ORDER -->
+  <div class="panel" id="panel-buy">
+    <div class="form-card">
+      <h2>📦 Place a Bulk Order Request</h2>
+      <div class="sub">Tell farmers what you need. They will contact you with availability and prices.</div>
+
+      <label>What do you need? *</label>
+      <input type="text" id="o-item" placeholder="e.g. Fresh tomatoes, Yam tubers, Maize">
+
+      <div class="row2">
+        <div>
+          <label>Quantity Needed *</label>
+          <input type="text" id="o-qty" placeholder="e.g. 10 bags, 500kg">
+        </div>
+        <div>
+          <label>Budget (₦)</label>
+          <input type="text" id="o-budget" placeholder="e.g. 50,000 or Negotiable">
+        </div>
+      </div>
+
+      <div class="row2">
+        <div>
+          <label>Delivery State *</label>
+          <select id="o-state">
+            <option value="">— Delivery state —</option>
+            <option>Abia</option><option>Adamawa</option><option>Akwa Ibom</option><option>Anambra</option><option>Bauchi</option><option>Bayelsa</option><option>Benue</option><option>Borno</option><option>Cross River</option><option>Delta</option><option>Ebonyi</option><option>Edo</option><option>Ekiti</option><option>Enugu</option><option>FCT Abuja</option><option>Gombe</option><option>Imo</option><option>Jigawa</option><option>Kaduna</option><option>Kano</option><option>Katsina</option><option>Kebbi</option><option>Kogi</option><option>Kwara</option><option>Lagos</option><option>Nasarawa</option><option>Niger</option><option>Ogun</option><option>Ondo</option><option>Osun</option><option>Oyo</option><option>Plateau</option><option>Rivers</option><option>Sokoto</option><option>Taraba</option><option>Yobe</option><option>Zamfara</option>
+          </select>
+        </div>
+        <div>
+          <label>Needed By</label>
+          <input type="date" id="o-date">
+        </div>
+      </div>
+
+      <label>Additional Notes</label>
+      <textarea id="o-notes" placeholder="Any quality requirements, delivery instructions, or other details..."></textarea>
+
+      <div class="row2">
+        <div>
+          <label>Your Name *</label>
+          <input type="text" id="o-name" placeholder="Your full name or company">
+        </div>
+        <div>
+          <label>WhatsApp Number *</label>
+          <input type="tel" id="o-phone" placeholder="Farmers will call you here">
+        </div>
+      </div>
+
+      <button class="submit-btn" id="order-btn" onclick="submitOrder()">📦 Post My Order Request</button>
+      <div class="success-box" id="order-success">
+        <div class="big">✅</div>
+        <h3>Order request posted!</h3>
+        <p>Farmers with matching produce will contact you on WhatsApp directly.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+var SUPABASE_URL = "https://klrbowhzkaojkqsbtoeu.supabase.co";
+var SUPABASE_KEY = "sb_publishable_1weF_9aByeMEVFKHOZFdqg_bA5anAhm";
+var TABLE_L = "agriconet_listings";
+var TABLE_O = "agriconet_orders";
+var allListings = [];
+
+var EMOJI = {
+  "Grains & Cereals":"🌾","Vegetables":"🥦","Fruits":"🍎","Tubers & Roots":"🍠","Legumes":"🫘",
+  "Poultry & Eggs":"🥚","Livestock":"🐄","Fish & Seafood":"🐟","Spices & Condiments":"🌶️",
+  "Palm Products":"🌴","Cash Crops":"☕","Processed Farm Products":"🏺"
+};
+
+function api(path,options){
+  return fetch(SUPABASE_URL+"/rest/v1/"+path,Object.assign({
+    headers:{"apikey":SUPABASE_KEY,"Authorization":"Bearer "+SUPABASE_KEY,"Content-Type":"application/json","Prefer":"return=representation"}
+  },options));
+}
+
+function switchTab(id){
+  document.querySelectorAll(".tab").forEach(function(t,i){ t.classList.toggle("active",["market","post","buy"][i]===id); });
+  document.querySelectorAll(".panel").forEach(function(p,i){ p.classList.toggle("active",["panel-market","panel-post","panel-buy"][i]==="panel-"+id); });
+  if(id==="market") loadListings();
+}
+
+function loadListings(){
+  var grid=document.getElementById("product-grid");
+  grid.innerHTML='<div class="loading">⏳ Loading fresh produce...</div>';
+  api(TABLE_L+"?order=created_at.desc&limit=50&is_available=eq.true")
+  .then(function(r){return r.json();})
+  .then(function(data){
+    allListings=data||[];
+    renderGrid(allListings);
+    loadStats();
+  })
+  .catch(function(){ grid.innerHTML='<div class="empty">⚠️ Could not load listings. Please refresh.</div>'; });
+}
+
+function renderGrid(data){
+  var grid=document.getElementById("product-grid");
+  if(!data||!data.length){
+    grid.innerHTML='<div class="empty" style="grid-column:1/-1"><div style="font-size:48px;margin-bottom:10px">🌱</div><p>No listings yet. Be the first farmer to post your produce.</p></div>';
+    return;
+  }
+  grid.innerHTML=data.map(function(r){
+    var emoji=EMOJI[r.category]||"🌿";
+    var shareText=encodeURIComponent("🌾 Fresh "+r.produce_name+" from "+r.farmer_name+" in "+r.state+" — ₦"+r.price+"/"+r.unit+" on AgricoNet (Naijy) | naijy.ng");
+    var waLink="https://wa.me/"+(r.whatsapp||"").replace(/[^0-9]/g,"")+"?text="+encodeURIComponent("Hello, I saw your "+r.produce_name+" listing on AgricoNet (Naijy). I am interested in buying. Please tell me more.");
+    return '<div class="product-card">' +
+      '<div class="pc-img">'+emoji+'</div>' +
+      '<div class="pc-body">' +
+        '<div class="pc-category">'+(r.category||"Produce")+'</div>' +
+        '<div class="pc-name">'+(r.produce_name||"")+'</div>' +
+        '<div class="pc-price">₦'+(r.price||"—")+' / '+(r.unit||"unit")+'</div>' +
+        (r.quantity_available?'<div class="pc-desc">Available: '+r.quantity_available+'</div>':'') +
+        (r.description?'<div class="pc-desc">'+(r.description||"").substring(0,80)+'</div>':'') +
+        '<div class="pc-meta">' +
+          '<span class="pc-loc">📍 '+(r.state||"")+(r.lga?", "+r.lga:"")+'</span>' +
+        '</div>' +
+        '<div class="pc-meta" style="margin-top:8px">' +
+          '<span style="font-size:12px;color:var(--muted)">🧑‍🌾 '+(r.farmer_name||"Farmer")+'</span>' +
+          '<a class="pc-contact" href="'+waLink+'" target="_blank">📱 Contact</a>' +
+        '</div>' +
+        '<div class="share-row">' +
+          '<button class="share-btn s-wa" onclick="window.open(\'https://wa.me/?text='+shareText+'\',\'_blank\')">📱 Share</button>' +
+          '<button class="share-btn s-copy" onclick="navigator.clipboard.writeText(window.location.href).then(function(){alert(\'Link copied!\')})">🔗 Copy</button>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  }).join("");
+}
+
+function searchListings(){
+  var q=(document.getElementById("search-input").value||"").toLowerCase();
+  var cat=document.getElementById("cat-filter").value;
+  var filtered=allListings.filter(function(r){
+    var matchQ=!q||(r.produce_name||"").toLowerCase().includes(q)||(r.farmer_name||"").toLowerCase().includes(q)||(r.state||"").toLowerCase().includes(q);
+    var matchC=!cat||r.category===cat;
+    return matchQ&&matchC;
+  });
+  renderGrid(filtered);
+}
+
+function postListing(){
+  var name=(document.getElementById("p-name").value||"").trim();
+  var cat=document.getElementById("p-cat").value;
+  var unit=document.getElementById("p-unit").value;
+  var price=(document.getElementById("p-price").value||"").trim();
+  var state=document.getElementById("p-state").value;
+  var farmer=(document.getElementById("p-farmer").value||"").trim();
+  var phone=(document.getElementById("p-phone").value||"").trim();
+  if(!name){alert("Please enter produce name.");return;}
+  if(!cat){alert("Please select a category.");return;}
+  if(!price){alert("Please enter a price.");return;}
+  if(!state){alert("Please select your state.");return;}
+  if(!farmer){alert("Please enter your name or farm name.");return;}
+  if(!phone){alert("Please enter your WhatsApp number.");return;}
+  var btn=document.getElementById("post-btn");
+  btn.disabled=true; btn.innerText="Posting...";
+  var record={
+    produce_name:name, category:cat, unit:unit, price:price,
+    quantity_available:(document.getElementById("p-qty").value||"").trim(),
+    state:state, lga:(document.getElementById("p-lga").value||"").trim(),
+    description:(document.getElementById("p-desc").value||"").trim(),
+    farmer_name:farmer, whatsapp:phone, is_available:true,
+    created_at:new Date().toISOString()
+  };
+  api(TABLE_L,{method:"POST",body:JSON.stringify(record)})
+  .then(function(r){
+    if(r.ok||r.status===201){
+      document.getElementById("post-success").style.display="block";
+      btn.style.display="none";
+      loadStats();
+    } else { btn.disabled=false; btn.innerText="🌾 List My Produce on AgricoNet"; alert("Could not post. Try again."); }
+  })
+  .catch(function(){ document.getElementById("post-success").style.display="block"; btn.style.display="none"; });
+}
+
+function shareListing(type){
+  var name=(document.getElementById("p-name")||{}).value||"Produce";
+  var text="🌾 Fresh "+name+" available on AgricoNet (Naijy) — direct from farmer, no middleman! "+window.location.href;
+  if(type==="wa") window.open("https://wa.me/?text="+encodeURIComponent(text),"_blank");
+  if(type==="copy") navigator.clipboard.writeText(window.location.href).then(function(){alert("Link copied!");});
+}
+
+function submitOrder(){
+  var item=(document.getElementById("o-item").value||"").trim();
+  var qty=(document.getElementById("o-qty").value||"").trim();
+  var state=document.getElementById("o-state").value;
+  var name=(document.getElementById("o-name").value||"").trim();
+  var phone=(document.getElementById("o-phone").value||"").trim();
+  if(!item){alert("Please enter what you need.");return;}
+  if(!qty){alert("Please enter the quantity needed.");return;}
+  if(!state){alert("Please select your delivery state.");return;}
+  if(!name){alert("Please enter your name.");return;}
+  if(!phone){alert("Please enter your WhatsApp number.");return;}
+  var btn=document.getElementById("order-btn");
+  btn.disabled=true; btn.innerText="Posting order...";
+  var record={
+    item_needed:item, quantity:qty, budget:(document.getElementById("o-budget").value||"").trim(),
+    delivery_state:state, needed_by:(document.getElementById("o-date").value||""),
+    notes:(document.getElementById("o-notes").value||"").trim(),
+    buyer_name:name, whatsapp:phone, status:"Open",
+    created_at:new Date().toISOString()
+  };
+  api(TABLE_O,{method:"POST",body:JSON.stringify(record)})
+  .then(function(r){
+    if(r.ok||r.status===201){
+      document.getElementById("order-success").style.display="block";
+      btn.style.display="none";
+    } else { btn.disabled=false; btn.innerText="📦 Post My Order Request"; alert("Could not submit. Try again."); }
+  })
+  .catch(function(){ document.getElementById("order-success").style.display="block"; btn.style.display="none"; });
+}
+
+function loadStats(){
+  api(TABLE_L+"?select=farmer_name,state,is_available").then(function(r){return r.json();}).then(function(data){
+    if(!data) return;
+    document.getElementById("total-listings").innerText=data.filter(function(r){return r.is_available;}).length;
+    document.getElementById("total-farmers").innerText=new Set(data.map(function(r){return r.farmer_name;})).size;
+    document.getElementById("total-states").innerText=new Set(data.map(function(r){return r.state;})).size;
+  }).catch(function(){});
+}
+
+loadListings();
+</script>
+</body>
+</html>
