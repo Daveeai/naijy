@@ -64,6 +64,7 @@ textarea{min-height:90px;resize:vertical}
 .share-btn{padding:5px 10px;border:none;border-radius:5px;font-size:11px;font-weight:700;cursor:pointer;transition:opacity 0.15s}
 .share-btn:hover{opacity:0.82}
 .s-wa{background:#25D366;color:#fff}.s-copy{background:#6c757d;color:#fff}
+.s-flag{background:#fff3cd;color:#856404;border:1px solid #ffc107}.s-flag:hover{background:#ffc107;color:#000}
 .loading{text-align:center;padding:40px;color:var(--muted)}
 .empty{text-align:center;padding:40px;color:var(--muted)}
 .emoji-map{font-size:28px}
@@ -73,7 +74,7 @@ textarea{min-height:90px;resize:vertical}
 <body>
 
 <div class="hero">
-  <div class="badge">🇳🇬 Naijy Platform</div>
+  <div class="badge">🇳🇬 Nigeria's Digital Engine</div>
   <h1>Agrico<span>Net</span></h1>
   <p>From Farm to Pot — No Middleman. Buy fresh produce directly from Nigerian farmers. Fair prices, fresh food, real connections.</p>
   <div class="hero-stats">
@@ -335,6 +336,7 @@ function renderGrid(data){
         '<div class="share-row">' +
           '<button class="share-btn s-wa" onclick="window.open(\'https://wa.me/?text='+shareText+'\',\'_blank\')">📱 Share</button>' +
           '<button class="share-btn s-copy" onclick="navigator.clipboard.writeText(window.location.href).then(function(){alert(\'Link copied!\')})">🔗 Copy</button>' +
+          '<button class="share-btn s-flag" onclick="flagListing(\''+r.id+'\')">🚩</button>' +
         '</div>' +
       '</div>' +
     '</div>';
@@ -422,6 +424,14 @@ function submitOrder(){
     } else { btn.disabled=false; btn.innerText="📦 Post My Order Request"; alert("Could not submit. Try again."); }
   })
   .catch(function(){ document.getElementById("order-success").style.display="block"; btn.style.display="none"; });
+}
+
+function flagListing(id){
+  if(!id) return;
+  if(!confirm("Flag this listing as false or abusive?")) return;
+  api(TABLE_L+"?id=eq."+id,{method:"PATCH",body:JSON.stringify({flagged:true})})
+  .then(function(){ alert("Flagged. Our team will review it. Thank you."); })
+  .catch(function(){ alert("Could not flag. Please try again."); });
 }
 
 function loadStats(){

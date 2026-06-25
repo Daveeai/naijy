@@ -74,6 +74,7 @@ textarea{min-height:140px;resize:vertical}
 .share-btn{padding:6px 12px;border:none;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;transition:opacity 0.15s}
 .share-btn:hover{opacity:0.82}
 .s-wa{background:#25D366;color:#fff}.s-tw{background:#1DA1F2;color:#fff}.s-fb{background:#1877F2;color:#fff}
+.s-flag{background:#fff3cd;color:#856404;border:1px solid #ffc107}.s-flag:hover{background:#ffc107;color:#000}
 .loading{text-align:center;padding:40px;color:var(--muted)}
 .empty{text-align:center;padding:40px;color:var(--muted)}
 @media(max-width:540px){.hero h1{font-size:22px}.row2{grid-template-columns:1fr}}
@@ -82,7 +83,7 @@ textarea{min-height:140px;resize:vertical}
 <body>
 
 <div class="hero">
-  <div class="badge">🇳🇬 Naijy Platform</div>
+  <div class="badge">🇳🇬 Nigeria's Digital Engine</div>
   <h1><span class="w">WifeyMet</span> & <span class="h">HusbyMet</span></h1>
   <p>How I met my husband. How I met my wife. And life till now. Real Nigerian love stories — unfiltered, unforgettable.</p>
   <div class="hero-stats">
@@ -294,6 +295,7 @@ function loadFeed(){
             '<button class="share-btn s-wa" onclick="window.open(\'https://wa.me/?text='+shareText+'\',\'_blank\')">📱 WhatsApp</button>' +
             '<button class="share-btn s-tw" onclick="window.open(\'https://twitter.com/intent/tweet?text='+shareText+'\',\'_blank\')">𝕏 Tweet</button>' +
             '<button class="share-btn s-fb" onclick="window.open(\'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(window.location.href)+'\',\'_blank\')">📘 Facebook</button>' +
+            '<button class="share-btn s-flag" onclick="flagStory(\''+r.id+'\')">🚩 Flag</button>' +
           '</div>' +
         '</div>' +
       '</div>';
@@ -313,6 +315,14 @@ function heartStory(id,idx,newHearts){
     var btn=document.getElementById("heart-"+idx);
     if(btn){ btn.innerHTML="❤️ "+newHearts; btn.classList.add("loved"); }
   });
+}
+
+function flagStory(id){
+  if(!id) return;
+  if(!confirm("Flag this story as inappropriate?")) return;
+  api(TABLE+"?id=eq."+id,{method:"PATCH",body:JSON.stringify({flagged:true})})
+  .then(function(){ alert("Flagged. Our team will review it. Thank you."); })
+  .catch(function(){ alert("Could not flag. Please try again."); });
 }
 
 function loadStats(){

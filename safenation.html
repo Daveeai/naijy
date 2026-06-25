@@ -67,6 +67,7 @@ textarea{min-height:100px;resize:vertical}
 .share-btn{padding:6px 12px;border:none;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;transition:opacity 0.15s}
 .share-btn:hover{opacity:0.82}
 .s-wa{background:#25D366;color:#fff}.s-tw{background:#1DA1F2;color:#fff}.s-copy{background:#6c757d;color:#fff}
+.s-flag{background:#fff3cd;color:#856404;border:1px solid #ffc107}.s-flag:hover{background:#ffc107;color:#000}
 .loading{text-align:center;padding:40px;color:var(--muted);font-size:14px}
 .empty{text-align:center;padding:40px;color:var(--muted)}
 @media(max-width:540px){.hero h1{font-size:24px}.row2{grid-template-columns:1fr}}
@@ -75,7 +76,7 @@ textarea{min-height:100px;resize:vertical}
 <body>
 
 <div class="hero">
-  <div class="badge">🇳🇬 Naijy Platform</div>
+  <div class="badge">🇳🇬 Nigeria's Digital Engine</div>
   <h1>Safe<span>Nation</span></h1>
   <p>Report safety threats. Alert your community. Every Nigerian is a watchman. Your report could save a life.</p>
   <div class="hero-stats">
@@ -291,6 +292,7 @@ function loadFeed(){
           '<button class="share-btn s-wa" onclick="window.open(\'https://wa.me/?text='+shareText+'\',\'_blank\')">📱 WhatsApp</button>' +
           '<button class="share-btn s-tw" onclick="window.open(\'https://twitter.com/intent/tweet?text='+shareText+'\',\'_blank\')">𝕏 Tweet</button>' +
           '<button class="share-btn s-copy" onclick="navigator.clipboard.writeText(window.location.href+\'?ref='+r.ref+'\');alert(\'Link copied!\')">🔗 Copy</button>' +
+          '<button class="share-btn s-flag" onclick="flagPost(\''+r.id+'\')">🚩 Flag</button>' +
         '</div></div>';
     }).join("");
   }).catch(function(){ container.innerHTML='<div class="empty"><div style="font-size:40px">⚠️</div><p>Could not load alerts. Please refresh.</p></div>'; });
@@ -314,6 +316,14 @@ function trackAlert(){
       '</div></div>';
   }).catch(function(){ result.innerHTML='<div style="padding:16px;background:#fde8e8;border-radius:8px;">Could not retrieve. Try again.</div>'; });
 }
+function flagPost(id){
+  if(!id) return;
+  if(!confirm("Flag this alert as false or abusive?")) return;
+  api(TABLE+"?id=eq."+id,{method:"PATCH",body:JSON.stringify({flagged:true})})
+  .then(function(){ alert("Flagged. Our team will review it. Thank you."); })
+  .catch(function(){ alert("Could not flag. Please try again."); });
+}
+
 function loadStats(){
   api(TABLE+"?select=severity,state,created_at").then(function(r){return r.json();}).then(function(data){
     if(!data) return;

@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MediaLane — Nigeria's Independent News Channel</title>
+<meta name="description" content="Independent journalism. Citizen reports. Stories the mainstream media won't tell. Nigeria's Fourth Estate, expanded.">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#0d1117;--red:#c0392b;--gold:#c8922a;--light:#f5f5f0;--white:#fff;--text:#1a1a1a;--muted:#666;--border:#ddd}
+body{font-family:Georgia,serif;background:var(--light);color:var(--text);font-size:16px;line-height:1.7}
+/* MASTHEAD */
+.masthead{background:var(--ink);color:#fff;padding:20px;text-align:center;border-bottom:4px solid var(--gold)}
+.masthead .badge{font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.masthead h1{font-size:36px;font-weight:900;letter-spacing:-0.02em;margin-bottom:4px}
+.masthead h1 span{color:var(--gold)}
+.masthead .tagline{font-size:13px;color:#aaa;font-style:italic;margin-bottom:16px}
+.masthead-stats{display:flex;justify-content:center;gap:28px;flex-wrap:wrap;padding-top:12px;border-top:1px solid #333}
+.ms .num{font-size:20px;font-weight:900;color:var(--gold)}
+.ms .lbl{font-size:10px;color:#888;text-transform:uppercase;letter-spacing:0.07em}
+/* NAV */
+.nav{background:#fff;border-bottom:2px solid var(--border);padding:10px 20px;display:flex;gap:0;overflow-x:auto}
+.nav-btn{padding:8px 16px;border:none;background:none;font-size:13px;font-weight:700;color:var(--muted);cursor:pointer;white-space:nowrap;border-bottom:3px solid transparent;font-family:Arial,sans-serif}
+.nav-btn.active{color:var(--red);border-bottom-color:var(--red)}
+.nav-btn:hover{color:var(--ink)}
+.panel{display:none}.panel.active{display:block}
+.container{max-width:900px;margin:0 auto;padding:20px 16px 60px}
+/* BREAKING TICKER */
+.ticker{background:var(--red);color:#fff;padding:8px 16px;display:flex;align-items:center;gap:12px;font-size:13px;overflow:hidden}
+.ticker .label{font-weight:900;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;white-space:nowrap;background:rgba(0,0,0,0.3);padding:2px 8px;border-radius:4px}
+.ticker .text{white-space:nowrap;animation:scroll 20s linear infinite}
+@keyframes scroll{0%{transform:translateX(100%)}100%{transform:translateX(-100%)}}
+/* STORIES */
+.section-head{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:0.12em;color:var(--red);border-bottom:2px solid var(--red);padding-bottom:6px;margin:24px 0 16px}
+.story-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}
+.story-featured{grid-column:1/-1}
+.story-card{background:#fff;border-radius:4px;overflow:hidden;box-shadow:0 1px 6px rgba(0,0,0,0.08);transition:box-shadow 0.15s;cursor:pointer}
+.story-card:hover{box-shadow:0 4px 18px rgba(0,0,0,0.13)}
+.sc-img{background:linear-gradient(135deg,#1a1a1a,#333);height:120px;display:flex;align-items:center;justify-content:center;font-size:36px}
+.story-featured .sc-img{height:200px;font-size:56px}
+.sc-body{padding:14px}
+.sc-cat{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:0.1em;color:var(--red);margin-bottom:6px}
+.sc-title{font-size:16px;font-weight:800;color:var(--ink);margin-bottom:6px;line-height:1.3;font-family:Georgia,serif}
+.story-featured .sc-title{font-size:22px}
+.sc-excerpt{font-size:13px;color:var(--muted);line-height:1.55;margin-bottom:10px}
+.sc-meta{font-size:11px;color:#999;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px}
+.sc-author{font-weight:700;color:var(--muted)}
+.share-row{display:flex;gap:5px;margin-top:8px}
+.share-btn{padding:5px 10px;border:none;border-radius:4px;font-size:11px;font-weight:700;cursor:pointer;font-family:Arial,sans-serif}
+.s-wa{background:#25D366;color:#fff}.s-tw{background:#1DA1F2;color:#fff}.s-copy{background:#6c757d;color:#fff}
+.s-flag{background:#fff3cd;color:#856404;border:1px solid #ffc107}
+/* SUBMIT */
+.form-card{background:#fff;border-radius:8px;padding:28px 24px;margin-top:16px;border-left:5px solid var(--red);box-shadow:0 2px 14px rgba(0,0,0,0.07)}
+.form-card h2{font-size:18px;font-weight:800;color:var(--red);margin-bottom:6px;font-family:Arial,sans-serif}
+.form-card .sub{font-size:13px;color:var(--muted);margin-bottom:20px;line-height:1.55;font-family:Arial,sans-serif}
+label{display:block;font-size:13px;font-weight:700;color:#444;margin:14px 0 5px;font-family:Arial,sans-serif}
+input,textarea,select{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:6px;font-size:14px;font-family:Arial,sans-serif;outline:none;transition:border 0.2s;background:#fafafa}
+input:focus,textarea:focus,select:focus{border-color:var(--red);background:#fff}
+textarea{min-height:160px;resize:vertical}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.submit-btn{width:100%;margin-top:18px;padding:15px;background:var(--ink);color:#fff;border:none;border-radius:6px;font-size:15px;font-weight:800;cursor:pointer;transition:all 0.18s;font-family:Arial,sans-serif}
+.submit-btn:hover{background:#333;transform:translateY(-1px)}
+.submit-btn:disabled{opacity:0.5;cursor:not-allowed;transform:none}
+.success-box{display:none;margin-top:16px;padding:22px;background:#fff8e6;border-radius:8px;text-align:center;border:2px solid var(--gold);font-family:Arial,sans-serif}
+.loading{text-align:center;padding:40px;color:var(--muted);font-family:Arial,sans-serif}
+.empty{text-align:center;padding:40px;color:var(--muted);font-family:Arial,sans-serif}
+/* TIP BOX */
+.tip-box{background:#fff;border:2px solid var(--gold);border-radius:8px;padding:18px;margin-bottom:16px;font-family:Arial,sans-serif}
+.tip-box h4{color:var(--gold);font-size:14px;font-weight:800;margin-bottom:8px}
+.tip-box p{font-size:13px;color:var(--muted);line-height:1.55}
+@media(max-width:600px){.story-grid{grid-template-columns:1fr}.story-featured{grid-column:auto}.masthead h1{font-size:26px}.row2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="badge">🇳🇬 Nigeria's Digital Engine</div>
+  <h1>Media<span>Lane</span></h1>
+  <div class="tagline">Independent Journalism · Citizen Reports · Stories That Matter</div>
+  <div class="masthead-stats">
+    <div class="ms"><div class="num" id="total-stories">—</div><div class="lbl">Stories published</div></div>
+    <div class="ms"><div class="num" id="total-tips">—</div><div class="lbl">Tips submitted</div></div>
+    <div class="ms"><div class="num" id="total-cats">—</div><div class="lbl">Coverage areas</div></div>
+  </div>
+</div>
+
+<div class="ticker">
+  <span class="label">📡 Live</span>
+  <span class="text" id="ticker-text">Nigeria's independent news channel — MediaLane. Submit a story. Share the truth.</span>
+</div>
+
+<div class="nav">
+  <button class="nav-btn active" onclick="switchTab('feed')">📰 News Feed</button>
+  <button class="nav-btn" onclick="switchTab('submit')">✍️ Submit a Story</button>
+  <button class="nav-btn" onclick="switchTab('tip')">🔒 Send a Tip</button>
+</div>
+
+<!-- FEED -->
+<div class="panel active" id="panel-feed">
+  <div class="container">
+    <div class="section-head">Latest Stories</div>
+    <div id="story-grid" class="story-grid"><div class="loading" style="grid-column:1/-1">⏳ Loading stories...</div></div>
+  </div>
+</div>
+
+<!-- SUBMIT -->
+<div class="panel" id="panel-submit">
+  <div class="container">
+    <div class="tip-box">
+      <h4>📋 MediaLane Publishing Standards</h4>
+      <p>We publish factual, verifiable stories that serve the public interest. Stories are reviewed before publication. Do not submit rumours or unverified claims. Include evidence where possible. Your identity is protected.</p>
+    </div>
+    <div class="form-card">
+      <h2>✍️ Submit a Story</h2>
+      <div class="sub">Submit your story or investigation. Our editorial team reviews all submissions. Published stories reach all Naijy users and are shareable across social media.</div>
+
+      <label>Story Headline *</label>
+      <input type="text" id="s-title" placeholder="Clear, factual headline — e.g. 'NDDC Officials Divert ₦2.3bn Flood Relief Funds in Rivers State'">
+
+      <div class="row2">
+        <div>
+          <label>Category *</label>
+          <select id="s-cat">
+            <option value="">— Select category —</option>
+            <option>Politics & Governance</option>
+            <option>Corruption & Accountability</option>
+            <option>Economy & Business</option>
+            <option>Security & Safety</option>
+            <option>Health</option>
+            <option>Education</option>
+            <option>Infrastructure</option>
+            <option>Environment</option>
+            <option>Human Rights</option>
+            <option>Community News</option>
+            <option>Investigation</option>
+            <option>Opinion & Analysis</option>
+            <option>Culture & Society</option>
+            <option>Technology</option>
+            <option>International</option>
+          </select>
+        </div>
+        <div>
+          <label>State / Location *</label>
+          <select id="s-state">
+            <option value="">— State —</option>
+            <option>National</option>
+            <option>Abia</option><option>Adamawa</option><option>Akwa Ibom</option><option>Anambra</option><option>Bauchi</option><option>Bayelsa</option><option>Benue</option><option>Borno</option><option>Cross River</option><option>Delta</option><option>Ebonyi</option><option>Edo</option><option>Ekiti</option><option>Enugu</option><option>FCT Abuja</option><option>Gombe</option><option>Imo</option><option>Jigawa</option><option>Kaduna</option><option>Kano</option><option>Katsina</option><option>Kebbi</option><option>Kogi</option><option>Kwara</option><option>Lagos</option><option>Nasarawa</option><option>Niger</option><option>Ogun</option><option>Ondo</option><option>Osun</option><option>Oyo</option><option>Plateau</option><option>Rivers</option><option>Sokoto</option><option>Taraba</option><option>Yobe</option><option>Zamfara</option>
+          </select>
+        </div>
+      </div>
+
+      <label>Full Story *</label>
+      <textarea id="s-body" placeholder="Write your full story here. Include: What happened, When, Where, Who is involved, Why it matters, What evidence exists. The more detail, the stronger the story..."></textarea>
+
+      <label>Evidence / Sources</label>
+      <input type="text" id="s-evidence" placeholder="Document links, photo links, names of sources (can be 'source who preferred anonymity')">
+
+      <div class="row2">
+        <div>
+          <label>Your Name / Byline</label>
+          <input type="text" id="s-name" placeholder="e.g. Chukwuemeka Eze or 'Staff Reporter'">
+        </div>
+        <div>
+          <label>Contact (private — not published)</label>
+          <input type="text" id="s-contact" placeholder="WhatsApp or email for editorial follow-up">
+        </div>
+      </div>
+
+      <button class="submit-btn" id="submit-btn" onclick="submitStory()">📤 Submit Story for Review</button>
+      <div class="success-box" id="submit-success">
+        <div style="font-size:36px;margin-bottom:8px">✅</div>
+        <h3 style="color:var(--ink);font-size:17px;margin-bottom:8px">Story submitted!</h3>
+        <p style="font-size:13px;color:var(--muted)">Our editorial team will review your submission within 24 hours. If published, you will be notified. Thank you for expanding Nigeria's Fourth Estate.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TIP -->
+<div class="panel" id="panel-tip">
+  <div class="container">
+    <div class="tip-box">
+      <h4>🔒 Anonymous Tips — Confidential</h4>
+      <p>Send us information about wrongdoing, corruption, or important stories without revealing your identity. Tips are reviewed privately by our editorial team only. Your name is never published.</p>
+    </div>
+    <div class="form-card">
+      <h2>🔒 Send an Anonymous Tip</h2>
+      <div class="sub">You have information that the public needs to know. Send it here. We protect our sources absolutely.</div>
+
+      <label>What is the tip about? *</label>
+      <select id="tip-cat">
+        <option value="">— Select type —</option>
+        <option>Government Corruption</option>
+        <option>Corporate Wrongdoing</option>
+        <option>Security Threat</option>
+        <option>Environmental Damage</option>
+        <option>Human Rights Abuse</option>
+        <option>Electoral Fraud</option>
+        <option>Financial Crime</option>
+        <option>Police / Military Abuse</option>
+        <option>Other</option>
+      </select>
+
+      <label>Your Tip *</label>
+      <textarea id="tip-body" placeholder="Tell us what you know. Names, dates, places, amounts, documents, witnesses. The more specific, the more actionable your tip..."></textarea>
+
+      <label>State / Location</label>
+      <select id="tip-state">
+        <option value="">— State (optional) —</option>
+        <option>National</option>
+        <option>Abia</option><option>Adamawa</option><option>Akwa Ibom</option><option>Anambra</option><option>Bauchi</option><option>Bayelsa</option><option>Benue</option><option>Borno</option><option>Cross River</option><option>Delta</option><option>Ebonyi</option><option>Edo</option><option>Ekiti</option><option>Enugu</option><option>FCT Abuja</option><option>Gombe</option><option>Imo</option><option>Jigawa</option><option>Kaduna</option><option>Kano</option><option>Katsina</option><option>Kebbi</option><option>Kogi</option><option>Kwara</option><option>Lagos</option><option>Nasarawa</option><option>Niger</option><option>Ogun</option><option>Ondo</option><option>Osun</option><option>Oyo</option><option>Plateau</option><option>Rivers</option><option>Sokoto</option><option>Taraba</option><option>Yobe</option><option>Zamfara</option>
+      </select>
+
+      <label>Safe contact (optional — never published)</label>
+      <input type="text" id="tip-contact" placeholder="WhatsApp or ProtonMail if you want us to follow up">
+
+      <button class="submit-btn" id="tip-btn" onclick="submitTip()">🔒 Send Tip Securely</button>
+      <div class="success-box" id="tip-success">
+        <div style="font-size:36px;margin-bottom:8px">🔒</div>
+        <h3 style="color:var(--ink);font-size:17px;margin-bottom:8px">Tip received securely</h3>
+        <p style="font-size:13px;color:var(--muted)">Only our editorial team can see this. We will investigate and follow up if needed. Thank you for your courage.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+var SUPABASE_URL = "https://klrbowhzkaojkqsbtoeu.supabase.co";
+var SUPABASE_KEY = "sb_publishable_1weF_9aByeMEVFKHOZFdqg_bA5anAhm";
+var TABLE_S = "medialane_stories";
+var TABLE_T = "medialane_tips";
+
+var CAT_EMOJI = {
+  "Politics & Governance":"🏛️","Corruption & Accountability":"🔍","Economy & Business":"💰",
+  "Security & Safety":"🛡️","Health":"🏥","Education":"📚","Infrastructure":"🏗️",
+  "Environment":"🌿","Human Rights":"✊","Community News":"🏘️","Investigation":"🔎",
+  "Opinion & Analysis":"💭","Culture & Society":"🎭","Technology":"💻","International":"🌍"
+};
+
+function api(path,options){
+  return fetch(SUPABASE_URL+"/rest/v1/"+path,Object.assign({
+    headers:{"apikey":SUPABASE_KEY,"Authorization":"Bearer "+SUPABASE_KEY,"Content-Type":"application/json","Prefer":"return=representation"}
+  },options));
+}
+
+function switchTab(id){
+  document.querySelectorAll(".nav-btn").forEach(function(b,i){ b.classList.toggle("active",["feed","submit","tip"][i]===id); });
+  document.querySelectorAll(".panel").forEach(function(p,i){ p.classList.toggle("active",["panel-feed","panel-submit","panel-tip"][i]==="panel-"+id); });
+  if(id==="feed") loadFeed();
+}
+
+function timeAgo(d){
+  var diff=(Date.now()-new Date(d))/1000;
+  if(diff<3600) return Math.floor(diff/60)+"m ago";
+  if(diff<86400) return Math.floor(diff/3600)+"h ago";
+  if(diff<604800) return Math.floor(diff/86400)+"d ago";
+  return new Date(d).toLocaleDateString();
+}
+
+function loadFeed(){
+  var grid=document.getElementById("story-grid");
+  grid.innerHTML='<div class="loading" style="grid-column:1/-1">⏳ Loading stories...</div>';
+  api(TABLE_S+"?status=eq.published&order=created_at.desc&limit=20")
+  .then(function(r){return r.json();})
+  .then(function(data){
+    if(!data||!data.length){
+      grid.innerHTML='<div class="empty" style="grid-column:1/-1"><div style="font-size:48px;margin-bottom:10px">📰</div><p>No published stories yet. Be the first to submit a story.</p></div>';
+      return;
+    }
+    grid.innerHTML=data.map(function(r,idx){
+      var emoji=CAT_EMOJI[r.category]||"📰";
+      var featured=idx===0?" story-featured":"";
+      var excerpt=(r.body||"").substring(0,featured?200:100)+(((r.body||"").length>(featured?200:100))?"...":"");
+      var shareText=encodeURIComponent("📰 MediaLane: \""+r.title+"\" — "+window.location.href);
+      return '<div class="story-card'+featured+'">' +
+        '<div class="sc-img">'+emoji+'</div>' +
+        '<div class="sc-body">' +
+          '<div class="sc-cat">'+(r.category||"News")+'</div>' +
+          '<div class="sc-title">'+r.title+'</div>' +
+          '<div class="sc-excerpt">'+excerpt+'</div>' +
+          '<div class="sc-meta">' +
+            '<span class="sc-author">'+(r.author_name||"MediaLane Reporter")+'</span>' +
+            '<span>📍 '+(r.state||"Nigeria")+'</span>' +
+            '<span>'+timeAgo(r.created_at)+'</span>' +
+          '</div>' +
+          '<div class="share-row">' +
+            '<button class="share-btn s-wa" onclick="window.open(\'https://wa.me/?text='+shareText+'\',\'_blank\')">📱 Share</button>' +
+            '<button class="share-btn s-tw" onclick="window.open(\'https://twitter.com/intent/tweet?text='+shareText+'\',\'_blank\')">𝕏 Tweet</button>' +
+            '<button class="share-btn s-copy" onclick="navigator.clipboard.writeText(window.location.href).then(function(){alert(\'Link copied!\')})">🔗 Copy</button>' +
+            '<button class="share-btn s-flag" onclick="flagStory(\''+r.id+'\')">🚩</button>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+    }).join("");
+    updateTicker(data);
+    loadStats();
+  }).catch(function(){ grid.innerHTML='<div class="empty" style="grid-column:1/-1">⚠️ Could not load stories. Please refresh.</div>'; });
+}
+
+function updateTicker(data){
+  if(!data||!data.length) return;
+  var el=document.getElementById("ticker-text");
+  if(el) el.innerText=data.slice(0,5).map(function(r){return "• "+r.title;}).join("   ");
+}
+
+function submitStory(){
+  var title=(document.getElementById("s-title").value||"").trim();
+  var cat=document.getElementById("s-cat").value;
+  var state=document.getElementById("s-state").value;
+  var body=(document.getElementById("s-body").value||"").trim();
+  if(!title){alert("Please enter a headline.");return;}
+  if(!cat){alert("Please select a category.");return;}
+  if(!state){alert("Please select a state.");return;}
+  if(!body||body.length<100){alert("Please write your full story (at least 100 characters).");return;}
+  var btn=document.getElementById("submit-btn");
+  btn.disabled=true; btn.innerText="Submitting...";
+  var record={
+    title:title, category:cat, state:state, body:body,
+    evidence:(document.getElementById("s-evidence").value||"").trim(),
+    author_name:(document.getElementById("s-name").value||"").trim()||"Citizen Reporter",
+    contact:(document.getElementById("s-contact").value||"").trim(),
+    status:"pending", created_at:new Date().toISOString()
+  };
+  api(TABLE_S,{method:"POST",body:JSON.stringify(record)})
+  .then(function(r){
+    if(r.ok||r.status===201){
+      document.getElementById("submit-success").style.display="block";
+      btn.style.display="none";
+    } else { btn.disabled=false; btn.innerText="📤 Submit Story for Review"; alert("Could not submit. Try again."); }
+  })
+  .catch(function(){ document.getElementById("submit-success").style.display="block"; btn.style.display="none"; });
+}
+
+function submitTip(){
+  var cat=document.getElementById("tip-cat").value;
+  var body=(document.getElementById("tip-body").value||"").trim();
+  if(!cat){alert("Please select what the tip is about.");return;}
+  if(!body||body.length<20){alert("Please describe your tip in more detail.");return;}
+  var btn=document.getElementById("tip-btn");
+  btn.disabled=true; btn.innerText="Sending securely...";
+  var record={
+    category:cat, body:body,
+    state:(document.getElementById("tip-state").value||""),
+    contact:(document.getElementById("tip-contact").value||"").trim(),
+    status:"new", created_at:new Date().toISOString()
+  };
+  api(TABLE_T,{method:"POST",body:JSON.stringify(record)})
+  .then(function(r){
+    if(r.ok||r.status===201){
+      document.getElementById("tip-success").style.display="block";
+      btn.style.display="none";
+    } else { btn.disabled=false; btn.innerText="🔒 Send Tip Securely"; alert("Could not send. Try again."); }
+  })
+  .catch(function(){ document.getElementById("tip-success").style.display="block"; btn.style.display="none"; });
+}
+
+function flagStory(id){
+  if(!id) return;
+  if(!confirm("Flag this story as false or harmful?")) return;
+  api(TABLE_S+"?id=eq."+id,{method:"PATCH",body:JSON.stringify({flagged:true})})
+  .then(function(){ alert("Flagged. Our editorial team will review it."); })
+  .catch(function(){ alert("Could not flag. Please try again."); });
+}
+
+function loadStats(){
+  Promise.all([
+    api(TABLE_S+"?select=category,status").then(function(r){return r.json();}),
+    api(TABLE_T+"?select=id").then(function(r){return r.json();})
+  ]).then(function(results){
+    var stories=results[0]||[]; var tips=results[1]||[];
+    document.getElementById("total-stories").innerText=stories.filter(function(s){return s.status==="published";}).length;
+    document.getElementById("total-tips").innerText=tips.length;
+    document.getElementById("total-cats").innerText=new Set(stories.map(function(s){return s.category;})).size;
+  }).catch(function(){});
+}
+
+loadFeed();
+</script>
+</body>
+</html>

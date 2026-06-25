@@ -3,32 +3,40 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Iboprentice — Preserving Skills, Building the Future</title>
-<meta name="description" content="Connect with master craftsmen. Learn a skill. Teach what you know. Nigeria's apprenticeship platform.">
+<title>Iboprentice — The Igbo Apprenticeship & Trading Network</title>
+<meta name="description" content="Imu Ahia — the Igbo system of learning business through apprenticeship. Connect masters with learners. Preserve the trading culture that built generations.">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--green:#1f5e43;--green2:#2e7d5a;--gold:#c8922a;--light:#f9f6ee;--white:#fff;--text:#1a2e23;--muted:#6b7a5a;--border:#d4d0b8}
+:root{--green:#1f5e43;--red:#c0392b;--gold:#c8922a;--dark:#1a0a00;--light:#fdf6ee;--white:#fff;--text:#2a1800;--muted:#7a6040;--border:#e0c898}
 body{font-family:Arial,sans-serif;background:var(--light);color:var(--text);font-size:16px;line-height:1.6}
-.hero{background:linear-gradient(135deg,#1a1000 0%,#4a3000 50%,#c8922a 100%);color:#fff;padding:40px 20px 36px;text-align:center;position:relative;overflow:hidden}
-.hero::before{content:"🔨";position:absolute;font-size:130px;opacity:0.07;right:-10px;top:-10px}
-.hero::after{content:"🎓";position:absolute;font-size:100px;opacity:0.06;left:-10px;bottom:-20px}
+.hero{background:linear-gradient(135deg,#1a0a00 0%,#3d1f00 50%,#c8922a 100%);color:#fff;padding:40px 20px 36px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:"🤝";position:absolute;font-size:130px;opacity:0.07;right:-10px;top:-10px}
+.hero::after{content:"💰";position:absolute;font-size:100px;opacity:0.06;left:-10px;bottom:-20px}
 .hero .badge{display:inline-block;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);border-radius:20px;padding:5px 16px;font-size:12px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#ffe066;margin-bottom:16px}
 .hero h1{font-size:32px;font-weight:900;margin-bottom:8px}
 .hero h1 span{color:#ffe066}
-.hero p{font-size:15px;opacity:0.85;max-width:520px;margin:0 auto 24px;line-height:1.6}
-.hero-stats{display:flex;justify-content:center;gap:32px;flex-wrap:wrap}
+.hero .igbo-tag{font-size:13px;color:#ffe066;font-weight:700;margin-bottom:10px;font-style:italic}
+.hero p{font-size:15px;opacity:0.85;max-width:560px;margin:0 auto 24px;line-height:1.65}
+.hero-stats{display:flex;justify-content:center;gap:28px;flex-wrap:wrap}
 .stat .num{font-size:26px;font-weight:900;color:#ffe066}
 .stat .lbl{font-size:11px;opacity:0.65;text-transform:uppercase;letter-spacing:0.07em}
-.container{max-width:900px;margin:0 auto;padding:20px 16px 60px}
-.tabs{display:flex;gap:0;margin:20px 0 0;border-radius:10px;overflow:hidden;border:2px solid var(--border);background:#fff}
+/* EXPLAINER */
+.explainer{background:#fff;border-radius:14px;padding:24px;margin:16px 0;border-left:5px solid var(--gold);box-shadow:0 2px 12px rgba(0,0,0,0.07)}
+.explainer h3{font-size:16px;font-weight:800;color:var(--gold);margin-bottom:14px}
+.steps{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.step{background:var(--light);border-radius:10px;padding:14px;text-align:center}
+.step .num{font-size:28px;font-weight:900;color:var(--gold);margin-bottom:4px}
+.step .title{font-size:13px;font-weight:800;color:var(--text);margin-bottom:4px}
+.step .desc{font-size:12px;color:var(--muted);line-height:1.4}
+.container{max-width:900px;margin:0 auto;padding:0 16px 60px}
+.tabs{display:flex;gap:0;margin:16px 0 0;border-radius:10px;overflow:hidden;border:2px solid var(--border);background:#fff}
 .tab{flex:1;padding:13px 8px;border:none;background:none;font-size:13px;font-weight:700;color:var(--muted);cursor:pointer;transition:all 0.2s;text-align:center}
 .tab.active{background:var(--gold);color:#fff}
 .tab:not(.active):hover{background:#fef9ec;color:var(--gold)}
 .panel{display:none}.panel.active{display:block}
 .form-card{background:#fff;border-radius:14px;padding:28px 24px;margin-top:16px;border-left:5px solid var(--gold);box-shadow:0 2px 14px rgba(0,0,0,0.07)}
 .form-card h2{font-size:18px;font-weight:800;color:var(--gold);margin-bottom:6px}
-.form-card .sub{font-size:13px;color:var(--muted);margin-bottom:20px}
-/* TYPE TOGGLE */
+.form-card .sub{font-size:13px;color:var(--muted);margin-bottom:20px;line-height:1.55}
 .type-toggle{display:flex;gap:0;margin-bottom:20px;border-radius:10px;overflow:hidden;border:2px solid var(--border)}
 .type-btn{flex:1;padding:12px;border:none;background:#fff;font-size:13px;font-weight:800;cursor:pointer;transition:all 0.2s;text-align:center;color:var(--muted)}
 .type-btn.active{background:var(--gold);color:#fff}
@@ -43,13 +51,12 @@ textarea{min-height:90px;resize:vertical}
 .success-box{display:none;margin-top:16px;padding:22px;background:#fff8e6;border-radius:12px;text-align:center;border:2px solid var(--gold)}
 .success-box .big{font-size:40px;margin-bottom:8px}
 .success-box h3{color:var(--gold);font-size:17px;margin-bottom:6px}
-/* DIRECTORY */
 .dir-header{display:flex;align-items:center;justify-content:space-between;margin:20px 0 14px;flex-wrap:wrap;gap:8px}
 .dir-header h2{font-size:18px;font-weight:800;color:var(--gold)}
 .search-row{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
 .search-row input{flex:1;min-width:180px}
 .search-row select{width:auto;min-width:140px}
-.skill-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
+.skill-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
 .skill-card{background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 10px rgba(0,0,0,0.07);border-top:4px solid var(--gold);transition:all 0.18s}
 .skill-card.learner{border-top-color:var(--green)}
 .skill-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(200,146,42,0.14)}
@@ -57,7 +64,7 @@ textarea{min-height:90px;resize:vertical}
 .badge-master{background:#fff8e6;color:var(--gold)}
 .badge-learner{background:#e8f5ee;color:var(--green)}
 .sc-title{font-size:16px;font-weight:800;color:var(--text);margin-bottom:4px}
-.sc-cat{font-size:12px;color:var(--muted);margin-bottom:8px}
+.sc-trade{font-size:12px;color:var(--gold);font-weight:700;margin-bottom:6px}
 .sc-desc{font-size:13px;color:#555;line-height:1.5;margin-bottom:10px}
 .sc-meta{display:flex;gap:8px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-bottom:10px}
 .sc-footer{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
@@ -65,136 +72,177 @@ textarea{min-height:90px;resize:vertical}
 .contact-btn:hover{opacity:0.85}
 .like-btn{background:none;border:1px solid var(--border);border-radius:7px;padding:7px 12px;font-size:12px;cursor:pointer;transition:all 0.15s;color:var(--muted)}
 .like-btn:hover,.like-btn.liked{background:var(--gold);color:#fff;border-color:var(--gold)}
-.share-btn{padding:6px 10px;border:none;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;background:#25D366;color:#fff;transition:opacity 0.15s}
-.share-btn:hover{opacity:0.82}
+.share-btn{padding:6px 10px;border:none;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;background:#25D366;color:#fff}
+.flag-btn{padding:6px 10px;border:none;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;background:#fff3cd;color:#856404;border:1px solid #ffc107}
 .loading{text-align:center;padding:40px;color:var(--muted)}
 .empty{text-align:center;padding:40px;color:var(--muted)}
-@media(max-width:540px){.hero h1{font-size:24px}.row2{grid-template-columns:1fr}.skill-grid{grid-template-columns:1fr}}
+@media(max-width:540px){.hero h1{font-size:24px}.row2{grid-template-columns:1fr}.steps{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
+
 <div class="hero">
-  <div class="badge">🇳🇬 Naijy Platform</div>
+  <div class="badge">🇳🇬 Nigeria's Digital Engine</div>
   <h1>Ibo<span>prentice</span></h1>
-  <p>Preserving Skills, Building the Future. Connect masters with learners. Nigeria's knowledge must not die — it must be passed on.</p>
+  <div class="igbo-tag">Imu Ahia — The Igbo Art of Learning Business</div>
+  <p>For centuries, the Igbo people built wealth through a unique apprenticeship system — a master trains a learner, and when ready, settles them with capital to start their own business. This is that system, digitised.</p>
   <div class="hero-stats">
-    <div class="stat"><div class="num" id="total-masters">—</div><div class="lbl">Master craftsmen</div></div>
-    <div class="stat"><div class="num" id="total-learners">—</div><div class="lbl">Learners seeking skills</div></div>
-    <div class="stat"><div class="num" id="total-skills">—</div><div class="lbl">Skills listed</div></div>
+    <div class="stat"><div class="num" id="total-masters">—</div><div class="lbl">Masters / Oga</div></div>
+    <div class="stat"><div class="num" id="total-learners">—</div><div class="lbl">Apprentices seeking</div></div>
+    <div class="stat"><div class="num" id="total-trades">—</div><div class="lbl">Trade sectors</div></div>
   </div>
 </div>
 
 <div class="container">
+
+  <!-- HOW IT WORKS -->
+  <div class="explainer">
+    <h3>🤝 How Imu Ahia Works — The 4 Stages</h3>
+    <div class="steps">
+      <div class="step"><div class="num">1</div><div class="title">Find Your Oga</div><div class="desc">A young person joins a master trader's business to learn the trade from the inside</div></div>
+      <div class="step"><div class="num">2</div><div class="title">Learn Everything</div><div class="desc">The apprentice works and learns — buying, selling, suppliers, customers, pricing, profit</div></div>
+      <div class="step"><div class="num">3</div><div class="title">Ime Ego (Settlement)</div><div class="desc">After 3–7 years, the master gives the apprentice capital to start their own business</div></div>
+      <div class="step"><div class="num">4</div><div class="title">Become an Oga</div><div class="desc">The former apprentice grows, then takes their own apprentices — the cycle continues</div></div>
+    </div>
+  </div>
+
   <div class="tabs">
-    <button class="tab active" onclick="switchTab('find')">🔍 Find a Skill / Master</button>
-    <button class="tab" onclick="switchTab('teach')">🎓 Offer to Teach</button>
+    <button class="tab active" onclick="switchTab('find')">🔍 Find a Master / Oga</button>
+    <button class="tab" onclick="switchTab('teach')">🏪 I Am a Master / Oga</button>
     <button class="tab" onclick="switchTab('learn')">📚 I Want to Learn</button>
   </div>
 
   <!-- FIND -->
   <div class="panel active" id="panel-find">
-    <div class="dir-header"><h2>🔨 Skills Directory</h2></div>
+    <div class="dir-header"><h2>🤝 Masters & Apprentices Directory</h2></div>
     <div class="search-row">
-      <input type="text" id="search-input" placeholder="Search skill, name, state..." oninput="searchSkills()">
-      <select id="cat-filter" onchange="searchSkills()">
-        <option value="">All Skills</option>
-        <option>Tailoring & Fashion</option><option>Carpentry & Woodwork</option><option>Welding & Fabrication</option>
-        <option>Electrical Work</option><option>Plumbing</option><option>Masonry & Construction</option>
-        <option>Auto Mechanic</option><option>Electronics Repair</option><option>Hairdressing & Beauty</option>
-        <option>Cooking & Catering</option><option>Farming & Agriculture</option><option>Shoemaking & Leather</option>
-        <option>Printing & Graphics</option><option>Photography & Video</option><option>ICT & Computer</option>
-        <option>Traditional Crafts</option><option>Music & Entertainment</option><option>Other</option>
+      <input type="text" id="search-input" placeholder="Search trade, name, state..." oninput="searchSkills()">
+      <select id="trade-filter" onchange="searchSkills()">
+        <option value="">All Trades</option>
+        <option>General Trading & Commerce</option>
+        <option>Goods Importation</option>
+        <option>Electronics & Phones</option>
+        <option>Spare Parts & Automobiles</option>
+        <option>Foodstuffs & Provisions</option>
+        <option>Clothing & Fabrics</option>
+        <option>Building Materials</option>
+        <option>Pharmaceuticals & Chemist</option>
+        <option>Cosmetics & Beauty Products</option>
+        <option>Stationery & Office Supplies</option>
+        <option>Industrial Goods</option>
+        <option>Wholesale Distribution</option>
+        <option>Export Business</option>
+        <option>Online & Digital Trading</option>
+        <option>Real Estate & Property</option>
+        <option>Other Trade</option>
       </select>
       <select id="type-filter" onchange="searchSkills()">
-        <option value="">Masters & Learners</option>
-        <option value="skill">Masters only</option>
-        <option value="learner">Learners only</option>
+        <option value="">All</option>
+        <option value="master">Masters / Oga only</option>
+        <option value="learner">Apprentices only</option>
       </select>
     </div>
-    <div class="skill-grid" id="skill-grid"><div class="loading">⏳ Loading skills directory...</div></div>
+    <div class="skill-grid" id="skill-grid"><div class="loading">⏳ Loading directory...</div></div>
   </div>
 
   <!-- TEACH -->
   <div class="panel" id="panel-teach">
     <div class="form-card">
-      <h2>🎓 Register as a Master / Teacher</h2>
-      <div class="sub">You have a skill. Post it here. Learners across Nigeria will find you and contact you directly.</div>
+      <h2>🏪 Register as a Master / Oga</h2>
+      <div class="sub">You have built a business through Imu Ahia. Now pass it on. Post your profile and find serious apprentices who want to learn the Igbo way of trading.</div>
 
-      <label>Your Skill / Trade *</label>
-      <input type="text" id="t-title" placeholder="e.g. Tailoring, Carpentry, Auto mechanic, Hairdressing">
+      <label>Your Trade / Business Type *</label>
+      <input type="text" id="t-title" placeholder="e.g. Electronics importer, Foodstuffs wholesaler, Spare parts dealer">
 
       <div class="row2">
         <div>
-          <label>Skill Category *</label>
-          <select id="t-cat">
-            <option value="">— Select category —</option>
-            <option>Tailoring & Fashion</option><option>Carpentry & Woodwork</option><option>Welding & Fabrication</option>
-            <option>Electrical Work</option><option>Plumbing</option><option>Masonry & Construction</option>
-            <option>Auto Mechanic</option><option>Electronics Repair</option><option>Hairdressing & Beauty</option>
-            <option>Cooking & Catering</option><option>Farming & Agriculture</option><option>Shoemaking & Leather</option>
-            <option>Printing & Graphics</option><option>Photography & Video</option><option>ICT & Computer</option>
-            <option>Traditional Crafts</option><option>Music & Entertainment</option><option>Other</option>
+          <label>Trade Sector *</label>
+          <select id="t-trade">
+            <option value="">— Select sector —</option>
+            <option>General Trading & Commerce</option>
+            <option>Goods Importation</option>
+            <option>Electronics & Phones</option>
+            <option>Spare Parts & Automobiles</option>
+            <option>Foodstuffs & Provisions</option>
+            <option>Clothing & Fabrics</option>
+            <option>Building Materials</option>
+            <option>Pharmaceuticals & Chemist</option>
+            <option>Cosmetics & Beauty Products</option>
+            <option>Stationery & Office Supplies</option>
+            <option>Industrial Goods</option>
+            <option>Wholesale Distribution</option>
+            <option>Export Business</option>
+            <option>Online & Digital Trading</option>
+            <option>Real Estate & Property</option>
+            <option>Other Trade</option>
           </select>
         </div>
         <div>
-          <label>Years of Experience *</label>
-          <input type="number" id="t-exp" placeholder="e.g. 10" min="1" max="60">
+          <label>Years in Business *</label>
+          <input type="number" id="t-exp" placeholder="e.g. 15" min="1" max="60">
         </div>
       </div>
 
-      <label>Describe what you teach *</label>
-      <textarea id="t-desc" placeholder="Describe your skill, what you will teach, your experience, any certifications or recognition you have received..."></textarea>
+      <label>Tell apprentices about your business and what they will learn *</label>
+      <textarea id="t-desc" placeholder="Describe your trade, what you deal in, where you operate, what an apprentice will learn working with you, what success looks like after training..."></textarea>
 
       <div class="row2">
         <div>
-          <label>Monthly Training Fee (₦)</label>
-          <input type="text" id="t-price" placeholder="e.g. 5,000 or Free or Negotiable">
+          <label>Settlement Offer</label>
+          <select id="t-settlement">
+            <option value="">— Settlement terms —</option>
+            <option>Full Ime Ego (capital + stock)</option>
+            <option>Partial settlement (capital only)</option>
+            <option>Mentorship without settlement</option>
+            <option>Negotiable after training</option>
+          </select>
         </div>
         <div>
-          <label>Availability</label>
-          <select id="t-avail">
-            <option value="">— Availability —</option>
-            <option>Full-time apprenticeship</option>
-            <option>Weekdays only</option>
-            <option>Weekends only</option>
-            <option>Flexible / Part-time</option>
-            <option>Online training available</option>
+          <label>Training Duration</label>
+          <select id="t-duration">
+            <option value="">— Duration —</option>
+            <option>1 year</option>
+            <option>2 years</option>
+            <option>3 years</option>
+            <option>4–5 years</option>
+            <option>5–7 years</option>
+            <option>Flexible</option>
           </select>
         </div>
       </div>
 
       <div class="row2">
         <div>
-          <label>State *</label>
+          <label>State / Market *</label>
           <select id="t-state">
             <option value="">— State —</option>
             <option>Abia</option><option>Adamawa</option><option>Akwa Ibom</option><option>Anambra</option><option>Bauchi</option><option>Bayelsa</option><option>Benue</option><option>Borno</option><option>Cross River</option><option>Delta</option><option>Ebonyi</option><option>Edo</option><option>Ekiti</option><option>Enugu</option><option>FCT Abuja</option><option>Gombe</option><option>Imo</option><option>Jigawa</option><option>Kaduna</option><option>Kano</option><option>Katsina</option><option>Kebbi</option><option>Kogi</option><option>Kwara</option><option>Lagos</option><option>Nasarawa</option><option>Niger</option><option>Ogun</option><option>Ondo</option><option>Osun</option><option>Oyo</option><option>Plateau</option><option>Rivers</option><option>Sokoto</option><option>Taraba</option><option>Yobe</option><option>Zamfara</option>
           </select>
         </div>
         <div>
-          <label>LGA / Area</label>
-          <input type="text" id="t-lga" placeholder="e.g. Ikeja, Surulere">
+          <label>Market / Area</label>
+          <input type="text" id="t-market" placeholder="e.g. Onitsha Main Market, Alaba International">
         </div>
       </div>
 
       <div class="row2">
         <div>
-          <label>Your Name *</label>
-          <input type="text" id="t-name" placeholder="Full name or title (e.g. Oga Bello)">
+          <label>Your Name / Title *</label>
+          <input type="text" id="t-name" placeholder="e.g. Chief Emeka Okonkwo or Oga Chidi">
         </div>
         <div>
           <label>WhatsApp Number *</label>
-          <input type="tel" id="t-phone" placeholder="Learners will contact you here">
+          <input type="tel" id="t-phone" placeholder="Apprentices will contact you here">
         </div>
       </div>
 
-      <button class="submit-btn" id="teach-btn" onclick="postSkill('skill')">🎓 Register as Master on Iboprentice</button>
+      <button class="submit-btn" id="teach-btn" onclick="postProfile('master')">🏪 Register as Master / Oga</button>
       <div class="success-box" id="teach-success">
-        <div class="big">🏆</div>
-        <h3>You're registered as a Master!</h3>
-        <p>Learners across Nigeria can now find you and contact you directly. Share your profile to reach more apprentices.</p>
-        <div style="display:flex;gap:8px;justify-content:center;margin-top:14px">
-          <button class="share-btn" onclick="shareProfile('wa')" style="padding:10px 18px;font-size:13px">📱 Share on WhatsApp</button>
+        <div class="big">🤝</div>
+        <h3>You are registered as an Oga!</h3>
+        <p>Serious apprentices across Nigeria can now find you. Share your profile to reach more learners.</p>
+        <div style="margin-top:14px">
+          <button class="share-btn" onclick="shareProfile()" style="padding:10px 18px;font-size:13px">📱 Share on WhatsApp</button>
         </div>
       </div>
     </div>
@@ -203,45 +251,60 @@ textarea{min-height:90px;resize:vertical}
   <!-- LEARN -->
   <div class="panel" id="panel-learn">
     <div class="form-card">
-      <h2>📚 Post — I Want to Learn This Skill</h2>
-      <div class="sub">Tell masters what skill you want to learn. They will find you and reach out directly.</div>
+      <h2>📚 I Want to Learn — Find My Oga</h2>
+      <div class="sub">Post your profile. Tell masters who you are, what trade you want to learn, and how serious you are. The right Oga will find you.</div>
 
-      <label>Skill You Want to Learn *</label>
-      <input type="text" id="l-title" placeholder="e.g. I want to learn tailoring, carpentry, auto mechanics">
+      <label>What Trade Do You Want to Learn? *</label>
+      <input type="text" id="l-title" placeholder="e.g. I want to learn electronics trading, goods importation">
 
       <div class="row2">
         <div>
-          <label>Skill Category *</label>
-          <select id="l-cat">
-            <option value="">— Select category —</option>
-            <option>Tailoring & Fashion</option><option>Carpentry & Woodwork</option><option>Welding & Fabrication</option>
-            <option>Electrical Work</option><option>Plumbing</option><option>Masonry & Construction</option>
-            <option>Auto Mechanic</option><option>Electronics Repair</option><option>Hairdressing & Beauty</option>
-            <option>Cooking & Catering</option><option>Farming & Agriculture</option><option>Shoemaking & Leather</option>
-            <option>Printing & Graphics</option><option>Photography & Video</option><option>ICT & Computer</option>
-            <option>Traditional Crafts</option><option>Music & Entertainment</option><option>Other</option>
+          <label>Trade Sector *</label>
+          <select id="l-trade">
+            <option value="">— Select sector —</option>
+            <option>General Trading & Commerce</option>
+            <option>Goods Importation</option>
+            <option>Electronics & Phones</option>
+            <option>Spare Parts & Automobiles</option>
+            <option>Foodstuffs & Provisions</option>
+            <option>Clothing & Fabrics</option>
+            <option>Building Materials</option>
+            <option>Pharmaceuticals & Chemist</option>
+            <option>Cosmetics & Beauty Products</option>
+            <option>Industrial Goods</option>
+            <option>Wholesale Distribution</option>
+            <option>Export Business</option>
+            <option>Online & Digital Trading</option>
+            <option>Real Estate & Property</option>
+            <option>Other Trade</option>
           </select>
         </div>
         <div>
-          <label>Budget per Month (₦)</label>
-          <input type="text" id="l-budget" placeholder="e.g. 3,000 or Free only or Flexible">
+          <label>Your Age</label>
+          <input type="number" id="l-age" placeholder="e.g. 22" min="15" max="40">
         </div>
       </div>
 
-      <label>Tell us more about yourself *</label>
-      <textarea id="l-desc" placeholder="Your background, why you want to learn this skill, how committed you are, any relevant experience..."></textarea>
+      <label>Tell masters about yourself — why should they choose you? *</label>
+      <textarea id="l-desc" placeholder="Your background, your commitment level, why you want this trade, your family, your drive. Be honest and real — masters want to see character, not just words..."></textarea>
 
       <div class="row2">
         <div>
-          <label>State *</label>
+          <label>State / Where You Are *</label>
           <select id="l-state">
             <option value="">— State —</option>
             <option>Abia</option><option>Adamawa</option><option>Akwa Ibom</option><option>Anambra</option><option>Bauchi</option><option>Bayelsa</option><option>Benue</option><option>Borno</option><option>Cross River</option><option>Delta</option><option>Ebonyi</option><option>Edo</option><option>Ekiti</option><option>Enugu</option><option>FCT Abuja</option><option>Gombe</option><option>Imo</option><option>Jigawa</option><option>Kaduna</option><option>Kano</option><option>Katsina</option><option>Kebbi</option><option>Kogi</option><option>Kwara</option><option>Lagos</option><option>Nasarawa</option><option>Niger</option><option>Ogun</option><option>Ondo</option><option>Osun</option><option>Oyo</option><option>Plateau</option><option>Rivers</option><option>Sokoto</option><option>Taraba</option><option>Yobe</option><option>Zamfara</option>
           </select>
         </div>
         <div>
-          <label>LGA / Area</label>
-          <input type="text" id="l-lga" placeholder="e.g. Ikeja, Surulere">
+          <label>Willing to Relocate?</label>
+          <select id="l-relocate">
+            <option value="">— Select —</option>
+            <option>Yes — anywhere in Nigeria</option>
+            <option>Yes — within my region</option>
+            <option>Prefer my state</option>
+            <option>No — local only</option>
+          </select>
         </div>
       </div>
 
@@ -256,11 +319,11 @@ textarea{min-height:90px;resize:vertical}
         </div>
       </div>
 
-      <button class="submit-btn" id="learn-btn" onclick="postSkill('learner')">📚 Post My Learning Request</button>
+      <button class="submit-btn" id="learn-btn" onclick="postProfile('learner')">📚 Post My Apprentice Profile</button>
       <div class="success-box" id="learn-success">
         <div class="big">🌟</div>
-        <h3>Your request is posted!</h3>
-        <p>Masters with your skill will contact you on WhatsApp. Make sure your phone is on!</p>
+        <h3>Your profile is posted!</h3>
+        <p>Masters looking for serious apprentices will contact you on WhatsApp. Keep your phone on and be ready.</p>
       </div>
     </div>
   </div>
@@ -270,7 +333,7 @@ textarea{min-height:90px;resize:vertical}
 var SUPABASE_URL = "https://klrbowhzkaojkqsbtoeu.supabase.co";
 var SUPABASE_KEY = "sb_publishable_1weF_9aByeMEVFKHOZFdqg_bA5anAhm";
 var TABLE = "iboprentice";
-var allSkills = [];
+var allProfiles = [];
 
 function api(path,options){
   return fetch(SUPABASE_URL+"/rest/v1/"+path,Object.assign({
@@ -281,15 +344,15 @@ function api(path,options){
 function switchTab(id){
   document.querySelectorAll(".tab").forEach(function(t,i){ t.classList.toggle("active",["find","teach","learn"][i]===id); });
   document.querySelectorAll(".panel").forEach(function(p,i){ p.classList.toggle("active",["panel-find","panel-teach","panel-learn"][i]==="panel-"+id); });
-  if(id==="find") loadSkills();
+  if(id==="find") loadProfiles();
 }
 
-function loadSkills(){
+function loadProfiles(){
   var grid=document.getElementById("skill-grid");
-  grid.innerHTML='<div class="loading">⏳ Loading skills directory...</div>';
+  grid.innerHTML='<div class="loading">⏳ Loading directory...</div>';
   api(TABLE+"?order=created_at.desc&limit=60").then(function(r){return r.json();}).then(function(data){
-    allSkills=data||[];
-    renderGrid(allSkills);
+    allProfiles=data||[];
+    renderGrid(allProfiles);
     loadStats();
   }).catch(function(){ grid.innerHTML='<div class="empty">⚠️ Could not load. Please refresh.</div>'; });
 }
@@ -297,29 +360,30 @@ function loadSkills(){
 function renderGrid(data){
   var grid=document.getElementById("skill-grid");
   if(!data||!data.length){
-    grid.innerHTML='<div class="empty" style="grid-column:1/-1"><div style="font-size:48px;margin-bottom:10px">🔨</div><p>No listings yet. Be the first master or learner to post.</p></div>';
+    grid.innerHTML='<div class="empty" style="grid-column:1/-1"><div style="font-size:48px;margin-bottom:10px">🤝</div><p>No profiles yet. Be the first Oga or apprentice to register.</p></div>';
     return;
   }
   grid.innerHTML=data.map(function(r,idx){
-    var isMaster=r.type==="skill";
-    var waLink="https://wa.me/"+(r.whatsapp||"").replace(/[^0-9]/g,"")+"?text="+encodeURIComponent("Hello "+(r.name||"")+" , I found you on Iboprentice (Naijy). I am interested in "+(isMaster?"learning "+r.title:"teaching you "+r.title)+". Please let us talk.");
-    var shareText=encodeURIComponent((isMaster?"🔨 Master craftsman available: ":"📚 Learner seeking: ")+r.title+" in "+r.state+" — on Iboprentice (Naijy) | naijy.ng");
+    var isMaster=r.type==="master";
+    var waLink="https://wa.me/"+(r.whatsapp||"").replace(/[^0-9]/g,"")+"?text="+encodeURIComponent("Ndewo! I found your profile on Iboprentice (Naijy). I am interested in "+(isMaster?"learning "+r.title+" under you as Oga":"offering you apprenticeship in "+r.title)+". Please let us talk.");
+    var shareText=encodeURIComponent((isMaster?"🏪 Oga available: ":"📚 Apprentice seeking: ")+r.title+" in "+r.state+" — on Iboprentice (Naijy) | naijy.ng");
     return '<div class="skill-card'+(isMaster?"":" learner")+'" id="sc-'+idx+'">' +
-      '<span class="sc-badge '+(isMaster?"badge-master":"badge-learner")+'">'+(isMaster?"🏆 Master / Teacher":"📚 Wants to Learn")+'</span>' +
-      '<div class="sc-title">'+(r.title||"")+'</div>' +
-      '<div class="sc-cat">'+(r.category||"")+'</div>' +
-      (r.description?'<div class="sc-desc">'+(r.description||"").substring(0,120)+((r.description||"").length>120?"...":"")+'</div>':'') +
+      '<span class="sc-badge '+(isMaster?"badge-master":"badge-learner")+'">'+(isMaster?"🏪 Master / Oga":"📚 Wants to Learn")+'</span>' +
+      '<div class="sc-title">'+(r.name||"")+'</div>' +
+      '<div class="sc-trade">'+(r.title||"")+'</div>' +
+      (r.category?'<div style="font-size:11px;color:var(--muted);margin-bottom:6px">'+r.category+'</div>':'')+
+      (r.description?'<div class="sc-desc">'+(r.description||"").substring(0,120)+((r.description||"").length>120?"...":"")+'</div>':'')+
       '<div class="sc-meta">' +
         '<span>📍 '+(r.state||"")+(r.lga?", "+r.lga:"")+'</span>' +
-        (r.experience_years?'<span>⏳ '+r.experience_years+' yrs exp</span>':'') +
-        (r.price_per_month?'<span>💰 '+r.price_per_month+'/mo</span>':'') +
-        (r.availability?'<span>🗓️ '+r.availability+'</span>':'') +
+        (r.experience_years?'<span>⏳ '+r.experience_years+' yrs in business</span>':'') +
+        (r.price_per_month&&isMaster?'<span>🤝 '+r.price_per_month+'</span>':'') +
+        (r.availability&&!isMaster?'<span>✈️ '+r.availability+'</span>':'') +
       '</div>' +
       '<div class="sc-footer">' +
-        '<span style="font-size:13px;font-weight:700;color:var(--text)">'+(r.name||"")+'</span>' +
         '<a class="contact-btn" href="'+waLink+'" target="_blank">📱 Contact</a>' +
-        '<button class="like-btn" id="like-'+idx+'" onclick="likeSkill(\''+r.id+'\','+idx+','+((r.likes||0)+1)+')">❤️ '+(r.likes||0)+'</button>' +
+        '<button class="like-btn" id="like-'+idx+'" onclick="likeProfile(\''+r.id+'\','+idx+','+((r.likes||0)+1)+')">🤝 '+(r.likes||0)+'</button>' +
         '<button class="share-btn" onclick="window.open(\'https://wa.me/?text='+shareText+'\',\'_blank\')">📱</button>' +
+        '<button class="flag-btn" onclick="flagProfile(\''+r.id+'\')">🚩</button>' +
       '</div>' +
     '</div>';
   }).join("");
@@ -327,77 +391,86 @@ function renderGrid(data){
 
 function searchSkills(){
   var q=(document.getElementById("search-input").value||"").toLowerCase();
-  var cat=document.getElementById("cat-filter").value;
+  var trade=document.getElementById("trade-filter").value;
   var type=document.getElementById("type-filter").value;
-  var filtered=allSkills.filter(function(r){
+  var filtered=allProfiles.filter(function(r){
     var matchQ=!q||(r.title||"").toLowerCase().includes(q)||(r.name||"").toLowerCase().includes(q)||(r.state||"").toLowerCase().includes(q)||(r.description||"").toLowerCase().includes(q);
-    var matchC=!cat||r.category===cat;
-    var matchT=!type||r.type===type;
-    return matchQ&&matchC&&matchT;
+    var matchT=!trade||r.category===trade;
+    var matchTy=!type||r.type===type;
+    return matchQ&&matchT&&matchTy;
   });
   renderGrid(filtered);
 }
 
 function getVal(id){ return (document.getElementById(id)||{}).value||""; }
 
-function postSkill(type){
-  var isTeach=type==="skill";
-  var title=getVal(isTeach?"t-title":"l-title").trim();
-  var cat=getVal(isTeach?"t-cat":"l-cat");
-  var state=getVal(isTeach?"t-state":"l-state");
-  var desc=getVal(isTeach?"t-desc":"l-desc").trim();
-  var name=getVal(isTeach?"t-name":"l-name").trim();
-  var phone=getVal(isTeach?"t-phone":"l-phone").trim();
-  if(!title){alert("Please enter the skill name.");return;}
-  if(!cat){alert("Please select a category.");return;}
+function postProfile(type){
+  var isMaster=type==="master";
+  var title=getVal(isMaster?"t-title":"l-title").trim();
+  var trade=getVal(isMaster?"t-trade":"l-trade");
+  var state=getVal(isMaster?"t-state":"l-state");
+  var desc=getVal(isMaster?"t-desc":"l-desc").trim();
+  var name=getVal(isMaster?"t-name":"l-name").trim();
+  var phone=getVal(isMaster?"t-phone":"l-phone").trim();
+  if(!title){alert("Please enter the trade/business type.");return;}
+  if(!trade){alert("Please select a trade sector.");return;}
   if(!state){alert("Please select your state.");return;}
+  if(!desc||desc.length<30){alert("Please describe yourself in more detail (at least 30 characters).");return;}
   if(!name){alert("Please enter your name.");return;}
   if(!phone){alert("Please enter your WhatsApp number.");return;}
-  var btn=document.getElementById(isTeach?"teach-btn":"learn-btn");
-  btn.disabled=true; btn.innerText="Posting...";
+  var btn=document.getElementById(isMaster?"teach-btn":"learn-btn");
+  btn.disabled=true; btn.innerText="Registering...";
   var record={
-    type:type, title:title, category:cat, state:state,
-    lga:getVal(isTeach?"t-lga":"l-lga").trim(), description:desc,
-    experience_years:isTeach?(parseInt(getVal("t-exp"))||null):null,
-    price_per_month:isTeach?getVal("t-price").trim():getVal("l-budget").trim(),
-    availability:isTeach?getVal("t-avail"):"",
+    type:type, title:title, category:trade, state:state,
+    lga:getVal(isMaster?"t-market":"").trim(),
+    description:desc,
+    experience_years:isMaster?(parseInt(getVal("t-exp"))||null):null,
+    price_per_month:isMaster?getVal("t-settlement"):"",
+    availability:isMaster?getVal("t-duration"):getVal("l-relocate"),
     name:name, whatsapp:phone, likes:0,
     created_at:new Date().toISOString()
   };
   api(TABLE,{method:"POST",body:JSON.stringify(record)})
   .then(function(r){
     if(r.ok||r.status===201){
-      document.getElementById(isTeach?"teach-success":"learn-success").style.display="block";
+      document.getElementById(isMaster?"teach-success":"learn-success").style.display="block";
       btn.style.display="none";
       loadStats();
-    } else { btn.disabled=false; btn.innerText=isTeach?"🎓 Register as Master":"📚 Post My Learning Request"; alert("Could not submit. Try again."); }
+    } else { btn.disabled=false; btn.innerText=isMaster?"🏪 Register as Master / Oga":"📚 Post My Apprentice Profile"; alert("Could not submit. Try again."); }
   })
-  .catch(function(){ document.getElementById(isTeach?"teach-success":"learn-success").style.display="block"; btn.style.display="none"; });
+  .catch(function(){ document.getElementById(isMaster?"teach-success":"learn-success").style.display="block"; btn.style.display="none"; });
 }
 
-function shareProfile(p){
-  var text="🔨 I just registered my skill on Iboprentice (Naijy). Find me and learn! "+window.location.href;
-  if(p==="wa") window.open("https://wa.me/?text="+encodeURIComponent(text),"_blank");
+function shareProfile(){
+  window.open("https://wa.me/?text="+encodeURIComponent("🏪 I just registered on Iboprentice — Nigeria's Igbo apprenticeship network on Naijy. Find a master or become one: "+window.location.href),"_blank");
 }
 
-function likeSkill(id,idx,newLikes){
+function likeProfile(id,idx,newLikes){
   if(!id) return;
   api(TABLE+"?id=eq."+id,{method:"PATCH",body:JSON.stringify({likes:newLikes})}).then(function(){
     var btn=document.getElementById("like-"+idx);
-    if(btn){ btn.innerHTML="❤️ "+newLikes; btn.classList.add("liked"); }
+    if(btn){ btn.innerHTML="🤝 "+newLikes; btn.classList.add("liked"); }
   });
+}
+
+function flagProfile(id){
+  if(!id) return;
+  if(!confirm("Flag this profile as fake or abusive?")) return;
+  api(TABLE+"?id=eq."+id,{method:"PATCH",body:JSON.stringify({flagged:true})})
+  .then(function(){ alert("Flagged. Our team will review it. Thank you."); })
+  .catch(function(){ alert("Could not flag. Please try again."); });
 }
 
 function loadStats(){
   api(TABLE+"?select=type,category").then(function(r){return r.json();}).then(function(data){
     if(!data) return;
-    document.getElementById("total-masters").innerText=data.filter(function(r){return r.type==="skill";}).length;
+    document.getElementById("total-masters").innerText=data.filter(function(r){return r.type==="master";}).length;
     document.getElementById("total-learners").innerText=data.filter(function(r){return r.type==="learner";}).length;
-    document.getElementById("total-skills").innerText=new Set(data.map(function(r){return r.category;})).size;
+    document.getElementById("total-trades").innerText=new Set(data.map(function(r){return r.category;})).size;
   }).catch(function(){});
 }
 
-loadSkills();
+loadProfiles();
 </script>
 </body>
 </html>

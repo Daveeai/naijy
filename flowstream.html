@@ -62,6 +62,7 @@ body{font-family:Arial,sans-serif;background:var(--light);color:var(--text);font
 .sm-btn{padding:5px 10px;border:none;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer}
 .sm-wa{background:#25D366;color:#fff}
 .sm-tw{background:#1DA1F2;color:#fff}
+.sm-flag{background:#fff3cd;color:#856404;border:1px solid #ffc107}.sm-flag:hover{background:#ffc107;color:#000}
 .loading{text-align:center;padding:40px;color:var(--muted)}
 .empty{text-align:center;padding:40px;color:var(--muted)}
 .stats-bar{display:flex;gap:20px;background:#fff;border-radius:10px;padding:14px 18px;margin-bottom:14px;box-shadow:0 2px 8px rgba(0,0,0,0.05);flex-wrap:wrap}
@@ -74,7 +75,7 @@ body{font-family:Arial,sans-serif;background:var(--light);color:var(--text);font
 <body>
 
 <div class="hero">
-  <div class="badge">🇳🇬 Naijy Platform</div>
+  <div class="badge">🇳🇬 Nigeria's Digital Engine</div>
   <h1>Flow<span>Stream</span></h1>
   <p>See thoughts as they flow. Say what's on your mind. No algorithm. No gatekeepers. Just Nigerians speaking freely.</p>
 </div>
@@ -228,6 +229,7 @@ function loadStream(){
             '<button class="sm-btn sm-tw" onclick="window.open(\'https://twitter.com/intent/tweet?text='+shareText+'\',\'_blank\')">𝕏</button>' +
           '</div>' +
           '<button class="action-btn" onclick="navigator.clipboard.writeText(window.location.href).then(function(){alert(\'Link copied!\')})">🔗 Copy</button>' +
+          '<button class="sm-btn sm-flag" onclick="flagPost(\''+r.id+'\')">🚩</button>' +
         '</div>' +
       '</div>';
     }).join("");
@@ -241,6 +243,14 @@ function likePost(id,idx,newLikes){
     var btn=document.querySelector("#card-"+idx+" .action-btn");
     if(btn){ btn.innerHTML="❤️ "+newLikes; btn.classList.add("liked"); }
   });
+}
+
+function flagPost(id){
+  if(!id) return;
+  if(!confirm("Flag this post as abusive or false?")) return;
+  api(TABLE+"?id=eq."+id,{method:"PATCH",body:JSON.stringify({flagged:true})})
+  .then(function(){ alert("Flagged. Our team will review it. Thank you."); })
+  .catch(function(){ alert("Could not flag. Please try again."); });
 }
 
 function loadStats(){

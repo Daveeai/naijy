@@ -72,6 +72,8 @@ textarea{min-height:100px;resize:vertical}
 .s-tw{background:#1DA1F2;color:#fff}
 .s-copy{background:#6c757d;color:#fff}
 .s-fb{background:#1877F2;color:#fff}
+.s-flag{background:#fff3cd;color:#856404;border:1px solid #ffc107}
+.s-flag:hover{background:#ffc107;color:#000}
 .loading{text-align:center;padding:40px;color:var(--muted);font-size:14px}
 .empty{text-align:center;padding:40px;color:var(--muted)}
 .empty .icon{font-size:40px;margin-bottom:10px}
@@ -91,7 +93,7 @@ textarea{min-height:100px;resize:vertical}
 <body>
 
 <div class="hero">
-  <div class="badge">🇳🇬 Naijy Platform</div>
+  <div class="badge">🇳🇬 Nigeria's Digital Engine</div>
   <h1>Goment<span>Watch</span></h1>
   <p>Power to the People to Watch Power. Report what you see. Track what they do. Hold Nigeria's government accountable — publicly.</p>
   <div class="hero-stats">
@@ -345,6 +347,7 @@ function loadFeed(){
           '<button class="share-btn s-wa" onclick="window.open(\'https://wa.me/?text=' + shareText + '\',\'_blank\')">📱 WhatsApp</button>' +
           '<button class="share-btn s-tw" onclick="window.open(\'https://twitter.com/intent/tweet?text=' + shareText + '\',\'_blank\')">𝕏 Tweet</button>' +
           '<button class="share-btn s-copy" onclick="navigator.clipboard.writeText(window.location.origin+\'/gomentwatch?ref=' + (r.ref||"") + '\');alert(\'Link copied!\')">🔗 Copy</button>' +
+          '<button class="share-btn s-flag" onclick="flagPost(\'' + r.id + '\')">🚩 Flag</button>' +
         '</div>' +
       '</div>';
     }).join("");
@@ -382,6 +385,14 @@ function trackReport(){
   .catch(function(){
     result.innerHTML = '<div style="padding:16px;background:#f8d7da;border-radius:8px;color:#721c24;">Could not retrieve report. Please try again.</div>';
   });
+}
+
+function flagPost(id){
+  if(!id) return;
+  if(!confirm("Flag this report as abusive or false?")) return;
+  api(TABLE+"?id=eq."+id,{method:"PATCH",body:JSON.stringify({flagged:true})})
+  .then(function(){ alert("Flagged. Our team will review it. Thank you."); })
+  .catch(function(){ alert("Could not flag. Please try again."); });
 }
 
 function loadStats(){
