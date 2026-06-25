@@ -517,7 +517,30 @@ if (!platform) {
 
     // SUB-PLATFORMS
     subHtml(platform.subPlatforms) +
+	howItWorks(platform) +
+<script>
+// HOW IT WORKS — add this function anywhere in the <script> section
+function howItWorks(platform) {
+  var how = platform.how;
+  if (!how || !how.length) return "";
+  
+  // Build 3-step cards from the how array
+  var steps = how.slice(0, 3);
+  var icons = ["1️⃣", "2️⃣", "3️⃣"];
+  
+  var tiles = steps.map(function(step, i) {
+    return '<div style="flex:1;min-width:160px;background:#f2faf6;border-radius:10px;padding:16px;text-align:center;">' +
+      '<div style="font-size:28px;margin-bottom:8px">' + icons[i] + '</div>' +
+      '<div style="font-size:13px;color:#1a2e23;line-height:1.5">' + step + '</div>' +
+    '</div>';
+  }).join("");
 
+  return '<div style="background:#fff;border-radius:12px;padding:20px 22px;margin-bottom:14px;border-left:5px solid #c8922a;box-shadow:0 2px 8px rgba(0,0,0,0.06)">' +
+    '<h3 style="font-size:15px;font-weight:800;color:#1f5e43;margin-bottom:14px">⚡ How It Works</h3>' +
+    '<div style="display:flex;gap:12px;flex-wrap:wrap">' + tiles + '</div>' +
+  '</div>';
+}
+</script>
     // WIDGET MOUNT POINT — tools inject here
     '<div id="widget-mount"></div>' +
 
