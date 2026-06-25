@@ -350,7 +350,7 @@ body {
 <script src="core.js"></script>
 <!-- DATA — loads second -->
 <script src="data.js"></script>
-  <script src="auth.js"></script>
+<script src="auth.js"></script>
 </head>
 <body>
 
@@ -401,6 +401,29 @@ function subHtml(subs) {
   }).join("");
   return '<div class="sub-section"><h3>🔧 Sub-Platforms</h3>' +
          '<div class="sub-grid">' + tiles + '</div></div>';
+}
+
+// ============================================================
+//  HOW IT WORKS  — defined here, before it is ever called
+// ============================================================
+function howItWorks(platform) {
+  var how = platform.how;
+  if (!how || !how.length) return "";
+
+  var steps = how.slice(0, 3);
+  var icons = ["1️⃣", "2️⃣", "3️⃣"];
+
+  var tiles = steps.map(function(step, i) {
+    return '<div style="flex:1;min-width:160px;background:#f2faf6;border-radius:10px;padding:16px;text-align:center;">' +
+      '<div style="font-size:28px;margin-bottom:8px">' + icons[i] + '</div>' +
+      '<div style="font-size:13px;color:#1a2e23;line-height:1.5">' + step + '</div>' +
+    '</div>';
+  }).join("");
+
+  return '<div style="background:#fff;border-radius:12px;padding:20px 22px;margin-bottom:14px;border-left:5px solid #c8922a;box-shadow:0 2px 8px rgba(0,0,0,0.06)">' +
+    '<h3 style="font-size:15px;font-weight:800;color:#1f5e43;margin-bottom:14px">⚡ How It Works</h3>' +
+    '<div style="display:flex;gap:12px;flex-wrap:wrap">' + tiles + '</div>' +
+  '</div>';
 }
 
 function pad(n) { return n < 10 ? "0" + n : "" + n; }
@@ -517,30 +540,10 @@ if (!platform) {
 
     // SUB-PLATFORMS
     subHtml(platform.subPlatforms) +
-	howItWorks(platform) +
-<script>
-// HOW IT WORKS — add this function anywhere in the <script> section
-function howItWorks(platform) {
-  var how = platform.how;
-  if (!how || !how.length) return "";
-  
-  // Build 3-step cards from the how array
-  var steps = how.slice(0, 3);
-  var icons = ["1️⃣", "2️⃣", "3️⃣"];
-  
-  var tiles = steps.map(function(step, i) {
-    return '<div style="flex:1;min-width:160px;background:#f2faf6;border-radius:10px;padding:16px;text-align:center;">' +
-      '<div style="font-size:28px;margin-bottom:8px">' + icons[i] + '</div>' +
-      '<div style="font-size:13px;color:#1a2e23;line-height:1.5">' + step + '</div>' +
-    '</div>';
-  }).join("");
 
-  return '<div style="background:#fff;border-radius:12px;padding:20px 22px;margin-bottom:14px;border-left:5px solid #c8922a;box-shadow:0 2px 8px rgba(0,0,0,0.06)">' +
-    '<h3 style="font-size:15px;font-weight:800;color:#1f5e43;margin-bottom:14px">⚡ How It Works</h3>' +
-    '<div style="display:flex;gap:12px;flex-wrap:wrap">' + tiles + '</div>' +
-  '</div>';
-}
-</script>
+    // HOW IT WORKS — visual 3-step widget
+    howItWorks(platform) +
+
     // WIDGET MOUNT POINT — tools inject here
     '<div id="widget-mount"></div>' +
 
@@ -626,7 +629,6 @@ function setStatus(value) {
     });
   }
 
-  // Log the status change as a core action
   if (typeof logAction === "function") {
     logAction("status_change", "Status changed to: " + value);
   }
@@ -744,7 +746,6 @@ function shareFacebook() { window.open("https://www.facebook.com/sharer/sharer.p
 (function() {
   if (typeof platforms === "undefined") return;
 
-  // Build category list from actual data
   var CATS = ["All"];
   platforms.forEach(function(p) {
     if (p.category && CATS.indexOf(p.category) === -1) CATS.push(p.category);
@@ -756,13 +757,12 @@ function shareFacebook() { window.open("https://www.facebook.com/sharer/sharer.p
 
   var active = "All";
 
-  // Build filter buttons using EXACT category strings from data.js
   filterBar.innerHTML = "";
   CATS.forEach(function(cat) {
     var btn = document.createElement("button");
     btn.textContent = cat === "All" ? "All (" + platforms.length + ")" : cat;
     if (cat === "All") btn.classList.add("active");
-    btn.dataset.cat = cat; // store exact string
+    btn.dataset.cat = cat;
     btn.addEventListener("click", function() {
       active = cat;
       filterBar.querySelectorAll("button").forEach(function(b){
@@ -777,7 +777,6 @@ function shareFacebook() { window.open("https://www.facebook.com/sharer/sharer.p
   function pad(n) { return n < 10 ? "0" + n : String(n); }
 
   function render() {
-    // Filter using EXACT category match
     var list = (active === "All")
       ? platforms
       : platforms.filter(function(p){ return p.category === active; });
@@ -786,7 +785,6 @@ function shareFacebook() { window.open("https://www.facebook.com/sharer/sharer.p
 
     list.forEach(function(p) {
       var globalIdx = platforms.indexOf(p);
-      // Use p.key — the exact field data.js uses and the loader reads
       var key = p.key || "";
       var a = document.createElement("a");
       a.className = "exp-card";
@@ -810,8 +808,6 @@ function shareFacebook() { window.open("https://www.facebook.com/sharer/sharer.p
 
 <!-- ============================================================
      NAIJY PLATFORM WIDGETS — 7 WIDGET TYPES
-     Paste this entire block just before </body> in platform.html
-     Each widget auto-activates based on platform.key from data.js
      ============================================================ -->
 
 <style>
@@ -1003,17 +999,11 @@ function shareFacebook() { window.open("https://www.facebook.com/sharer/sharer.p
 <script>
 // ============================================================
 //  WIDGET ENGINE
-//  Runs after platform is loaded — reads platform.key and
-//  injects the right widget(s) into #widget-mount
 // ============================================================
 
-// Map: platform keys → widget types
 var WIDGET_MAP = {
-
-  // REPORT FORM
   "safenation":    ["report-form", "map"],
   "justicenow":    ["report-form", "tracker"],
-  "gomentwatch":   ["report-form", "tracker"],
   "gomentwatch":   ["report-form", "tracker"],
   "environmental": ["report-form", "map"],
   "waterconnect":  ["report-form", "map"],
@@ -1025,8 +1015,6 @@ var WIDGET_MAP = {
   "policydecoded": ["report-form"],
   "naijyshield":   ["report-form"],
   "360energy":     ["report-form", "map"],
-
-  // LISTING FORM
   "tradecentre":   ["listing-form"],
   "retailex":      ["listing-form"],
   "agriconet":     ["listing-form", "map"],
@@ -1042,46 +1030,36 @@ var WIDGET_MAP = {
   "creativex":     ["listing-form"],
   "filmhub":       ["listing-form"],
   "sportseco":     ["listing-form"],
-
-  // DIRECTORY
   "lawsimple":     ["directory"],
-  "legalsure":     ["directory"],
+  "legalsure":     ["directory", "learning"],
   "judicialbar":   ["directory"],
   "medconnect":    ["directory"],
   "pharmabiotech": ["directory"],
   "fulaconnect":   ["directory"],
   "ethnichub":     ["directory"],
-  "iboprentice":   ["directory"],
+  "iboprentice":   ["directory", "learning"],
   "youthemploy":   ["directory"],
   "ngohub":        ["directory"],
   "diasporalink":  ["directory"],
   "versitiesconnect": ["directory"],
-
-  // BOOKING FORM
   "telemedic":     ["booking-form"],
   "hotels360":     ["booking-form"],
   "traveleX":      ["booking-form"],
   "tourism360":    ["booking-form"],
   "leadersarena":  ["booking-form"],
   "retireeshub":   ["booking-form"],
-
-  // TRACKER
   "casetrack":     ["tracker"],
   "expendituremap":["tracker"],
   "revenuemap":    ["tracker"],
   "infraassets":   ["tracker"],
   "logisticschain":["tracker"],
   "transport360":  ["tracker"],
-
-  // MAP
   "movecity":      ["map"],
   "namyarea":      ["map"],
   "smartcities":   ["map"],
   "urbandatagrid": ["map"],
   "petro360":      ["map"],
   "marinehub":     ["map"],
-
-  // LEARNING MODULE
   "educahub":      ["learning"],
   "healthpro":     ["learning"],
   "spacekids":     ["learning"],
@@ -1089,10 +1067,7 @@ var WIDGET_MAP = {
   "naijysciencetech": ["learning"],
   "blockchainnet": ["learning"],
   "robotai":       ["learning"],
-  "innovatelab":   ["learning"],
-  "iboprentice":   ["directory", "learning"],
-  "legalsure":     ["directory", "learning"],
-  "iboprentice":   ["directory", "learning"]
+  "innovatelab":   ["learning"]
 };
 
 // ── WIDGET BUILDERS ──────────────────────────────────────
@@ -1416,6 +1391,7 @@ function submitBooking() {
     if (typeof logAction === "function") logAction("booking_made", service);
   });
 }
+
 function trackCase() {
   var id  = document.getElementById("tr-id").value.trim();
   var res = document.getElementById("tr-result");
@@ -1471,7 +1447,7 @@ function closeLesson() {
   var key = (typeof platformId !== "undefined") ? platformId : "";
   if (!key) return;
 
-var types = WIDGET_MAP[key] || ["learning"];
+  var types = WIDGET_MAP[key] || ["learning"];
 
   var pName = (typeof platform !== "undefined" && platform && platform.name) ? platform.name : "this platform";
 
@@ -1492,12 +1468,10 @@ var types = WIDGET_MAP[key] || ["learning"];
   mount.innerHTML = html;
 })();
 </script>
-  <!-- ============================================================
+
+<!-- ============================================================
      NAIJY PLATFORM SIGNUP WIDGET
-     Instructions: Paste this entire block into platform.html
-     just BEFORE the closing </body> tag.
-     Works automatically on all 110 platforms.
-     Uses Formspree (free). Replace YOUR_FORM_ID below after
+     Replace YOUR_FORM_ID with your Formspree form ID after
      creating a free account at https://formspree.io
      ============================================================ -->
 
@@ -1668,7 +1642,6 @@ var types = WIDGET_MAP[key] || ["learning"];
 <script>
 (function() {
 
-  // ── STEP 1: Replace YOUR_FORM_ID with your Formspree ID ──
   var FORMSPREE_ID = "YOUR_FORM_ID";
 
   var params     = new URLSearchParams(window.location.search);
