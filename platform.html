@@ -406,6 +406,38 @@ function subHtml(subs) {
 // ============================================================
 //  HOW IT WORKS  — defined here, before it is ever called
 // ============================================================
+// ============================================================
+//  LIVE PLATFORMS MAP
+//  Add new platform keys here as they go live
+// ============================================================
+var LIVE_PLATFORMS = {
+  "gomentwatch":  { file: "gomentwatch.html",  label: "Open GomentWatch",   emoji: "🏛️" },
+  "safenation":   { file: "safenation.html",   label: "Open SafeNation",    emoji: "🚨" },
+  "flowstream":   { file: "flowstream.html",   label: "Open FlowStream",    emoji: "💭" },
+  "wifeymet":     { file: "lovestories.html",  label: "Open WifeyMet",      emoji: "💍" },
+  "husbymet":     { file: "lovestories.html",  label: "Open HusbyMet",      emoji: "🤵" },
+  "agriconet":    { file: "agriconet.html",    label: "Open AgricoNet",     emoji: "🌾" },
+  "iboprentice":  { file: "iboprentice.html",  label: "Open Iboprentice",   emoji: "🤝" },
+  "medialane":    { file: "medialane.html",    label: "Open MediaLane",     emoji: "📰" }
+};
+
+function getLaunchButton(key) {
+  var live = LIVE_PLATFORMS[key];
+  if (!live) return "";
+
+  return '<div style="background:linear-gradient(135deg,#1a3d2b,#1f5e43);border-radius:12px;padding:22px 24px;margin-bottom:14px;text-align:center;">' +
+    '<div style="font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#7fd9a8;margin-bottom:8px">🟢 This Platform is Live</div>' +
+    '<div style="font-size:15px;color:rgba(255,255,255,0.85);margin-bottom:16px;line-height:1.5">This platform is fully functional. Real users. Real data. Open it now and start using it.</div>' +
+    '<a href="' + live.file + '" style="display:inline-flex;align-items:center;gap:10px;background:#7fd9a8;color:#0d2b1a;font-size:16px;font-weight:800;padding:14px 28px;border-radius:9px;text-decoration:none;transition:opacity 0.15s;">' +
+      live.emoji + ' ' + live.label + ' →' +
+    '</a>' +
+    '<div style="margin-top:14px;display:flex;justify-content:center;gap:10px;flex-wrap:wrap;">' +
+      '<button onclick="window.open(\'https://wa.me/?text=\'+encodeURIComponent(\'Check out ' + (live.label.replace("Open ","")) + ' on Naijy: \'+window.location.href),\'_blank\')" style="padding:8px 16px;background:rgba(255,255,255,0.12);color:#fff;border:1px solid rgba(255,255,255,0.25);border-radius:7px;font-size:13px;font-weight:700;cursor:pointer;">📱 Share on WhatsApp</button>' +
+      '<button onclick="window.open(\'https://twitter.com/intent/tweet?text=\'+encodeURIComponent(\'Check out ' + (live.label.replace("Open ","")) + ' on Naijy — Nigeria\'s Digital Engine: \'+window.location.href),\'_blank\')" style="padding:8px 16px;background:rgba(255,255,255,0.12);color:#fff;border:1px solid rgba(255,255,255,0.25);border-radius:7px;font-size:13px;font-weight:700;cursor:pointer;">𝕏 Share on Twitter</button>' +
+    '</div>' +
+  '</div>';
+}
+
 function howItWorks(platform) {
   var how = platform.how;
   if (!how || !how.length) return "";
@@ -552,6 +584,9 @@ if (!platform) {
       '<h3>📊 Status</h3>' +
       '<p style="font-size:15px;" id="status-text">' + currentStatus + '</p>' +
     '</div>' +
+
+    // LIVE PLATFORM LAUNCH BUTTON
+    getLaunchButton(platformId) +
 
     // ENGAGEMENT CARD
     '<div class="engage-card">' +
