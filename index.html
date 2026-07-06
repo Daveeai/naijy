@@ -5,41 +5,651 @@
   <title>Naijy – Nigeria's National Digital Engine</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- ============================= -->
-  <!-- FAVICON -->
-  <!-- ============================= -->
-  <!-- Relative path -->
   <link rel="icon" href="images/favicon.png" type="image/png">
-  <!-- Absolute path fallback -->
   <link rel="icon" href="https://naijy.ng/homepage folder/image folder/favicon.png" type="image/png">
-
-  <!-- ============================= -->
-  <!-- CSS -->
-  <!-- ============================= -->
   <link rel="stylesheet" href="styles.css">
+
+  <style>
+  /* ============================================================
+     NAIJY DYNAMIC HERO — injected styles
+  ============================================================ */
+  .naijy-hero {
+    background: #050d08;
+    min-height: 92vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 20px 0;
+    position: relative;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+  }
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(31,94,67,0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(31,94,67,0.08) 1px, transparent 1px);
+    background-size: 40px 40px;
+    animation: gridMove 20s linear infinite;
+  }
+  @keyframes gridMove {
+    0%   { transform: translateY(0); }
+    100% { transform: translateY(40px); }
+  }
+  .nigeria-pulse {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 340px; height: 340px;
+    pointer-events: none;
+  }
+  .pulse-ring {
+    position: absolute; inset: 0;
+    border-radius: 50%;
+    border: 2px solid rgba(31,94,67,0.3);
+    animation: pulseRing 3s ease-out infinite;
+  }
+  .pulse-ring:nth-child(2) { animation-delay: 1s; }
+  .pulse-ring:nth-child(3) { animation-delay: 2s; }
+  @keyframes pulseRing {
+    0%   { transform: scale(0.3); opacity: 1; }
+    100% { transform: scale(1.8); opacity: 0; }
+  }
+  .nigeria-dot {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 16px; height: 16px;
+    background: #7fd9a8;
+    border-radius: 50%;
+    box-shadow: 0 0 20px #7fd9a8, 0 0 40px rgba(127,217,168,0.4);
+    animation: dotGlow 2s ease-in-out infinite;
+  }
+  @keyframes dotGlow {
+    0%,100% { box-shadow: 0 0 20px #7fd9a8, 0 0 40px rgba(127,217,168,0.4); }
+    50%      { box-shadow: 0 0 40px #7fd9a8, 0 0 80px rgba(127,217,168,0.6); }
+  }
+  .hero-inner {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    max-width: 820px;
+    width: 100%;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(31,94,67,0.3);
+    border: 1px solid rgba(127,217,168,0.4);
+    border-radius: 20px;
+    padding: 6px 18px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #7fd9a8;
+    margin-bottom: 22px;
+  }
+  .badge-dot {
+    width: 7px; height: 7px;
+    background: #7fd9a8;
+    border-radius: 50%;
+    animation: dotGlow 1.5s ease-in-out infinite;
+  }
+  .hero-title {
+    font-size: 62px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.0;
+    margin-bottom: 8px;
+    letter-spacing: -0.03em;
+    font-family: Arial, sans-serif;
+  }
+  .hero-title .ht-ng  { color: #7fd9a8; }
+  .hero-title .ht-dot { color: #f0c040; }
+  .hero-tagline {
+    font-size: 17px;
+    font-weight: 800;
+    color: #f0c040;
+    margin-bottom: 12px;
+    letter-spacing: 0.02em;
+  }
+  .hero-desc {
+    font-size: 15px;
+    color: rgba(255,255,255,0.78);
+    line-height: 1.65;
+    max-width: 560px;
+    margin: 0 auto 32px;
+  }
+  .hero-stats-row {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+  }
+  .h-stat {
+    padding: 16px 26px;
+    border-right: 1px solid rgba(255,255,255,0.08);
+    text-align: center;
+    min-width: 120px;
+  }
+  .h-stat:last-child { border-right: none; }
+  .h-stat-num {
+    font-size: 34px;
+    font-weight: 900;
+    color: #ffe066;
+    line-height: 1;
+    margin-bottom: 5px;
+    font-family: Arial, sans-serif;
+  }
+  .h-stat-lbl {
+    font-size: 11px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .activity-bar {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    padding: 12px 18px;
+    margin: 0 auto 28px;
+    max-width: 580px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .act-dot {
+    width: 8px; height: 8px;
+    background: #7fd9a8;
+    border-radius: 50%;
+    flex-shrink: 0;
+    animation: dotGlow 1.5s ease-in-out infinite;
+  }
+  .act-text {
+    font-size: 13px;
+    color: rgba(255,255,255,0.72);
+    flex: 1;
+    text-align: left;
+    font-family: Arial, sans-serif;
+    transition: opacity 0.4s;
+  }
+  .act-text strong { color: #7fd9a8; }
+  .act-time {
+    font-size: 11px;
+    color: rgba(255,255,255,0.3);
+    white-space: nowrap;
+    font-family: Arial, sans-serif;
+  }
+  .hero-btns {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 44px;
+  }
+  .hbtn-primary {
+    padding: 14px 30px;
+    background: #1f5e43;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.18s;
+    box-shadow: 0 4px 20px rgba(31,94,67,0.5);
+    font-family: Arial, sans-serif;
+  }
+  .hbtn-primary:hover { background: #2e7d5a; transform: translateY(-2px); }
+  .hbtn-secondary {
+    padding: 14px 30px;
+    background: transparent;
+    color: #fff;
+    border: 2px solid rgba(255,255,255,0.2);
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.18s;
+    font-family: Arial, sans-serif;
+  }
+  .hbtn-secondary:hover { border-color: #7fd9a8; color: #7fd9a8; }
+
+  /* TICKER */
+  .ticker-wrap {
+    width: 100%;
+    overflow: hidden;
+    padding: 14px 0;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    position: relative;
+  }
+  .ticker-wrap::before,
+  .ticker-wrap::after {
+    content: "";
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 80px;
+    z-index: 2;
+  }
+  .ticker-wrap::before { left: 0; background: linear-gradient(90deg, #050d08, transparent); }
+  .ticker-wrap::after  { right: 0; background: linear-gradient(-90deg, #050d08, transparent); }
+  .ticker-track {
+    display: flex;
+    animation: tickerScroll 70s linear infinite;
+    width: max-content;
+  }
+  .ticker-track:hover { animation-play-state: paused; }
+  @keyframes tickerScroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .ticker-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 5px 20px;
+    font-size: 13px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.55);
+    white-space: nowrap;
+    border-right: 1px solid rgba(255,255,255,0.06);
+    font-family: Arial, sans-serif;
+  }
+  .ticker-item.t-live { color: #7fd9a8; }
+  .ticker-item.t-live::after { content: " 🟢"; font-size: 8px; }
+
+  /* SECTORS */
+  .sectors-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    padding: 22px 20px 30px;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  .sector-tag {
+    padding: 6px 14px;
+    background: rgba(31,94,67,0.2);
+    border: 1px solid rgba(31,94,67,0.4);
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.7);
+    cursor: pointer;
+    transition: all 0.15s;
+    text-decoration: none;
+    font-family: Arial, sans-serif;
+  }
+  .sector-tag:hover {
+    background: rgba(31,94,67,0.5);
+    color: #7fd9a8;
+    border-color: #7fd9a8;
+  }
+
+  .scroll-hint {
+    padding: 18px 0 22px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    color: rgba(255,255,255,0.25);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-family: Arial, sans-serif;
+    animation: scrollBounce 2s ease-in-out infinite;
+  }
+  .scroll-arrow {
+    width: 18px; height: 18px;
+    border-right: 2px solid rgba(255,255,255,0.25);
+    border-bottom: 2px solid rgba(255,255,255,0.25);
+    transform: rotate(45deg);
+  }
+  @keyframes scrollBounce {
+    0%,100% { transform: translateY(0); }
+    50%      { transform: translateY(7px); }
+  }
+
+  @media (max-width: 600px) {
+    .hero-title  { font-size: 38px; }
+    .hero-tagline { font-size: 14px; }
+    .h-stat      { padding: 12px 16px; min-width: 90px; }
+    .h-stat-num  { font-size: 26px; }
+    .nigeria-pulse { width: 200px; height: 200px; }
+  }
+
+  /* ============================================================
+     WHAT CAN YOU DO ON NAIJY — Action Cards Section
+  ============================================================ */
+  .wcyd-section {
+    background: #f4f9f0;
+    padding: 56px 20px 60px;
+  }
+  .wcyd-inner {
+    max-width: 980px;
+    margin: 0 auto;
+  }
+  .wcyd-label {
+    font-size: 12px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: #c8922a;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  .wcyd-title {
+    font-size: 30px;
+    font-weight: 900;
+    color: #1a2e23;
+    text-align: center;
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+  .wcyd-sub {
+    font-size: 15px;
+    color: #6b8070;
+    text-align: center;
+    max-width: 560px;
+    margin: 0 auto 40px;
+    line-height: 1.6;
+  }
+  .wcyd-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+  }
+  .wcyd-card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 24px 22px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border-left: 4px solid #1f5e43;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: block;
+    position: relative;
+    overflow: hidden;
+  }
+  .wcyd-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 28px rgba(31,94,67,0.16);
+  }
+  .wcyd-card .wcyd-emoji {
+    font-size: 34px;
+    margin-bottom: 14px;
+    display: block;
+  }
+  .wcyd-card .wcyd-action {
+    font-size: 11px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #c8922a;
+    margin-bottom: 6px;
+  }
+  .wcyd-card .wcyd-headline {
+    font-size: 17px;
+    font-weight: 800;
+    color: #1a2e23;
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+  .wcyd-card .wcyd-desc {
+    font-size: 13px;
+    color: #6b8070;
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+  .wcyd-card .wcyd-platform {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 800;
+    color: #1f5e43;
+  }
+  .wcyd-card .wcyd-arrow {
+    transition: transform 0.2s;
+    display: inline-block;
+  }
+  .wcyd-card:hover .wcyd-arrow {
+    transform: translateX(4px);
+  }
+  .wcyd-card.live::after {
+    content: "🟢 LIVE";
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    font-size: 10px;
+    font-weight: 900;
+    color: #1f5e43;
+    background: #e8f5ee;
+    padding: 3px 9px;
+    border-radius: 20px;
+  }
+  .wcyd-footer {
+    text-align: center;
+    margin-top: 36px;
+  }
+  .wcyd-footer-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 30px;
+    background: #1f5e43;
+    color: #fff;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 800;
+    text-decoration: none;
+    transition: all 0.18s;
+  }
+  .wcyd-footer-btn:hover {
+    background: #2e7d5a;
+    transform: translateY(-2px);
+  }
+  @media (max-width: 600px) {
+    .wcyd-title { font-size: 24px; }
+    .wcyd-grid { grid-template-columns: 1fr; }
+  }
+  </style>
 </head>
 <body>
+
+  <!-- ======================================================
+       DYNAMIC HERO — replaces old static hero-section
+  ====================================================== -->
+  <div class="naijy-hero">
+
+    <div class="hero-grid"></div>
+    <div class="nigeria-pulse">
+      <div class="pulse-ring"></div>
+      <div class="pulse-ring"></div>
+      <div class="pulse-ring"></div>
+      <div class="nigeria-dot"></div>
+    </div>
+
+    <div class="hero-inner">
+
+      <img src="logo.png" alt="Naijy Logo" class="hero-logo" style="max-width:120px;margin-bottom:16px;">
+
+      <div class="hero-badge">
+        <div class="badge-dot"></div>
+        Nigeria's Digital Engine — Live Now
+      </div>
+
+      <div class="hero-title">
+        Naijy<span class="ht-dot">.</span><span class="ht-ng">ng</span>
+      </div>
+      <div class="hero-tagline">110 Platforms · 16 Sectors · One Nigeria</div>
+      <div class="hero-desc">
+        The national digital infrastructure connecting every Nigerian to services, communities, governance, economy, health, agriculture, and opportunity — in one place.
+      </div>
+
+      <!-- LIVE STATS -->
+      <div class="hero-stats-row">
+        <div class="h-stat">
+          <div class="h-stat-num" id="hstat-platforms">0</div>
+          <div class="h-stat-lbl">Platforms</div>
+        </div>
+        <div class="h-stat">
+          <div class="h-stat-num" id="hstat-sectors">0</div>
+          <div class="h-stat-lbl">Sectors</div>
+        </div>
+        <div class="h-stat">
+          <div class="h-stat-num" id="hstat-live">0</div>
+          <div class="h-stat-lbl">Live Now</div>
+        </div>
+        <div class="h-stat">
+          <div class="h-stat-num" id="hstat-reports">0</div>
+          <div class="h-stat-lbl">Reports Filed</div>
+        </div>
+      </div>
+
+      <!-- LIVE ACTIVITY -->
+      <div class="activity-bar">
+        <div class="act-dot"></div>
+        <div class="act-text" id="act-text">
+          <strong>GomentWatch</strong> — Nigeria is watching. Submit your report now.
+        </div>
+        <div class="act-time" id="act-time">just now</div>
+      </div>
+
+      <!-- CTA BUTTONS -->
+      <div class="hero-btns">
+        <a class="hbtn-primary" href="#categories">🚀 Explore All 110 Platforms</a>
+        <a class="hbtn-secondary" href="gomentwatch.html">🏛️ GomentWatch — Live</a>
+      </div>
+
+    </div><!-- /hero-inner -->
+
+    <!-- PLATFORM TICKER -->
+    <div class="ticker-wrap">
+      <div class="ticker-track" id="ticker-track"></div>
+    </div>
+
+    <!-- SECTORS STRIP -->
+    <div class="sectors-strip" id="sectors-strip"></div>
+
+    <!-- SCROLL HINT -->
+    <div class="scroll-hint">
+      <span>Scroll to explore</span>
+      <div class="scroll-arrow"></div>
+    </div>
+
+  </div>
+  <!-- end naijy-hero -->
+
+  <!-- ============================================================
+       WHAT CAN YOU DO ON NAIJY — Action Cards Section
+  ============================================================ -->
+  <section class="wcyd-section">
+    <div class="wcyd-inner">
+      <div class="wcyd-label">Naijy in Plain Terms</div>
+      <h2 class="wcyd-title">What Can You Actually Do Here?</h2>
+      <p class="wcyd-sub">Naijy is not just platforms — it's things you can do right now, today, as a Nigerian. Pick one and start.</p>
+
+      <div class="wcyd-grid">
+
+        <a class="wcyd-card live" href="gomentwatch.html">
+          <span class="wcyd-emoji">🏛️</span>
+          <div class="wcyd-action">Report</div>
+          <div class="wcyd-headline">Call out government failure</div>
+          <div class="wcyd-desc">See bad roads, corruption, or service failure? Report it publicly and hold power accountable.</div>
+          <span class="wcyd-platform">GomentWatch <span class="wcyd-arrow">→</span></span>
+        </a>
+
+        <a class="wcyd-card live" href="safenation.html">
+          <span class="wcyd-emoji">🚨</span>
+          <div class="wcyd-action">Warn</div>
+          <div class="wcyd-headline">Alert your community to danger</div>
+          <div class="wcyd-desc">See a safety threat? Post it instantly so others nearby know and stay safe.</div>
+          <span class="wcyd-platform">SafeNation <span class="wcyd-arrow">→</span></span>
+        </a>
+
+        <a class="wcyd-card live" href="agriconet.html">
+          <span class="wcyd-emoji">🌾</span>
+          <div class="wcyd-action">Buy or Sell</div>
+          <div class="wcyd-headline">Trade farm produce directly</div>
+          <div class="wcyd-desc">Buy fresh produce straight from farmers, or list your own — no middleman, no markup.</div>
+          <span class="wcyd-platform">AgricoNet <span class="wcyd-arrow">→</span></span>
+        </a>
+
+        <a class="wcyd-card live" href="flowstream.html">
+          <span class="wcyd-emoji">💭</span>
+          <div class="wcyd-action">Speak</div>
+          <div class="wcyd-headline">Say what's on your mind</div>
+          <div class="wcyd-desc">Post your thoughts on politics, economy, or life — no algorithm, no gatekeepers.</div>
+          <span class="wcyd-platform">FlowStream <span class="wcyd-arrow">→</span></span>
+        </a>
+
+        <a class="wcyd-card live" href="lovestories.html">
+          <span class="wcyd-emoji">💍</span>
+          <div class="wcyd-action">Share</div>
+          <div class="wcyd-headline">Tell your love story</div>
+          <div class="wcyd-desc">How did you meet your husband or wife? Share it and inspire other Nigerians.</div>
+          <span class="wcyd-platform">WifeyMet / HusbyMet <span class="wcyd-arrow">→</span></span>
+        </a>
+
+        <a class="wcyd-card live" href="iboprentice.html">
+          <span class="wcyd-emoji">🤝</span>
+          <div class="wcyd-action">Learn or Teach</div>
+          <div class="wcyd-headline">Find a master, or train an apprentice</div>
+          <div class="wcyd-desc">Connect through the Igbo trading apprenticeship system — Imu Ahia, digitised.</div>
+          <span class="wcyd-platform">Iboprentice <span class="wcyd-arrow">→</span></span>
+        </a>
+
+        <a class="wcyd-card live" href="medialane.html">
+          <span class="wcyd-emoji">📰</span>
+          <div class="wcyd-action">Read or Write</div>
+          <div class="wcyd-headline">Get news no one else will publish</div>
+          <div class="wcyd-desc">Read independent stories, submit your own, or send an anonymous tip.</div>
+          <span class="wcyd-platform">MediaLane <span class="wcyd-arrow">→</span></span>
+        </a>
+
+        <a class="wcyd-card" href="#categories">
+          <span class="wcyd-emoji">🔍</span>
+          <div class="wcyd-action">Explore</div>
+          <div class="wcyd-headline">See all 110 platforms</div>
+          <div class="wcyd-desc">Health, housing, security, business, youth, governance — every sector of Nigerian life.</div>
+          <span class="wcyd-platform">Browse Everything <span class="wcyd-arrow">→</span></span>
+        </a>
+
+      </div>
+
+      <div class="wcyd-footer">
+        <a class="wcyd-footer-btn" href="#categories">🚀 See All 110 Platforms by Sector</a>
+      </div>
+
+    </div>
+  </section>
+
+
 
   <!-- xxxx BLOCK 3 — MAIN LAYOUT xxxx -->
   <div class="main-layout">
 
     <!-- xxxx BLOCK 3a — MAIN CONTENT xxxx -->
     <div class="main-wrapper">
-
-      <!-- xxxx BLOCK 4 — HERO SECTION xxxx -->
-      <header class="hero-section">
-        <div class="hero-content">
-          <img src="logo.png" alt="Naijy Logo" class="hero-logo">
-          <p class="lead">Welcome to Naijy</p>
-          <h1>Naijy – Nigeria’s Digital Infrastructure</h1>
-          <h3 class="hero-highlight">
-            Connecting 100+ Platforms, People, and Progress Across Nigeria
-          </h3>
-          <p class="hero-cta">
-            Browse the platforms below to see what is live, what is being built, and what is coming next.
-          </p>
-        </div>
-      </header>
 
       <!-- xxxx BLOCK 5 — NAVIGATION xxxx -->
       <nav class="primary-nav">
@@ -48,8 +658,6 @@
           <li><a href="index.html">Platforms</a></li>
           <li><a href="landing.html">About Naijy</a></li>
           <li><a href="partner.html">Partner With Us</a></li>
-
-          <!-- Single Founder Menu -->
           <li class="dropdown">
             <a href="#" class="dropdown-toggle">
               Founder Menu <span class="arrow">▼</span>
@@ -69,7 +677,7 @@
       <section class="about-section">
         <h2>About Naijy</h2>
         <p>
-          Naijy is Nigeria’s national digital infrastructure. It’s a network of structured platforms designed to organize key sectors, support citizens, and strengthen collaboration across the country. Each platform focuses on a specific area — including youth, education, business, health, security, and more. Some platforms are already live, while others are in development, all forming one connected ecosystem.
+          Naijy is Nigeria's national digital infrastructure. It's a network of structured platforms designed to organize key sectors, support citizens, and strengthen collaboration across the country. Each platform focuses on a specific area — including youth, education, business, health, security, and more. Some platforms are already live, while others are in development, all forming one connected ecosystem.
         </p>
       </section>
 
@@ -87,9 +695,7 @@
       <!-- ECOSYSTEM STRUCTURE -->
       <section class="ecosystem-explainer">
         <h2>How Naijy Is Structured</h2>
-        <p>
-          Naijy is organised into a network of connected platforms. Each platform focuses on an important sector of Nigeria.
-        </p>
+        <p>Naijy is organised into a network of connected platforms. Each platform focuses on an important sector of Nigeria.</p>
         <ul>
           <li><strong>Categories</strong> – The main sectors such as youth, education, business, health, and more.</li>
           <li><strong>Special Platforms</strong> – Key systems that power the Naijy ecosystem.</li>
@@ -121,68 +727,52 @@
           <!-- Injected by scripts.js -->
         </div>
       </section>
-<!-- MORE COMING SECTION -->
-<section style="text-align:center; padding: 40px 20px 50px; background: #f4f7f5;">
 
-  <p style="font-size: 13px; font-weight: 700; letter-spacing: 0.12em; color: #1f5e43; text-transform: uppercase; margin-bottom: 6px;">110 Platforms and counting</p>
+      <!-- MORE COMING SECTION -->
+      <section style="text-align:center; padding: 40px 20px 50px; background: #f4f7f5;">
+        <p style="font-size: 13px; font-weight: 700; letter-spacing: 0.12em; color: #1f5e43; text-transform: uppercase; margin-bottom: 6px;">110 Platforms and counting</p>
+        <h2 style="font-size: 22px; font-weight: 800; color: #1a2e23; margin-bottom: 6px;">More:</h2>
+        <p style="font-size: 14px; color: #6b8070; margin-bottom: 28px;">New platforms and solutions will be built. Always expanding.</p>
+        <div style="display:flex; justify-content:center; gap:14px; flex-wrap:wrap; margin-bottom:14px;">
+          <div style="width:100px; height:100px; border-radius:50%; background:#1f5e43; opacity:0.15;"></div>
+          <div style="width:100px; height:100px; border-radius:50%; background:#1f5e43; opacity:0.20;"></div>
+          <div style="width:100px; height:100px; border-radius:50%; background:#1f5e43; opacity:0.25;"></div>
+          <div style="width:100px; height:100px; border-radius:50%; background:#1f5e43; opacity:0.30;"></div>
+          <div style="width:100px; height:100px; border-radius:50%; background:#1f5e43; opacity:0.35;"></div>
+        </div>
+        <div style="display:flex; justify-content:center; gap:14px; flex-wrap:wrap; align-items:center;">
+          <div style="width:64px; height:64px; border-radius:50%; background:#1f5e43; opacity:0.40;"></div>
+          <div style="width:64px; height:64px; border-radius:50%; background:#1f5e43; opacity:0.45;"></div>
+          <div style="width:64px; height:64px; border-radius:50%; background:#1f5e43; opacity:0.50;"></div>
+          <div style="width:64px; height:64px; border-radius:50%; background:#1f5e43; opacity:0.55;"></div>
+          <div style="width:64px; height:64px; border-radius:50%; background:#c8922a; display:flex; align-items:center; justify-content:center; font-size:32px; font-weight:800; color:#fff; opacity:1;">+</div>
+        </div>
+        <p style="margin-top:24px; font-size:13px; color:#6b8070;">For Newer platforms. <a href="#" style="color:#1f5e43; font-weight:700; text-decoration:none;">Stay updated →</a></p>
+      </section>
 
-  <h2 style="font-size: 22px; font-weight: 800; color: #1a2e23; margin-bottom: 6px;">More:</h2>
-
-  <p style="font-size: 14px; color: #6b8070; margin-bottom: 28px;">New platforms and solutions will be built. Always expanding.</p>
-
-  <!-- ROW 1 — 5 circles -->
-  <div style="display:flex; justify-content:center; gap:14px; flex-wrap:wrap; margin-bottom:14px;">
-    <div style="width:100px; height:100px; border-radius:50%; background:#1f5e43; opacity:0.15;"></div>
-    <div style="width:100px; height:100px; border-radius:50%; background:#1f5e43; opacity:0.20;"></div>
-    <div style="width:100px; height:100px; border-radius:50%; background:#1f5e43; opacity:0.25;"></div>
-    <div style="width:100px; height:100px; border-radius:50%; background:#1f5e43; opacity:0.30;"></div>
-    <div style="width:100px; height:100px; border-radius:50%; background:#1f5e43; opacity:0.35;"></div>
-  </div>
-
-  <!-- ROW 2 — 4 circles + plus sign -->
-  <div style="display:flex; justify-content:center; gap:14px; flex-wrap:wrap; align-items:center;">
-    <div style="width:64px; height:64px; border-radius:50%; background:#1f5e43; opacity:0.40;"></div>
-    <div style="width:64px; height:64px; border-radius:50%; background:#1f5e43; opacity:0.45;"></div>
-    <div style="width:64px; height:64px; border-radius:50%; background:#1f5e43; opacity:0.50;"></div>
-    <div style="width:64px; height:64px; border-radius:50%; background:#1f5e43; opacity:0.55;"></div>
-    <div style="width:64px; height:64px; border-radius:50%; background:#c8922a; display:flex; align-items:center; justify-content:center; font-size:32px; font-weight:800; color:#fff; opacity:1;">+</div>
-  </div>
-
-  <p style="margin-top:24px; font-size:13px; color:#6b8070;">For Newer platforms. <a href="#" style="color:#1f5e43; font-weight:700; text-decoration:none;">Stay updated →</a></p>
-
-</section>
-    </div>
-    <!-- end main-wrapper -->
+    </div><!-- end main-wrapper -->
 
     <!-- SIDEBAR -->
     <aside class="sidebar">
-
-      <!-- Platform Stats -->
       <div class="platform-stats">
         <h4>Platform Stats</h4>
-
         <div class="stat-row">
           <span class="stat-label">Categories</span>
           <span class="stat-number" id="stat-categories"></span>
         </div>
-
         <div class="stat-row">
           <span class="stat-label">Special Platforms</span>
           <span class="stat-number" id="stat-special"></span>
         </div>
-
         <div class="stat-row">
           <span class="stat-label">Strategic Platforms</span>
           <span class="stat-number" id="stat-strategic"></span>
         </div>
-
         <div class="stat-row highlight">
           <span class="stat-label">Total Clicks</span>
           <span class="stat-number" id="total-clicks">0</span>
         </div>
       </div>
-
-      <!-- Quick Actions -->
       <div class="sidebar-card">
         <h3>Quick Actions</h3>
         <ul class="quick-links">
@@ -192,53 +782,135 @@
           <li><a href="about.html">About Naijy</a></li>
         </ul>
       </div>
-
-      <!-- Featured Books -->
       <div class="sidebar-book">
         <h4>📚 Our Books</h4>
-
         <div class="book-item" style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid #d4e4da;">
           <img src="images/book1.jpg" alt="Book 1" style="width:100%;border-radius:6px;margin-bottom:8px;">
           <p style="font-size:13px;font-weight:700;color:#1a2e23;margin-bottom:4px;">The Digital Future of Nigeria</p>
           <p style="font-size:11px;color:#6b8070;margin-bottom:8px;">By Davidwise</p>
           <a href="#" class="book-btn">View Book</a>
         </div>
-
         <div class="book-item" style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid #d4e4da;">
-          <img src="images/book2.jpg" alt="Book 2" style="width:100%;border-radius:6px;margin-bottom:8px;background:#e8f5ee;min-height:80px;display:flex;align-items:center;justify-content:center;">
+          <img src="images/book2.jpg" alt="Book 2" style="width:100%;border-radius:6px;margin-bottom:8px;background:#e8f5ee;min-height:80px;">
           <p style="font-size:13px;font-weight:700;color:#1a2e23;margin-bottom:4px;">Coming Soon</p>
           <p style="font-size:11px;color:#6b8070;margin-bottom:8px;">New Title</p>
           <a href="#" class="book-btn" style="opacity:0.5;pointer-events:none;">Coming Soon</a>
         </div>
-
         <div class="book-item" style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid #d4e4da;">
           <img src="images/book3.jpg" alt="Book 3" style="width:100%;border-radius:6px;margin-bottom:8px;background:#e8f5ee;min-height:80px;">
           <p style="font-size:13px;font-weight:700;color:#1a2e23;margin-bottom:4px;">Coming Soon</p>
           <p style="font-size:11px;color:#6b8070;margin-bottom:8px;">New Title</p>
           <a href="#" class="book-btn" style="opacity:0.5;pointer-events:none;">Coming Soon</a>
         </div>
-
         <div class="book-item" style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid #d4e4da;">
           <img src="images/book4.jpg" alt="Book 4" style="width:100%;border-radius:6px;margin-bottom:8px;background:#e8f5ee;min-height:80px;">
           <p style="font-size:13px;font-weight:700;color:#1a2e23;margin-bottom:4px;">Coming Soon</p>
           <p style="font-size:11px;color:#6b8070;margin-bottom:8px;">New Title</p>
           <a href="#" class="book-btn" style="opacity:0.5;pointer-events:none;">Coming Soon</a>
         </div>
-
         <div class="book-item">
           <img src="images/book5.jpg" alt="Book 5" style="width:100%;border-radius:6px;margin-bottom:8px;background:#e8f5ee;min-height:80px;">
           <p style="font-size:13px;font-weight:700;color:#1a2e23;margin-bottom:4px;">Coming Soon</p>
           <p style="font-size:11px;color:#6b8070;margin-bottom:8px;">New Title</p>
           <a href="#" class="book-btn" style="opacity:0.5;pointer-events:none;">Coming Soon</a>
         </div>
+      </div>
+    </aside>
 
+  </div><!-- end main-layout -->
+
+  <!-- ============================================================
+       2027 PRESIDENTIAL RACE — DAVIDWISE SERIKI
+  ============================================================ -->
+  <section style="background:linear-gradient(135deg,#050d08 0%,#0d2b1a 40%,#1f5e43 100%);padding:70px 20px;position:relative;overflow:hidden;font-family:Arial,sans-serif;">
+
+    <!-- Background grid -->
+    <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(31,94,67,0.08) 1px,transparent 1px),linear-gradient(90deg,rgba(31,94,67,0.08) 1px,transparent 1px);background-size:40px 40px;"></div>
+
+    <!-- Nigerian flag accent -->
+    <div style="position:absolute;top:0;left:0;right:0;height:5px;background:linear-gradient(90deg,#1f5e43 33%,#fff 33%,#fff 66%,#1f5e43 66%);"></div>
+
+    <div style="max-width:900px;margin:0 auto;position:relative;z-index:2;">
+
+      <!-- EYEBROW -->
+      <div style="text-align:center;margin-bottom:32px;">
+        <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(200,146,42,0.2);border:1px solid rgba(200,146,42,0.5);border-radius:20px;padding:6px 18px;font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#f0c040;margin-bottom:16px;">
+          <span style="width:7px;height:7px;background:#f0c040;border-radius:50%;display:inline-block;"></span>
+          2027 Nigerian Presidential Race
+        </div>
+        <h2 style="font-size:42px;font-weight:900;color:#fff;line-height:1.1;margin-bottom:8px;">The Man Behind<br><span style="color:#f0c040;">Nigeria's Digital Engine</span><br>Is Running for President</h2>
+        <p style="font-size:16px;color:rgba(255,255,255,0.75);max-width:580px;margin:0 auto;line-height:1.65;">The same vision that built Naijy — 110 platforms across 16 sectors — is the same vision that will transform Nigeria in 8 years.</p>
       </div>
 
-    </aside>
-    <!-- end sidebar -->
+      <!-- CANDIDATE CARD -->
+      <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:18px;padding:36px;margin-bottom:32px;display:flex;gap:32px;flex-wrap:wrap;align-items:flex-start;">
 
-  </div>
-  <!-- end main-layout -->
+        <!-- LEFT — Name and title -->
+        <div style="flex:1;min-width:220px;">
+          <div style="font-size:11px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:#7fd9a8;margin-bottom:8px;">Presidential Candidate</div>
+          <div style="font-size:36px;font-weight:900;color:#fff;line-height:1.1;margin-bottom:4px;">DAVIDWISE</div>
+          <div style="font-size:36px;font-weight:900;color:#f0c040;line-height:1.1;margin-bottom:16px;">SERIKI</div>
+          <div style="display:inline-block;background:#c0392b;color:#fff;font-size:13px;font-weight:900;padding:6px 18px;border-radius:6px;letter-spacing:0.05em;margin-bottom:20px;">FOR PRESIDENT — 2027</div>
+          <p style="font-size:13px;color:rgba(255,255,255,0.7);line-height:1.65;margin-bottom:16px;">A visionary, dreamer, thinker, revolutionary, progressive, solution provider. A system architect and founder of several startups and multi-platform systems — including Naijy.ng, Nigeria's national digital engine.</p>
+          <p style="font-size:13px;font-weight:700;color:#f0c040;font-style:italic;line-height:1.55;">"The man who dreamed over twenty times that he will run for Nigeria's presidency."</p>
+        </div>
+
+        <!-- RIGHT — Vision points -->
+        <div style="flex:1;min-width:240px;">
+          <div style="font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:#7fd9a8;margin-bottom:14px;">The 8-Year Transformation Vision</div>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div style="display:flex;align-items:flex-start;gap:10px;"><span style="font-size:16px;flex-shrink:0;">🇳🇬</span><span style="font-size:13px;color:#fff;line-height:1.5;">Make Nigeria like Britain and the US</span></div>
+            <div style="display:flex;align-items:flex-start;gap:10px;"><span style="font-size:16px;flex-shrink:0;">🌍</span><span style="font-size:13px;color:#fff;line-height:1.5;">Take Nigeria from 3rd to 1st World</span></div>
+            <div style="display:flex;align-items:flex-start;gap:10px;"><span style="font-size:16px;flex-shrink:0;">🏛️</span><span style="font-size:13px;color:#fff;line-height:1.5;">Move the world to Nigeria — World's Capital</span></div>
+            <div style="display:flex;align-items:flex-start;gap:10px;"><span style="font-size:16px;flex-shrink:0;">✊</span><span style="font-size:13px;color:#fff;line-height:1.5;">Unite and make Nigeria strong as stone</span></div>
+            <div style="display:flex;align-items:flex-start;gap:10px;"><span style="font-size:16px;flex-shrink:0;">🎓</span><span style="font-size:13px;color:#fff;line-height:1.5;">Raise 5M engineers, 5M scientists, 32M STEM graduates</span></div>
+            <div style="display:flex;align-items:flex-start;gap:10px;"><span style="font-size:16px;flex-shrink:0;">🚀</span><span style="font-size:13px;color:#fff;line-height:1.5;">Take Nigeria to space</span></div>
+            <div style="display:flex;align-items:flex-start;gap:10px;"><span style="font-size:16px;flex-shrink:0;">⚙️</span><span style="font-size:13px;color:#fff;line-height:1.5;">Revive Ajaokuta Steel — Make everything</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOOKS ROW -->
+      <div style="margin-bottom:32px;">
+        <div style="font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:#7fd9a8;text-align:center;margin-bottom:18px;">📚 Books Towards His Presidency</div>
+        <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center;">
+          <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:18px 20px;text-align:center;flex:1;min-width:180px;max-width:220px;">
+            <div style="font-size:32px;margin-bottom:8px;">📖</div>
+            <div style="font-size:13px;font-weight:800;color:#fff;margin-bottom:4px;">The Emergence of Nigeria</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.5);">500 Thoughts of Davidwise Seriki</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:18px 20px;text-align:center;flex:1;min-width:180px;max-width:220px;">
+            <div style="font-size:32px;margin-bottom:8px;">📗</div>
+            <div style="font-size:13px;font-weight:800;color:#fff;margin-bottom:4px;">Inspiring A Nation</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.5);">A vision for Nigeria's future</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:18px 20px;text-align:center;flex:1;min-width:180px;max-width:220px;">
+            <div style="font-size:32px;margin-bottom:8px;">📘</div>
+            <div style="font-size:13px;font-weight:800;color:#fff;margin-bottom:4px;">The Force of Vision</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.5);">On vision, purpose and leadership</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- NAIJY CONNECTION -->
+      <div style="background:rgba(127,217,168,0.08);border:1px solid rgba(127,217,168,0.25);border-radius:12px;padding:22px 24px;margin-bottom:32px;text-align:center;">
+        <div style="font-size:14px;font-weight:800;color:#7fd9a8;margin-bottom:8px;">🔗 Naijy Is His Proof of Vision</div>
+        <p style="font-size:14px;color:rgba(255,255,255,0.8);line-height:1.65;max-width:620px;margin:0 auto;">Before asking for your vote, he built the infrastructure. Naijy — 110 platforms across 16 sectors of Nigerian life — is not a promise. It is already here. This is what he will do for Nigeria as President.</p>
+      </div>
+
+      <!-- BOTTOM TAGLINE -->
+      <div style="text-align:center;padding-top:16px;border-top:1px solid rgba(255,255,255,0.1);">
+        <div style="font-size:18px;font-weight:900;color:#fff;margin-bottom:6px;">THE FUTURE IS NIGERIA. THE TIME IS NOW.</div>
+        <div style="font-size:14px;font-weight:800;color:#f0c040;margin-bottom:24px;">TOGETHER, WE WILL BUILD A NATION THE WORLD WILL FOLLOW.</div>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+          <a href="#" style="padding:13px 26px;background:#f0c040;color:#0d2b1a;border-radius:9px;font-size:14px;font-weight:800;text-decoration:none;transition:opacity 0.15s;">🇳🇬 Support the Vision</a>
+          <a href="#" onclick="window.open('https://wa.me/?text='+encodeURIComponent('Davidwise Seriki is running for President of Nigeria in 2027. The man who built Naijy — Nigeria\'s Digital Engine — is ready to build the nation. Learn more: naijy.ng'),'_blank');return false;" style="padding:13px 26px;background:rgba(255,255,255,0.1);color:#fff;border:2px solid rgba(255,255,255,0.25);border-radius:9px;font-size:14px;font-weight:800;text-decoration:none;">📱 Share on WhatsApp</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
 
   <!-- FOOTER -->
   <footer class="footer">
@@ -259,16 +931,133 @@
         <a href="#">Copy Link</a>
         <a href="#">Email</a>
       </div>
-      <p class="footer-copy">
-        © 2026 Naijy Digital Infrastructure. All rights reserved.
-      </p>
+      <p class="footer-copy">© 2026 Naijy Digital Infrastructure. All rights reserved.</p>
     </div>
   </footer>
 
   <!-- JS Scripts -->
   <script src="data.js"></script>
   <script src="auth.js"></script>
-<script src="scripts.js"></script>
+  <script src="scripts.js"></script>
+
+  <!-- DYNAMIC HERO SCRIPT -->
+  <script>
+  (function(){
+    var SUPABASE_URL = "https://klrbowhzkaojkqsbtoeu.supabase.co";
+    var SUPABASE_KEY = "sb_publishable_1weF_9aByeMEVFKHOZFdqg_bA5anAhm";
+
+    var ALL_PLATFORMS = [
+      {n:"SafeNation",e:"🚨",l:true},{n:"JusticeNow",e:"⚖️",l:false},
+      {n:"LegalSure",e:"📋",l:false},{n:"LawSimple",e:"📖",l:false},
+      {n:"JudicialBar",e:"🏛️",l:false},{n:"CyberNet",e:"🔐",l:false},
+      {n:"DigitalRights",e:"🛡️",l:false},{n:"TradeCentre",e:"🏪",l:false},
+      {n:"RetaileX",e:"🛍️",l:false},{n:"BusinessMap",e:"🗺️",l:false},
+      {n:"FinanceHub",e:"💰",l:false},{n:"RemiteX",e:"💸",l:false},
+      {n:"WorkGlobal",e:"🌍",l:false},{n:"YouthSpace",e:"🚀",l:false},
+      {n:"YouthEmploy",e:"👔",l:false},{n:"Iboprentice",e:"🤝",l:true},
+      {n:"EducaHub",e:"📚",l:false},{n:"LeadersArena",e:"🏆",l:false},
+      {n:"TeleMedic",e:"🏥",l:false},{n:"HealthPro",e:"💊",l:false},
+      {n:"AgricoNet",e:"🌾",l:true},{n:"FarmConet",e:"🚜",l:false},
+      {n:"FoodHub",e:"🍲",l:false},{n:"360Energy",e:"⚡",l:false},
+      {n:"Petro360",e:"🛢️",l:false},{n:"HomeConnect",e:"🏠",l:false},
+      {n:"PropertyHub",e:"🏗️",l:false},{n:"SmartCities",e:"🌆",l:false},
+      {n:"EthnicHub",e:"🌺",l:false},{n:"NigerianCreed",e:"🇳🇬",l:false},
+      {n:"DeenConnect",e:"☪️",l:false},{n:"MediaWatch",e:"📺",l:false},
+      {n:"CreativeX",e:"🎨",l:false},{n:"FilmHub",e:"🎬",l:false},
+      {n:"WifeyMet",e:"💍",l:true},{n:"HusbyMet",e:"🤵",l:true},
+      {n:"EntertainmentX",e:"🎭",l:false},{n:"SportsEco",e:"⚽",l:false},
+      {n:"TraveleX",e:"✈️",l:false},{n:"Hotels360",e:"🏨",l:false},
+      {n:"NaMyArea",e:"📍",l:false},{n:"BlockchainNet",e:"🔗",l:false},
+      {n:"InnovateLab",e:"💡",l:false},{n:"RobotAI",e:"🤖",l:false},
+      {n:"GomentWatch",e:"👁️",l:true},{n:"PolicyDecoded",e:"📜",l:false},
+      {n:"ElectConnect",e:"🗳️",l:false},{n:"CivicPolitics",e:"🏛️",l:false},
+      {n:"SteelHub",e:"⚙️",l:false},{n:"MakersHub",e:"🔨",l:false},
+      {n:"LogisticsChain",e:"📦",l:false},{n:"FlowStream",e:"💭",l:true},
+      {n:"MediaLane",e:"📰",l:true},{n:"NaijyShield",e:"🛡️",l:false},
+      {n:"NaijyPulse",e:"📡",l:false},{n:"RevenueMap",e:"💹",l:false},
+      {n:"ExpenditureMap",e:"📊",l:false},{n:"InfraAssets",e:"🏗️",l:false}
+    ];
+
+    var SECTORS = [
+      "🔒 Security & Justice","💼 Business & Economy","🎓 Youth","📖 Education",
+      "🏥 Health","🌾 Agriculture","⚡ Energy","🏠 Housing","🎭 Culture & Faith",
+      "📺 Media","⚽ SporTertainment","✈️ Hospitality","💻 Technology",
+      "🏛️ Governance","⚙️ Industry","💬 Say Something"
+    ];
+
+    var ACTIVITIES = [
+      {t:"<strong>GomentWatch</strong> — A new government failure report was submitted", time:"2m ago"},
+      {t:"<strong>SafeNation</strong> — Safety alert filed in Lagos", time:"5m ago"},
+      {t:"<strong>FlowStream</strong> — A Nigerian just shared their thought", time:"just now"},
+      {t:"<strong>AgricoNet</strong> — Fresh produce listed by a farmer in Benue", time:"8m ago"},
+      {t:"<strong>WifeyMet</strong> — A love story was just shared", time:"12m ago"},
+      {t:"<strong>Iboprentice</strong> — A master trader just registered", time:"15m ago"},
+      {t:"<strong>MediaLane</strong> — A new story tip was submitted", time:"3m ago"},
+      {t:"<strong>Naijy.ng</strong> — A new member just signed up", time:"just now"}
+    ];
+
+    function animCount(el, target, dur) {
+      var start = 0, step = target / (dur / 16);
+      var t = setInterval(function(){
+        start += step;
+        if(start >= target){ start = target; clearInterval(t); }
+        el.innerText = Math.floor(start).toLocaleString();
+      }, 16);
+    }
+
+    function loadStats() {
+      animCount(document.getElementById("hstat-platforms"), 110, 1500);
+      animCount(document.getElementById("hstat-sectors"),   16,  1200);
+      animCount(document.getElementById("hstat-live"),      8,   1000);
+      fetch(SUPABASE_URL+"/rest/v1/gomentwatch?select=id", {
+        headers:{"apikey":SUPABASE_KEY,"Authorization":"Bearer "+SUPABASE_KEY}
+      }).then(function(r){return r.json();}).then(function(d){
+        animCount(document.getElementById("hstat-reports"), (d&&d.length)||0, 800);
+      }).catch(function(){
+        animCount(document.getElementById("hstat-reports"), 0, 500);
+      });
+    }
+
+    function buildTicker() {
+      var track = document.getElementById("ticker-track");
+      if(!track) return;
+      var items = ALL_PLATFORMS.concat(ALL_PLATFORMS);
+      track.innerHTML = items.map(function(p){
+        return '<div class="ticker-item'+(p.l?" t-live":"")+'">'+p.e+' '+p.n+'</div>';
+      }).join("");
+    }
+
+    function buildSectors() {
+      var strip = document.getElementById("sectors-strip");
+      if(!strip) return;
+      strip.innerHTML = SECTORS.map(function(s){
+        return '<a class="sector-tag" href="#categories">'+s+'</a>';
+      }).join("");
+    }
+
+    var actIdx = 0;
+    function rotateActivity() {
+      var el = document.getElementById("act-text");
+      var te = document.getElementById("act-time");
+      if(!el) return;
+      actIdx = (actIdx+1) % ACTIVITIES.length;
+      el.style.opacity = "0";
+      setTimeout(function(){
+        el.innerHTML = ACTIVITIES[actIdx].t;
+        if(te) te.innerText = ACTIVITIES[actIdx].time;
+        el.style.transition = "opacity 0.5s";
+        el.style.opacity = "1";
+      }, 350);
+    }
+
+    window.addEventListener("DOMContentLoaded", function(){
+      loadStats();
+      buildTicker();
+      buildSectors();
+      setInterval(rotateActivity, 4000);
+    });
+  })();
+  </script>
 
 </body>
 </html>
