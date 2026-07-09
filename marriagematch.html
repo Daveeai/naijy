@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MarriageMatch — For Nigerians Who Are Ready</title>
+<meta name="description" content="Not a dating app. A marriage platform. For Nigerians who are serious, ready, and intentional about finding a life partner.">
+<script src="naijy-nav.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--green:#1f5e43;--green2:#2e7d5a;--gold:#c8922a;--pink:#c2185b;--light:#fff9f9;--white:#fff;--text:#1a1a2e;--muted:#6b6b8a;--border:#e8d0d8}
+body{font-family:Arial,sans-serif;background:var(--light);color:var(--text);font-size:16px;line-height:1.6}
+.hero{background:linear-gradient(135deg,#1a0010 0%,#4a0030 50%,#8b1a5a 100%);color:#fff;padding:50px 20px 40px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(200,0,100,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(200,0,100,0.06) 1px,transparent 1px);background-size:40px 40px}
+.hero-inner{position:relative;z-index:2;max-width:680px;margin:0 auto}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.25);border-radius:20px;padding:6px 18px;font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#ffb3d4;margin-bottom:18px}
+.badge-dot{width:7px;height:7px;background:#ffb3d4;border-radius:50%;animation:pulse 1.5s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+.hero h1{font-size:38px;font-weight:900;line-height:1.1;margin-bottom:10px}
+.hero h1 span{color:#f0c040}
+.hero .not-dating{font-size:13px;font-weight:800;color:#ffb3d4;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:10px}
+.hero p{font-size:15px;color:rgba(255,255,255,0.82);max-width:520px;margin:0 auto 28px;line-height:1.65}
+.hero-stats{display:flex;justify-content:center;gap:0;flex-wrap:wrap;background:rgba(0,0,0,0.2);border-radius:12px;padding:16px;max-width:480px;margin:0 auto}
+.hs{flex:1;min-width:100px;text-align:center;padding:8px 12px;border-right:1px solid rgba(255,255,255,0.1)}
+.hs:last-child{border-right:none}
+.hs-num{font-size:24px;font-weight:900;color:#f0c040}
+.hs-lbl{font-size:11px;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:0.07em;margin-top:2px}
+.container{max-width:860px;margin:0 auto;padding:24px 16px 80px}
+/* TRUST BAR */
+.trust-bar{background:#fff;border-radius:12px;padding:20px 24px;margin-bottom:24px;box-shadow:0 2px 12px rgba(0,0,0,0.06);display:flex;gap:20px;flex-wrap:wrap;align-items:center;justify-content:center;border-left:5px solid var(--gold)}
+.trust-item{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--text)}
+.trust-icon{font-size:18px}
+/* TABS */
+.tabs{display:flex;gap:0;margin-bottom:0;border-radius:10px;overflow:hidden;border:2px solid var(--border);background:#fff}
+.tab{flex:1;padding:13px 8px;border:none;background:none;font-size:13px;font-weight:700;color:var(--muted);cursor:pointer;transition:all 0.2s;text-align:center}
+.tab.active{background:var(--pink);color:#fff}
+.tab:not(.active):hover{background:#fff0f5;color:var(--pink)}
+.panel{display:none}.panel.active{display:block}
+/* FORM */
+.form-card{background:#fff;border-radius:14px;padding:28px 24px;margin-top:16px;border-left:5px solid var(--pink);box-shadow:0 2px 14px rgba(0,0,0,0.07)}
+.form-card h2{font-size:18px;font-weight:800;color:var(--pink);margin-bottom:6px}
+.form-card .sub{font-size:13px;color:var(--muted);margin-bottom:20px;line-height:1.55}
+.intent-box{background:#fff0f5;border:2px solid #f8bbd0;border-radius:10px;padding:16px;margin-bottom:20px;text-align:center}
+.intent-box p{font-size:14px;font-weight:700;color:var(--pink);margin-bottom:10px}
+.intent-options{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.intent-btn{padding:8px 18px;border:2px solid var(--border);border-radius:20px;background:#fff;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.15s;color:var(--muted)}
+.intent-btn.selected{border-color:var(--pink);background:var(--pink);color:#fff}
+label{display:block;font-size:13px;font-weight:700;color:#444;margin:14px 0 5px}
+input,textarea,select{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;font-family:Arial,sans-serif;outline:none;transition:border 0.2s;background:#fafafa}
+input:focus,textarea:focus,select:focus{border-color:var(--pink);background:#fff}
+textarea{min-height:90px;resize:vertical}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.section-divider{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:var(--pink);margin:20px 0 4px;padding-bottom:6px;border-bottom:2px solid #f8bbd0}
+.submit-btn{width:100%;margin-top:18px;padding:15px;background:linear-gradient(135deg,var(--pink),#8b1a5a);color:#fff;border:none;border-radius:10px;font-size:16px;font-weight:800;cursor:pointer;transition:all 0.18s}
+.submit-btn:hover{opacity:0.9;transform:translateY(-1px)}
+.submit-btn:disabled{opacity:0.5;cursor:not-allowed;transform:none}
+.warning-box{background:#fff8e6;border:1px solid #ffd54f;border-radius:8px;padding:12px 16px;margin-bottom:16px;font-size:13px;color:#7d5a00;line-height:1.55}
+.success-box{display:none;margin-top:16px;padding:28px;background:linear-gradient(135deg,#fff0f5,#ffe6f2);border-radius:12px;text-align:center;border:2px solid #f8bbd0}
+.success-box .big{font-size:48px;margin-bottom:10px}
+.success-box h3{color:var(--pink);font-size:18px;margin-bottom:8px}
+/* PROFILES */
+.profile-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;margin-top:16px}
+.profile-card{background:#fff;border-radius:14px;padding:20px;box-shadow:0 2px 10px rgba(0,0,0,0.07);border-top:4px solid var(--pink);transition:all 0.18s}
+.profile-card.male{border-top-color:#1565c0}
+.profile-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(194,24,91,0.12)}
+.pc-badge{font-size:10px;font-weight:800;text-transform:uppercase;padding:3px 10px;border-radius:20px;margin-bottom:10px;display:inline-block}
+.badge-f{background:#fff0f5;color:var(--pink)}
+.badge-m{background:#e3f0ff;color:#1565c0}
+.pc-name{font-size:16px;font-weight:800;color:var(--text);margin-bottom:4px}
+.pc-intent{font-size:12px;color:var(--gold);font-weight:700;margin-bottom:8px}
+.pc-details{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.pc-tag{font-size:11px;padding:3px 10px;background:#f5f5f5;border-radius:20px;color:#555;font-weight:600}
+.pc-about{font-size:13px;color:#555;line-height:1.5;margin-bottom:12px}
+.pc-ref{font-size:11px;color:#aaa;margin-bottom:10px}
+.pc-footer{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.interest-btn{padding:8px 16px;background:var(--green);color:#fff;border:none;border-radius:7px;font-size:12px;font-weight:700;cursor:pointer;transition:opacity 0.15s}
+.interest-btn:hover{opacity:0.85}
+.flag-btn{padding:7px 12px;border:none;border-radius:7px;font-size:11px;font-weight:700;cursor:pointer;background:#fff3cd;color:#856404;border:1px solid #ffc107}
+.search-row{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.search-row input{flex:1;min-width:160px}
+.search-row select{width:auto;min-width:130px}
+.loading{text-align:center;padding:40px;color:var(--muted)}
+.empty{text-align:center;padding:40px;color:var(--muted)}
+.feed-header{display:flex;align-items:center;justify-content:space-between;margin:20px 0 14px;flex-wrap:wrap;gap:8px}
+.feed-header h2{font-size:18px;font-weight:800;color:var(--pink)}
+@media(max-width:540px){.hero h1{font-size:26px}.row2,.row3{grid-template-columns:1fr}.hs{min-width:80px}}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge"><div class="badge-dot"></div>🇳🇬 Nigeria's Digital Engine</div>
+    <div class="not-dating">This is not a dating app</div>
+    <h1>Marriage<span>Match</span></h1>
+    <p>For Nigerians who are serious, ready, and intentional about finding a life partner. No swiping. No time-wasting. Real people. Real intention.</p>
+    <div class="hero-stats">
+      <div class="hs"><div class="hs-num" id="total-profiles">—</div><div class="hs-lbl">Profiles</div></div>
+      <div class="hs"><div class="hs-num" id="female-count">—</div><div class="hs-lbl">Women</div></div>
+      <div class="hs"><div class="hs-num" id="male-count">—</div><div class="hs-lbl">Men</div></div>
+      <div class="hs"><div class="hs-num" id="state-count">—</div><div class="hs-lbl">States</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="trust-bar">
+    <div class="trust-item"><span class="trust-icon">🛡️</span>No fake profiles — family contact required</div>
+    <div class="trust-item"><span class="trust-icon">💍</span>Marriage only — no casual connections</div>
+    <div class="trust-item"><span class="trust-icon">📱</span>Contact via WhatsApp only — no in-app chat</div>
+    <div class="trust-item"><span class="trust-icon">🚩</span>Report & remove — community accountability</div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('browse')">💍 Browse Profiles</button>
+    <button class="tab" onclick="switchTab('register')">✍️ Register My Profile</button>
+    <button class="tab" onclick="switchTab('how')">ℹ️ How It Works</button>
+  </div>
+
+  <!-- BROWSE -->
+  <div class="panel active" id="panel-browse">
+    <div class="feed-header"><h2>💍 Profiles — Serious Nigerians Ready for Marriage</h2></div>
+    <div class="search-row">
+      <input type="text" id="search-input" placeholder="Search by state, tribe, religion..." oninput="searchProfiles()">
+      <select id="gender-filter" onchange="searchProfiles()">
+        <option value="">Men & Women</option>
+        <option value="female">Women only</option>
+        <option value="male">Men only</option>
+      </select>
+      <select id="religion-filter" onchange="searchProfiles()">
+        <option value="">All religions</option>
+        <option value="Christian">Christian</option>
+        <option value="Muslim">Muslim</option>
+        <option value="Traditional">Traditional</option>
+      </select>
+    </div>
+    <div class="profile-grid" id="profile-grid"><div class="loading">⏳ Loading profiles...</div></div>
+  </div>
+
+  <!-- REGISTER -->
+  <div class="panel" id="panel-register">
+    <div class="form-card">
+      <h2>✍️ Create Your Marriage Profile</h2>
+      <div class="sub">This is a serious platform. Fill every field honestly. Your family contact will be visible to interested parties — this is how Nigerian marriages are built on trust.</div>
+
+      <div class="warning-box">⚠️ By registering, you confirm you are <strong>single, never married or legally divorced</strong>, and are genuinely seeking marriage. False profiles are removed and reported.</div>
+
+      <!-- INTENT -->
+      <div class="intent-box">
+        <p>I am ready for marriage within:</p>
+        <div class="intent-options">
+          <button class="intent-btn" onclick="selectIntent(this,'3–6 months')">3–6 months</button>
+          <button class="intent-btn" onclick="selectIntent(this,'6–12 months')">6–12 months</button>
+          <button class="intent-btn" onclick="selectIntent(this,'1–2 years')">1–2 years</button>
+          <button class="intent-btn" onclick="selectIntent(this,'When the right person comes')">When right person comes</button>
+        </div>
+        <input type="hidden" id="r-intent" value="">
+      </div>
+
+      <div class="section-divider">Personal Information</div>
+      <div class="row2">
+        <div><label>First Name *</label><input type="text" id="r-firstname" placeholder="Your first name only"></div>
+        <div><label>Gender *</label>
+          <select id="r-gender">
+            <option value="">— Select —</option>
+            <option value="female">Female</option>
+            <option value="male">Male</option>
+          </select>
+        </div>
+      </div>
+      <div class="row3">
+        <div><label>Age *</label><input type="number" id="r-age" placeholder="e.g. 28" min="18" max="70"></div>
+        <div><label>State *</label>
+          <select id="r-state">
+            <option value="">— State —</option>
+            <option>Abia</option><option>Adamawa</option><option>Akwa Ibom</option><option>Anambra</option><option>Bauchi</option><option>Bayelsa</option><option>Benue</option><option>Borno</option><option>Cross River</option><option>Delta</option><option>Ebonyi</option><option>Edo</option><option>Ekiti</option><option>Enugu</option><option>FCT Abuja</option><option>Gombe</option><option>Imo</option><option>Jigawa</option><option>Kaduna</option><option>Kano</option><option>Katsina</option><option>Kebbi</option><option>Kogi</option><option>Kwara</option><option>Lagos</option><option>Nasarawa</option><option>Niger</option><option>Ogun</option><option>Ondo</option><option>Osun</option><option>Oyo</option><option>Plateau</option><option>Rivers</option><option>Sokoto</option><option>Taraba</option><option>Yobe</option><option>Zamfara</option><option>Diaspora — UK</option><option>Diaspora — US</option><option>Diaspora — Canada</option><option>Diaspora — Other</option>
+          </select>
+        </div>
+        <div><label>Tribe / Ethnicity</label><input type="text" id="r-tribe" placeholder="e.g. Yoruba, Igbo"></div>
+      </div>
+      <div class="row2">
+        <div><label>Religion *</label>
+          <select id="r-religion">
+            <option value="">— Religion —</option>
+            <option>Christian</option><option>Muslim</option><option>Traditional</option><option>Other</option>
+          </select>
+        </div>
+        <div><label>Education Level</label>
+          <select id="r-education">
+            <option value="">— Education —</option>
+            <option>Secondary school</option><option>OND / NCE</option><option>HND / BSc</option><option>Masters</option><option>PhD</option><option>Professional certification</option><option>Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="row2">
+        <div><label>Occupation</label><input type="text" id="r-occupation" placeholder="e.g. Nurse, Engineer, Trader"></div>
+        <div><label>Children</label>
+          <select id="r-children">
+            <option value="">— Select —</option>
+            <option>No children</option><option>Have children, open to more</option><option>Have children, no more</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="section-divider">About You & What You Want</div>
+      <label>Describe yourself honestly *</label>
+      <textarea id="r-about" placeholder="Who are you? Your character, values, faith, family background, what you do, what drives you. Be real — this is what serious people read first..."></textarea>
+
+      <label>What are you looking for in a partner? *</label>
+      <textarea id="r-seeking" placeholder="Describe the kind of person you want to marry. Be specific about values, faith, character, and life goals — not just appearance..."></textarea>
+
+      <label>Partner's tribe preference</label>
+      <input type="text" id="r-tribe-pref" placeholder="e.g. Open to all tribes, or Yoruba preferred">
+
+      <div class="section-divider">Trust & Accountability</div>
+      <div class="row2">
+        <div><label>Family Contact Name *</label><input type="text" id="r-family-name" placeholder="Parent, uncle, or trusted elder"></div>
+        <div><label>Family Contact WhatsApp *</label><input type="tel" id="r-family-phone" placeholder="Their WhatsApp number"></div>
+      </div>
+      <div><label>Character Reference (someone who knows you)</label><input type="text" id="r-ref-name" placeholder="Name and relationship e.g. Pastor John Smith"></div>
+      <div><label>Character Reference WhatsApp</label><input type="tel" id="r-ref-phone" placeholder="Their WhatsApp number"></div>
+
+      <div class="section-divider">Your Contact</div>
+      <label>Your WhatsApp Number * (shown only after mutual interest)</label>
+      <input type="tel" id="r-phone" placeholder="Your WhatsApp number — private until interest is mutual">
+
+      <button class="submit-btn" id="reg-btn" onclick="registerProfile()">💍 Submit My Marriage Profile</button>
+      <div class="success-box" id="reg-success">
+        <div class="big">💍</div>
+        <h3>Profile Submitted!</h3>
+        <p>Your profile is under review. Once approved it will appear in the MarriageMatch directory. We will notify you on WhatsApp. May God guide your journey.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div class="panel" id="panel-how">
+    <div class="form-card">
+      <h2>ℹ️ How MarriageMatch Works</h2>
+      <div class="sub">We built this differently. Read carefully.</div>
+      <div style="display:flex;flex-direction:column;gap:16px;margin-top:16px">
+        <div style="display:flex;gap:14px;align-items:flex-start;padding:16px;background:#fff0f5;border-radius:10px">
+          <div style="font-size:28px;flex-shrink:0">1️⃣</div>
+          <div><strong style="display:block;color:var(--pink);margin-bottom:4px">Declare Your Intention</strong>You state clearly that you are ready for marriage and your timeframe. No casual browsing without commitment.</div>
+        </div>
+        <div style="display:flex;gap:14px;align-items:flex-start;padding:16px;background:#fff0f5;border-radius:10px">
+          <div style="font-size:28px;flex-shrink:0">2️⃣</div>
+          <div><strong style="display:block;color:var(--pink);margin-bottom:4px">Character First — Photo Later</strong>Profiles show values, faith, tribe, background, and what you want. No photo browsing. You read who a person IS before how they look.</div>
+        </div>
+        <div style="display:flex;gap:14px;align-items:flex-start;padding:16px;background:#fff0f5;border-radius:10px">
+          <div style="font-size:28px;flex-shrink:0">3️⃣</div>
+          <div><strong style="display:block;color:var(--pink);margin-bottom:4px">Express Interest — No Chatting</strong>If you like a profile, you express interest. If it is mutual, WhatsApp contact is shared. No messaging inside the platform — real conversation happens outside.</div>
+        </div>
+        <div style="display:flex;gap:14px;align-items:flex-start;padding:16px;background:#fff0f5;border-radius:10px">
+          <div style="font-size:28px;flex-shrink:0">4️⃣</div>
+          <div><strong style="display:block;color:var(--pink);margin-bottom:4px">Family Contact Layer</strong>Every profile includes a family contact. This is how Nigerian marriages actually work — families are involved from the beginning.</div>
+        </div>
+        <div style="display:flex;gap:14px;align-items:flex-start;padding:16px;background:#fff0f5;border-radius:10px">
+          <div style="font-size:28px;flex-shrink:0">5️⃣</div>
+          <div><strong style="display:block;color:var(--pink);margin-bottom:4px">The Journey to Marriage</strong>When you marry, come back to WifeyMet or HusbyMet and share your story. Your success inspires others.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+var SUPABASE_URL = "https://klrbowhzkaojkqsbtoeu.supabase.co";
+var SUPABASE_KEY = "sb_publishable_1weF_9aByeMEVFKHOZFdqg_bA5anAhm";
+var TABLE = "marriagematch";
+var allProfiles = [];
+var selectedIntent = "";
+
+function api(path,options){
+  return fetch(SUPABASE_URL+"/rest/v1/"+path,Object.assign({
+    headers:{"apikey":SUPABASE_KEY,"Authorization":"Bearer "+SUPABASE_KEY,"Content-Type":"application/json","Prefer":"return=representation"}
+  },options));
+}
+
+function switchTab(id){
+  document.querySelectorAll(".tab").forEach(function(t,i){t.classList.toggle("active",["browse","register","how"][i]===id);});
+  document.querySelectorAll(".panel").forEach(function(p,i){p.classList.toggle("active",["panel-browse","panel-register","panel-how"][i]==="panel-"+id);});
+  if(id==="browse") loadProfiles();
+}
+
+function selectIntent(btn,val){
+  document.querySelectorAll(".intent-btn").forEach(function(b){b.classList.remove("selected");});
+  btn.classList.add("selected");
+  selectedIntent=val;
+  document.getElementById("r-intent").value=val;
+}
+
+function loadProfiles(){
+  var grid=document.getElementById("profile-grid");
+  grid.innerHTML='<div class="loading">⏳ Loading profiles...</div>';
+  api(TABLE+"?status=eq.approved&order=created_at.desc&limit=40")
+  .then(function(r){return r.json();})
+  .then(function(data){
+    allProfiles=data||[];
+    renderProfiles(allProfiles);
+    loadStats();
+  }).catch(function(){grid.innerHTML='<div class="empty">⚠️ Could not load. Please refresh.</div>';});
+}
+
+function renderProfiles(data){
+  var grid=document.getElementById("profile-grid");
+  if(!data||!data.length){
+    grid.innerHTML='<div class="empty" style="grid-column:1/-1"><div style="font-size:48px;margin-bottom:10px">💍</div><p>No approved profiles yet. Be the first to register.</p></div>';
+    return;
+  }
+  grid.innerHTML=data.map(function(r,idx){
+    var isFemale=r.gender==="female";
+    var waLink="https://wa.me/"+(""+r.family_whatsapp).replace(/[^0-9]/g,"")+"?text="+encodeURIComponent("Hello, I found a profile on MarriageMatch (Naijy) that I am interested in. Ref: "+(r.ref||"")+" Please let us discuss.");
+    var shareText=encodeURIComponent("MarriageMatch on Naijy — serious Nigerian profiles for marriage. naijy.ng/marriagematch.html");
+    return '<div class="profile-card'+(isFemale?"":" male")+'" id="pc-'+idx+'">' +
+      '<span class="pc-badge '+(isFemale?"badge-f":"badge-m")+'">'+(isFemale?"👩 Woman":"👨 Man")+'</span>' +
+      '<div class="pc-name">'+(r.first_name||"Anonymous")+', '+(r.age||"")+'</div>' +
+      '<div class="pc-intent">💍 Ready in: '+(r.marriage_timeline||"—")+'</div>' +
+      '<div class="pc-details">' +
+        '<span class="pc-tag">📍 '+(r.state||"")+'</span>' +
+        (r.tribe?'<span class="pc-tag">🌺 '+r.tribe+'</span>':'')+
+        (r.religion?'<span class="pc-tag">🙏 '+r.religion+'</span>':'')+
+        (r.education?'<span class="pc-tag">🎓 '+r.education+'</span>':'')+
+      '</div>' +
+      (r.about?'<div class="pc-about">'+(r.about||"").substring(0,120)+((r.about||"").length>120?"...":"")+'</div>':'')+
+      '<div class="pc-ref">Ref: '+(r.ref||"")+'</div>' +
+      '<div class="pc-footer">' +
+        '<a class="interest-btn" href="'+waLink+'" target="_blank">💌 Express Interest via Family</a>' +
+        '<button class="flag-btn" onclick="flagProfile(\''+r.id+'\')">🚩</button>' +
+      '</div>' +
+    '</div>';
+  }).join("");
+}
+
+function searchProfiles(){
+  var q=(document.getElementById("search-input").value||"").toLowerCase();
+  var gender=document.getElementById("gender-filter").value;
+  var religion=document.getElementById("religion-filter").value;
+  var filtered=allProfiles.filter(function(r){
+    var mQ=!q||(r.state||"").toLowerCase().includes(q)||(r.tribe||"").toLowerCase().includes(q)||(r.about||"").toLowerCase().includes(q);
+    var mG=!gender||r.gender===gender;
+    var mR=!religion||r.religion===religion;
+    return mQ&&mG&&mR;
+  });
+  renderProfiles(filtered);
+}
+
+function registerProfile(){
+  var firstname=(document.getElementById("r-firstname").value||"").trim();
+  var gender=document.getElementById("r-gender").value;
+  var age=document.getElementById("r-age").value;
+  var state=document.getElementById("r-state").value;
+  var religion=document.getElementById("r-religion").value;
+  var about=(document.getElementById("r-about").value||"").trim();
+  var seeking=(document.getElementById("r-seeking").value||"").trim();
+  var familyName=(document.getElementById("r-family-name").value||"").trim();
+  var familyPhone=(document.getElementById("r-family-phone").value||"").trim();
+  var phone=(document.getElementById("r-phone").value||"").trim();
+  if(!firstname){alert("Please enter your first name.");return;}
+  if(!gender){alert("Please select your gender.");return;}
+  if(!age){alert("Please enter your age.");return;}
+  if(!state){alert("Please select your state.");return;}
+  if(!religion){alert("Please select your religion.");return;}
+  if(!selectedIntent){alert("Please select your marriage timeline.");return;}
+  if(!about||about.length<50){alert("Please describe yourself in more detail.");return;}
+  if(!seeking||seeking.length<30){alert("Please describe what you are looking for.");return;}
+  if(!familyName){alert("Please enter a family contact name.");return;}
+  if(!familyPhone){alert("Please enter your family contact's WhatsApp.");return;}
+  if(!phone){alert("Please enter your WhatsApp number.");return;}
+  var btn=document.getElementById("reg-btn");
+  btn.disabled=true; btn.innerText="Submitting...";
+  var ref="NJY-MM-"+Math.floor(10000+Math.random()*90000);
+  var record={
+    ref:ref, first_name:firstname, gender:gender, age:parseInt(age),
+    state:state, tribe:(document.getElementById("r-tribe").value||"").trim(),
+    religion:religion,
+    education:document.getElementById("r-education").value,
+    occupation:(document.getElementById("r-occupation").value||"").trim(),
+    children:document.getElementById("r-children").value,
+    about:about, seeking:seeking,
+    tribe_preference:(document.getElementById("r-tribe-pref").value||"").trim(),
+    marriage_timeline:selectedIntent,
+    family_contact:familyName, family_whatsapp:familyPhone,
+    ref_name:(document.getElementById("r-ref-name").value||"").trim(),
+    ref_phone:(document.getElementById("r-ref-phone").value||"").trim(),
+    whatsapp:phone, status:"pending",
+    created_at:new Date().toISOString()
+  };
+  api(TABLE,{method:"POST",body:JSON.stringify(record)})
+  .then(function(r){
+    if(r.ok||r.status===201){
+      document.getElementById("reg-success").style.display="block";
+      btn.style.display="none";
+    } else {btn.disabled=false;btn.innerText="💍 Submit My Marriage Profile";alert("Could not submit. Try again.");}
+  }).catch(function(){document.getElementById("reg-success").style.display="block";btn.style.display="none";});
+}
+
+function flagProfile(id){
+  if(!id) return;
+  if(!confirm("Flag this profile as fake or inappropriate?")) return;
+  api(TABLE+"?id=eq."+id,{method:"PATCH",body:JSON.stringify({flagged:true})})
+  .then(function(){alert("Flagged. Our team will review it.");})
+  .catch(function(){alert("Could not flag. Please try again.");});
+}
+
+function loadStats(){
+  api(TABLE+"?select=gender,state,status").then(function(r){return r.json();}).then(function(data){
+    if(!data) return;
+    var approved=data.filter(function(r){return r.status==="approved";});
+    document.getElementById("total-profiles").innerText=approved.length;
+    document.getElementById("female-count").innerText=approved.filter(function(r){return r.gender==="female";}).length;
+    document.getElementById("male-count").innerText=approved.filter(function(r){return r.gender==="male";}).length;
+    document.getElementById("state-count").innerText=new Set(approved.map(function(r){return r.state;})).size;
+  }).catch(function(){});
+}
+
+loadProfiles();
+</script>
+</body>
+</html>

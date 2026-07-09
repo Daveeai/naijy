@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NaijyParent — Raising Nigerian Children Together</title>
+<meta name="description" content="Parenting support, advice, and community for Nigerian parents. You are not alone in raising your child.">
+<script src="naijy-nav.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--green:#1f5e43;--green2:#2e7d5a;--orange:#e65100;--gold:#c8922a;--light:#fff8f0;--white:#fff;--text:#1a2e23;--muted:#6b8070;--border:#f0d4b8}
+body{font-family:Arial,sans-serif;background:var(--light);color:var(--text);font-size:16px;line-height:1.6}
+.hero{background:linear-gradient(135deg,#1a0a00 0%,#4a2000 50%,#e65100 100%);color:#fff;padding:48px 20px 38px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(230,81,0,0.07) 1px,transparent 1px),linear-gradient(90deg,rgba(230,81,0,0.07) 1px,transparent 1px);background-size:40px 40px}
+.hero-inner{position:relative;z-index:2;max-width:680px;margin:0 auto}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.25);border-radius:20px;padding:6px 18px;font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#ffcc80;margin-bottom:18px}
+.hero h1{font-size:36px;font-weight:900;line-height:1.1;margin-bottom:10px}
+.hero h1 span{color:#f0c040}
+.hero p{font-size:15px;color:rgba(255,255,255,0.85);max-width:520px;margin:0 auto 24px;line-height:1.65}
+.hero-stats{display:flex;justify-content:center;gap:0;background:rgba(0,0,0,0.2);border-radius:12px;padding:14px;max-width:420px;margin:0 auto;flex-wrap:wrap}
+.hs{flex:1;min-width:90px;text-align:center;padding:6px 10px;border-right:1px solid rgba(255,255,255,0.1)}
+.hs:last-child{border-right:none}
+.hs-num{font-size:22px;font-weight:900;color:#f0c040}
+.hs-lbl{font-size:10px;color:rgba(255,255,255,0.65);text-transform:uppercase;letter-spacing:0.06em;margin-top:2px}
+.container{max-width:860px;margin:0 auto;padding:20px 16px 80px}
+.tabs{display:flex;gap:0;margin-bottom:0;border-radius:10px;overflow:hidden;border:2px solid var(--border);background:#fff}
+.tab{flex:1;padding:12px 8px;border:none;background:none;font-size:13px;font-weight:700;color:var(--muted);cursor:pointer;transition:all 0.2s;text-align:center}
+.tab.active{background:var(--orange);color:#fff}
+.tab:not(.active):hover{background:#fff5ee;color:var(--orange)}
+.panel{display:none}.panel.active{display:block}
+.form-card{background:#fff;border-radius:14px;padding:26px 22px;margin-top:16px;border-left:5px solid var(--orange);box-shadow:0 2px 14px rgba(0,0,0,0.07)}
+.form-card h2{font-size:18px;font-weight:800;color:var(--orange);margin-bottom:6px}
+.form-card .sub{font-size:13px;color:var(--muted);margin-bottom:18px;line-height:1.55}
+label{display:block;font-size:13px;font-weight:700;color:#444;margin:12px 0 5px}
+input,textarea,select{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;font-family:Arial,sans-serif;outline:none;transition:border 0.2s;background:#fafafa}
+input:focus,textarea:focus,select:focus{border-color:var(--orange);background:#fff}
+textarea{min-height:100px;resize:vertical}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.submit-btn{width:100%;margin-top:16px;padding:14px;background:var(--orange);color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:800;cursor:pointer;transition:all 0.18s}
+.submit-btn:hover{opacity:0.9;transform:translateY(-1px)}
+.submit-btn:disabled{opacity:0.5;cursor:not-allowed;transform:none}
+.success-box{display:none;margin-top:14px;padding:22px;background:#fff3e0;border-radius:12px;text-align:center;border:2px solid #ffcc80}
+.success-box .big{font-size:40px;margin-bottom:8px}
+.success-box h3{color:var(--orange);font-size:17px;margin-bottom:6px}
+/* POSTS FEED */
+.post-card{background:#fff;border-radius:12px;padding:18px 20px;margin-bottom:12px;box-shadow:0 2px 8px rgba(0,0,0,0.06);border-left:4px solid var(--orange);transition:box-shadow 0.15s}
+.post-card:hover{box-shadow:0 4px 16px rgba(0,0,0,0.10)}
+.pc-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:8px}
+.pc-cat{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:var(--orange);background:#fff3e0;padding:3px 10px;border-radius:20px;white-space:nowrap}
+.pc-date{font-size:11px;color:var(--muted);white-space:nowrap}
+.pc-title{font-size:15px;font-weight:800;color:var(--text);margin-bottom:5px}
+.pc-body{font-size:13px;color:#444;line-height:1.55;margin-bottom:10px}
+.pc-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+.pc-author{font-size:12px;color:var(--muted);font-weight:600}
+.pc-actions{display:flex;gap:6px;flex-wrap:wrap}
+.action-btn{padding:6px 12px;border:none;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;transition:all 0.15s}
+.btn-helpful{background:#e8f5ee;color:var(--green)}
+.btn-helpful:hover,.btn-helpful.active{background:var(--green);color:#fff}
+.btn-wa{background:#25D366;color:#fff}
+.btn-flag{background:#fff3cd;color:#856404;border:1px solid #ffc107}
+.loading{text-align:center;padding:40px;color:var(--muted)}
+.empty{text-align:center;padding:40px;color:var(--muted)}
+.filter-row{display:flex;gap:6px;flex-wrap:wrap;margin:16px 0 14px}
+.filter-btn{padding:6px 14px;border-radius:20px;border:1.5px solid var(--border);background:#fff;color:var(--muted);font-size:12px;font-weight:700;cursor:pointer;transition:all 0.15s}
+.filter-btn.active,.filter-btn:hover{background:var(--orange);color:#fff;border-color:var(--orange)}
+/* TIPS */
+.tips-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-top:16px}
+.tip-card{background:#fff;border-radius:12px;padding:18px;box-shadow:0 2px 8px rgba(0,0,0,0.06);text-align:center;border-top:3px solid var(--orange)}
+.tip-icon{font-size:32px;margin-bottom:10px}
+.tip-title{font-size:14px;font-weight:800;color:var(--text);margin-bottom:6px}
+.tip-body{font-size:12px;color:var(--muted);line-height:1.55}
+@media(max-width:540px){.hero h1{font-size:26px}.row2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">🇳🇬 Nigeria's Digital Engine</div>
+    <h1>Naijy<span>Parent</span></h1>
+    <p>Raising Nigerian children is not easy. Get advice, share experiences, ask questions, and find support from other Nigerian parents who understand exactly what you are going through.</p>
+    <div class="hero-stats">
+      <div class="hs"><div class="hs-num" id="total-posts">—</div><div class="hs-lbl">Posts</div></div>
+      <div class="hs"><div class="hs-num" id="total-parents">—</div><div class="hs-lbl">Parents</div></div>
+      <div class="hs"><div class="hs-num" id="today-posts">—</div><div class="hs-lbl">Today</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('feed')">👨‍👩‍👧 Community Feed</button>
+    <button class="tab" onclick="switchTab('ask')">❓ Ask a Question</button>
+    <button class="tab" onclick="switchTab('share')">💡 Share a Tip</button>
+    <button class="tab" onclick="switchTab('tips')">📚 Parenting Tips</button>
+  </div>
+
+  <!-- FEED -->
+  <div class="panel active" id="panel-feed">
+    <div class="filter-row">
+      <button class="filter-btn active" onclick="filterPosts('all',this)">All</button>
+      <button class="filter-btn" onclick="filterPosts('Question',this)">❓ Questions</button>
+      <button class="filter-btn" onclick="filterPosts('Tip',this)">💡 Tips</button>
+      <button class="filter-btn" onclick="filterPosts('Experience',this)">📖 Experiences</button>
+      <button class="filter-btn" onclick="filterPosts('Prayer',this)">🙏 Prayer</button>
+    </div>
+    <div id="feed-container"><div class="loading">⏳ Loading posts...</div></div>
+  </div>
+
+  <!-- ASK -->
+  <div class="panel" id="panel-ask">
+    <div class="form-card">
+      <h2>❓ Ask Nigerian Parents</h2>
+      <div class="sub">No question is too small or too personal. Other Nigerian parents have been through it — ask freely.</div>
+      <label>Your Question *</label>
+      <input type="text" id="q-title" placeholder="e.g. How do I talk to my teenager about social media?">
+      <div class="row2">
+        <div>
+          <label>Topic</label>
+          <select id="q-topic">
+            <option value="">— Select topic —</option>
+            <option>Discipline & Behaviour</option>
+            <option>Education & School</option>
+            <option>Health & Nutrition</option>
+            <option>Teenagers</option>
+            <option>Toddlers & Babies</option>
+            <option>Faith & Values</option>
+            <option>Technology & Social Media</option>
+            <option>Marriage & Co-parenting</option>
+            <option>Single Parenting</option>
+            <option>Financial Pressure</option>
+            <option>Special Needs</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div>
+          <label>Your State</label>
+          <select id="q-state">
+            <option value="">— Optional —</option>
+            <option>Abia</option><option>Adamawa</option><option>Akwa Ibom</option><option>Anambra</option><option>Bauchi</option><option>Bayelsa</option><option>Benue</option><option>Borno</option><option>Cross River</option><option>Delta</option><option>Ebonyi</option><option>Edo</option><option>Ekiti</option><option>Enugu</option><option>FCT Abuja</option><option>Gombe</option><option>Imo</option><option>Jigawa</option><option>Kaduna</option><option>Kano</option><option>Lagos</option><option>Ogun</option><option>Oyo</option><option>Rivers</option><option>Other</option>
+          </select>
+        </div>
+      </div>
+      <label>More detail (optional)</label>
+      <textarea id="q-detail" placeholder="Give more context so other parents can give better answers..."></textarea>
+      <label>Your Name (or stay anonymous)</label>
+      <input type="text" id="q-name" placeholder="e.g. Mama Chidi or leave blank">
+      <button class="submit-btn" id="q-btn" onclick="submitPost('Question')">❓ Post My Question</button>
+      <div class="success-box" id="q-success"><div class="big">✅</div><h3>Question posted!</h3><p>Nigerian parents will respond. Check back soon.</p></div>
+    </div>
+  </div>
+
+  <!-- SHARE TIP -->
+  <div class="panel" id="panel-share">
+    <div class="form-card">
+      <h2>💡 Share a Parenting Tip or Experience</h2>
+      <div class="sub">What has worked for you? What have you learned? Share it — another parent needs to hear it today.</div>
+      <label>Title *</label>
+      <input type="text" id="t-title" placeholder="e.g. How I got my child to stop lying">
+      <div class="row2">
+        <div>
+          <label>Type</label>
+          <select id="t-type">
+            <option value="Tip">💡 Tip</option>
+            <option value="Experience">📖 Experience</option>
+            <option value="Prayer">🙏 Prayer Request</option>
+            <option value="Testimony">🎉 Testimony</option>
+          </select>
+        </div>
+        <div>
+          <label>Topic</label>
+          <select id="t-topic">
+            <option value="">— Topic —</option>
+            <option>Discipline & Behaviour</option><option>Education & School</option>
+            <option>Health & Nutrition</option><option>Teenagers</option>
+            <option>Toddlers & Babies</option><option>Faith & Values</option>
+            <option>Technology & Social Media</option><option>Single Parenting</option>
+            <option>Financial Pressure</option><option>Other</option>
+          </select>
+        </div>
+      </div>
+      <label>Your tip or story *</label>
+      <textarea id="t-body" placeholder="Share what you know. Be specific and practical — what exactly did you do, what happened, what would you advise other parents..."></textarea>
+      <label>Your Name</label>
+      <input type="text" id="t-name" placeholder="e.g. Papa Emeka or leave blank">
+      <button class="submit-btn" id="t-btn" onclick="submitPost('Tip')">💡 Share My Tip</button>
+      <div class="success-box" id="t-success"><div class="big">🌟</div><h3>Shared!</h3><p>Thank you. Your experience will help another parent today.</p></div>
+    </div>
+  </div>
+
+  <!-- TIPS -->
+  <div class="panel" id="panel-tips">
+    <div class="tips-grid">
+      <div class="tip-card"><div class="tip-icon">🗣️</div><div class="tip-title">Talk to your child daily</div><div class="tip-body">Even 10 minutes of focused conversation daily builds trust and prevents rebellion in teenage years.</div></div>
+      <div class="tip-card"><div class="tip-icon">📵</div><div class="tip-title">Phone-free dinner</div><div class="tip-body">No phones at the dinner table. This one rule builds family bonds that last a lifetime.</div></div>
+      <div class="tip-card"><div class="tip-icon">🙏</div><div class="tip-title">Pray with your children</div><div class="tip-body">Children who pray with their parents carry faith into adulthood. Start when they are young.</div></div>
+      <div class="tip-card"><div class="tip-icon">📚</div><div class="tip-title">Read together weekly</div><div class="tip-body">Even 20 minutes of reading together per week develops vocabulary, intelligence, and focus.</div></div>
+      <div class="tip-card"><div class="tip-icon">🎯</div><div class="tip-title">Discipline with love</div><div class="tip-body">Correct the behaviour, never attack the child's character. Say "what you did was wrong" not "you are bad."</div></div>
+      <div class="tip-card"><div class="tip-icon">💰</div><div class="tip-title">Teach money early</div><div class="tip-body">Give children small amounts to manage from age 6. Money wisdom learned early lasts forever.</div></div>
+      <div class="tip-card"><div class="tip-icon">🤝</div><div class="tip-title">Involve extended family</div><div class="tip-body">In Nigeria, it truly takes a village. Grandparents, uncles, aunties — they are resources, not interference.</div></div>
+      <div class="tip-card"><div class="tip-icon">⚽</div><div class="tip-title">Let children play</div><div class="tip-body">Unstructured outdoor play develops creativity, social skills, and resilience. Don't over-schedule.</div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+var SUPABASE_URL="https://klrbowhzkaojkqsbtoeu.supabase.co";
+var SUPABASE_KEY="sb_publishable_1weF_9aByeMEVFKHOZFdqg_bA5anAhm";
+var TABLE="naijyparent";
+var currentFilter="all";
+
+function api(path,options){
+  return fetch(SUPABASE_URL+"/rest/v1/"+path,Object.assign({headers:{"apikey":SUPABASE_KEY,"Authorization":"Bearer "+SUPABASE_KEY,"Content-Type":"application/json","Prefer":"return=representation"}},options));
+}
+function timeAgo(d){var diff=(Date.now()-new Date(d))/1000;if(diff<60)return "just now";if(diff<3600)return Math.floor(diff/60)+"m ago";if(diff<86400)return Math.floor(diff/3600)+"h ago";return Math.floor(diff/86400)+"d ago";}
+function switchTab(id){
+  document.querySelectorAll(".tab").forEach(function(t,i){t.classList.toggle("active",["feed","ask","share","tips"][i]===id);});
+  document.querySelectorAll(".panel").forEach(function(p,i){p.classList.toggle("active",["panel-feed","panel-ask","panel-share","panel-tips"][i]==="panel-"+id);});
+  if(id==="feed") loadFeed();
+}
+function filterPosts(type,btn){
+  currentFilter=type;
+  document.querySelectorAll(".filter-btn").forEach(function(b){b.classList.remove("active");});
+  btn.classList.add("active");
+  loadFeed();
+}
+function loadFeed(){
+  var container=document.getElementById("feed-container");
+  container.innerHTML='<div class="loading">⏳ Loading...</div>';
+  var url=TABLE+"?order=created_at.desc&limit=30";
+  if(currentFilter!=="all") url+="&type=eq."+currentFilter;
+  api(url).then(function(r){return r.json();}).then(function(data){
+    if(!data||!data.length){container.innerHTML='<div class="empty"><div style="font-size:40px;margin-bottom:8px">👨‍👩‍👧</div><p>No posts yet. Be the first Nigerian parent to post.</p></div>';return;}
+    container.innerHTML=data.map(function(r,idx){
+      var shareText=encodeURIComponent('"'+r.title+'" — NaijyParent on Naijy.ng');
+      return '<div class="post-card" id="pp-'+idx+'">' +
+        '<div class="pc-top"><span class="pc-cat">'+(r.type||"Post")+'</span><span class="pc-date">'+timeAgo(r.created_at)+'</span></div>' +
+        '<div class="pc-title">'+r.title+'</div>' +
+        (r.body?'<div class="pc-body">'+(r.body||"").substring(0,200)+((r.body||"").length>200?"...":"")+'</div>':'')+
+        '<div class="pc-meta"><span class="pc-author">👤 '+(r.author_name||"Anonymous")+'</span>'+(r.topic?'<span style="font-size:12px;color:var(--muted)">📂 '+r.topic+'</span>':'')+''+(r.state?'<span style="font-size:12px;color:var(--muted)">📍 '+r.state+'</span>':'')+'</div>' +
+        '<div class="pc-actions">' +
+          '<button class="action-btn btn-helpful" id="hlp-'+idx+'" onclick="markHelpful(\''+r.id+'\','+idx+','+((r.helpful||0)+1)+')">👍 Helpful ('+(r.helpful||0)+')</button>' +
+          '<button class="action-btn btn-wa" onclick="window.open(\'https://wa.me/?text='+shareText+'\',\'_blank\')">📱 Share</button>' +
+          '<button class="action-btn btn-flag" onclick="flagPost(\''+r.id+'\')">🚩</button>' +
+        '</div>' +
+      '</div>';
+    }).join("");
+    loadStats();
+  }).catch(function(){container.innerHTML='<div class="empty">⚠️ Could not load. Please refresh.</div>';});
+}
+function submitPost(type){
+  var isQ=type==="Question";
+  var title=(document.getElementById(isQ?"q-title":"t-title").value||"").trim();
+  var body=(document.getElementById(isQ?"q-detail":"t-body").value||"").trim();
+  var name=(document.getElementById(isQ?"q-name":"t-name").value||"").trim()||"Anonymous";
+  var postType=isQ?"Question":document.getElementById("t-type").value;
+  if(!title){alert("Please enter a title.");return;}
+  var btn=document.getElementById(isQ?"q-btn":"t-btn");
+  btn.disabled=true;btn.innerText="Posting...";
+  var record={
+    type:postType,title:title,body:body,author_name:name,
+    topic:(document.getElementById(isQ?"q-topic":"t-topic").value||""),
+    state:isQ?(document.getElementById("q-state").value||""):"",
+    helpful:0,created_at:new Date().toISOString()
+  };
+  api(TABLE,{method:"POST",body:JSON.stringify(record)})
+  .then(function(r){
+    if(r.ok||r.status===201){document.getElementById(isQ?"q-success":"t-success").style.display="block";btn.style.display="none";loadStats();}
+    else{btn.disabled=false;btn.innerText=isQ?"❓ Post My Question":"💡 Share My Tip";alert("Could not post. Try again.");}
+  }).catch(function(){document.getElementById(isQ?"q-success":"t-success").style.display="block";btn.style.display="none";});
+}
+function markHelpful(id,idx,newVal){
+  if(!id) return;
+  api(TABLE+"?id=eq."+id,{method:"PATCH",body:JSON.stringify({helpful:newVal})}).then(function(){
+    var btn=document.getElementById("hlp-"+idx);
+    if(btn){btn.innerHTML="👍 Helpful ("+newVal+")";btn.classList.add("active");}
+  });
+}
+function flagPost(id){
+  if(!id) return;
+  if(!confirm("Flag this post?")) return;
+  api(TABLE+"?id=eq."+id,{method:"PATCH",body:JSON.stringify({flagged:true})}).then(function(){alert("Flagged. Thank you.");});
+}
+function loadStats(){
+  api(TABLE+"?select=author_name,type,created_at").then(function(r){return r.json();}).then(function(data){
+    if(!data) return;
+    document.getElementById("total-posts").innerText=data.length;
+    document.getElementById("total-parents").innerText=new Set(data.map(function(r){return r.author_name;})).size;
+    document.getElementById("today-posts").innerText=data.filter(function(r){return new Date(r.created_at).toDateString()===new Date().toDateString();}).length;
+  }).catch(function(){});
+}
+loadFeed();
+</script>
+</body>
+</html>

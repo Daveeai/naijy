@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MarriageClinic — Resolving, Restoring, Rebuilding</title>
+<meta name="description" content="Marriage counselling, conflict resolution, and restoration for Nigerian couples. Your marriage can be saved.">
+<script src="naijy-nav.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--green:#1f5e43;--teal:#00695c;--gold:#c8922a;--light:#f0f9f7;--white:#fff;--text:#1a2e23;--muted:#5a7a72;--border:#b2dfdb}
+body{font-family:Arial,sans-serif;background:var(--light);color:var(--text);font-size:16px;line-height:1.6}
+.hero{background:linear-gradient(135deg,#001a14 0%,#00352a 50%,#00695c 100%);color:#fff;padding:50px 20px 40px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(0,105,92,0.08) 1px,transparent 1px),linear-gradient(90deg,rgba(0,105,92,0.08) 1px,transparent 1px);background-size:40px 40px}
+.hero-inner{position:relative;z-index:2;max-width:680px;margin:0 auto}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.25);border-radius:20px;padding:6px 18px;font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#80cbc4;margin-bottom:18px}
+.hero h1{font-size:36px;font-weight:900;line-height:1.1;margin-bottom:10px}
+.hero h1 span{color:#f0c040}
+.hero p{font-size:15px;color:rgba(255,255,255,0.85);max-width:520px;margin:0 auto 24px;line-height:1.65}
+.hero-promise{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:10px;padding:14px 20px;font-size:13px;color:#80cbc4;font-weight:700;font-style:italic;max-width:480px;margin:0 auto}
+.container{max-width:860px;margin:0 auto;padding:20px 16px 80px}
+.tabs{display:flex;gap:0;margin-bottom:0;border-radius:10px;overflow:hidden;border:2px solid var(--border);background:#fff}
+.tab{flex:1;padding:12px 8px;border:none;background:none;font-size:13px;font-weight:700;color:var(--muted);cursor:pointer;transition:all 0.2s;text-align:center}
+.tab.active{background:var(--teal);color:#fff}
+.tab:not(.active):hover{background:#e0f2f1;color:var(--teal)}
+.panel{display:none}.panel.active{display:block}
+.form-card{background:#fff;border-radius:14px;padding:26px 22px;margin-top:16px;border-left:5px solid var(--teal);box-shadow:0 2px 14px rgba(0,0,0,0.07)}
+.form-card h2{font-size:18px;font-weight:800;color:var(--teal);margin-bottom:6px}
+.form-card .sub{font-size:13px;color:var(--muted);margin-bottom:18px;line-height:1.55}
+.private-box{background:#e0f2f1;border:1px solid #80cbc4;border-radius:8px;padding:12px 16px;margin-bottom:16px;font-size:13px;color:#00352a;display:flex;align-items:center;gap:8px}
+label{display:block;font-size:13px;font-weight:700;color:#444;margin:12px 0 5px}
+input,textarea,select{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;font-family:Arial,sans-serif;outline:none;transition:border 0.2s;background:#fafafa}
+input:focus,textarea:focus,select:focus{border-color:var(--teal);background:#fff}
+textarea{min-height:110px;resize:vertical}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.submit-btn{width:100%;margin-top:16px;padding:14px;background:var(--teal);color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:800;cursor:pointer;transition:all 0.18s}
+.submit-btn:hover{opacity:0.9;transform:translateY(-1px)}
+.submit-btn:disabled{opacity:0.5;cursor:not-allowed;transform:none}
+.success-box{display:none;margin-top:14px;padding:22px;background:#e0f2f1;border-radius:12px;text-align:center;border:2px solid #80cbc4}
+.success-box .big{font-size:40px;margin-bottom:8px}
+.success-box h3{color:var(--teal);font-size:17px;margin-bottom:6px}
+/* COUNSELLORS */
+.counsellor-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin-top:16px}
+.counsellor-card{background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 10px rgba(0,0,0,0.07);border-top:4px solid var(--teal);transition:all 0.18s}
+.counsellor-card:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,105,92,0.12)}
+.cc-name{font-size:16px;font-weight:800;color:var(--text);margin-bottom:4px}
+.cc-title{font-size:12px;color:var(--teal);font-weight:700;margin-bottom:8px}
+.cc-details{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.cc-tag{font-size:11px;padding:3px 10px;background:#e0f2f1;border-radius:20px;color:var(--teal);font-weight:600}
+.cc-about{font-size:13px;color:#555;line-height:1.5;margin-bottom:10px}
+.cc-footer{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.contact-btn{padding:8px 16px;background:var(--teal);color:#fff;border:none;border-radius:7px;font-size:12px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block;transition:opacity 0.15s}
+.contact-btn:hover{opacity:0.85}
+/* RESOURCES */
+.resource-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-top:16px}
+.resource-card{background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,0.06);text-align:center;border-top:3px solid var(--gold)}
+.resource-icon{font-size:32px;margin-bottom:10px}
+.resource-title{font-size:14px;font-weight:800;color:var(--text);margin-bottom:6px}
+.resource-body{font-size:12px;color:var(--muted);line-height:1.55}
+.loading{text-align:center;padding:40px;color:var(--muted)}
+.empty{text-align:center;padding:40px;color:var(--muted)}
+@media(max-width:540px){.hero h1{font-size:26px}.row2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">🇳🇬 Nigeria's Digital Engine</div>
+    <h1>Marriage<span>Clinic</span></h1>
+    <p>Your marriage is worth fighting for. Get confidential counselling, conflict resolution, and restoration support from trusted Nigerian marriage professionals.</p>
+    <div class="hero-promise">🔒 Everything shared here is completely confidential. Your privacy is protected.</div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('help')">🆘 Get Help Now</button>
+    <button class="tab" onclick="switchTab('counsellors')">👨‍⚕️ Find a Counsellor</button>
+    <button class="tab" onclick="switchTab('register')">📋 Register as Counsellor</button>
+    <button class="tab" onclick="switchTab('resources')">📚 Resources</button>
+  </div>
+
+  <!-- GET HELP -->
+  <div class="panel active" id="panel-help">
+    <div class="form-card">
+      <h2>🆘 Request Confidential Counselling</h2>
+      <div class="sub">Submit your request privately. A counsellor will contact you on WhatsApp within 24 hours. You do not have to face this alone.</div>
+      <div class="private-box">🔒 This form is completely private. Only the counsellor assigned to you will see your details.</div>
+
+      <label>What is the main issue? *</label>
+      <select id="h-issue">
+        <option value="">— Select the main issue —</option>
+        <option>Communication breakdown</option>
+        <option>Infidelity / Trust issues</option>
+        <option>Financial conflict</option>
+        <option>Family interference (in-laws)</option>
+        <option>Domestic conflict</option>
+        <option>Separation / Divorce consideration</option>
+        <option>Sexual issues</option>
+        <option>Parenting disagreements</option>
+        <option>Religious differences</option>
+        <option>Emotional distance</option>
+        <option>Pre-marital counselling</option>
+        <option>Other</option>
+      </select>
+
+      <label>How long has this been going on?</label>
+      <select id="h-duration">
+        <option value="">— Select —</option>
+        <option>Less than 1 month</option>
+        <option>1–6 months</option>
+        <option>6 months – 1 year</option>
+        <option>1–3 years</option>
+        <option>More than 3 years</option>
+      </select>
+
+      <label>How urgent is this? *</label>
+      <select id="h-urgency">
+        <option value="">— Select —</option>
+        <option value="critical">🔴 Critical — I need help today</option>
+        <option value="urgent">🟠 Urgent — This week</option>
+        <option value="moderate">🟡 Moderate — Within 2 weeks</option>
+        <option value="planning">🟢 Planning ahead — Pre-marital</option>
+      </select>
+
+      <label>Briefly describe your situation *</label>
+      <textarea id="h-situation" placeholder="What is happening in your marriage? The more you share, the better we can match you with the right counsellor. This is completely confidential..."></textarea>
+
+      <label>Do you want counselling alone or with your spouse?</label>
+      <select id="h-together">
+        <option value="">— Select —</option>
+        <option>Alone first</option>
+        <option>Together with spouse</option>
+        <option>Both — start alone, then together</option>
+        <option>Not sure yet</option>
+      </select>
+
+      <div class="row2">
+        <div><label>Your Name (private) *</label><input type="text" id="h-name" placeholder="First name only is fine"></div>
+        <div><label>Your WhatsApp *</label><input type="tel" id="h-phone" placeholder="Counsellor contacts you here"></div>
+      </div>
+
+      <label>State</label>
+      <select id="h-state">
+        <option value="">— Optional —</option>
+        <option>Abia</option><option>Adamawa</option><option>Akwa Ibom</option><option>Anambra</option><option>Bauchi</option><option>Bayelsa</option><option>Benue</option><option>Borno</option><option>Cross River</option><option>Delta</option><option>Ebonyi</option><option>Edo</option><option>Ekiti</option><option>Enugu</option><option>FCT Abuja</option><option>Gombe</option><option>Imo</option><option>Jigawa</option><option>Kaduna</option><option>Kano</option><option>Lagos</option><option>Ogun</option><option>Oyo</option><option>Rivers</option><option>Other / Diaspora</option>
+      </select>
+
+      <label>Preferred counsellor type</label>
+      <select id="h-type">
+        <option value="">— No preference —</option>
+        <option>Christian counsellor</option>
+        <option>Muslim counsellor</option>
+        <option>Professional therapist</option>
+        <option>Pastoral counsellor</option>
+        <option>Female counsellor only</option>
+        <option>Male counsellor only</option>
+      </select>
+
+      <button class="submit-btn" id="h-btn" onclick="submitHelpRequest()">🆘 Request Counselling — Confidentially</button>
+      <div class="success-box" id="h-success">
+        <div class="big">🤝</div>
+        <h3>Request received</h3>
+        <p>A counsellor will contact you on WhatsApp within 24 hours. You have taken the most important step. Your marriage matters.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- COUNSELLORS -->
+  <div class="panel" id="panel-counsellors">
+    <div style="margin:16px 0 14px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
+      <h2 style="font-size:18px;font-weight:800;color:var(--teal)">👨‍⚕️ Registered Marriage Counsellors</h2>
+    </div>
+    <div class="counsellor-grid" id="counsellor-grid"><div class="loading">⏳ Loading counsellors...</div></div>
+  </div>
+
+  <!-- REGISTER COUNSELLOR -->
+  <div class="panel" id="panel-register">
+    <div class="form-card">
+      <h2>📋 Register as a Marriage Counsellor</h2>
+      <div class="sub">Are you a pastor, therapist, family counsellor, or experienced marriage mentor? Register here to help Nigerian couples.</div>
+
+      <div class="row2">
+        <div><label>Full Name *</label><input type="text" id="c-name" placeholder="Your full name"></div>
+        <div><label>Title / Qualification *</label><input type="text" id="c-title" placeholder="e.g. Pastor, Licensed Therapist, Marriage Coach"></div>
+      </div>
+      <div class="row2">
+        <div>
+          <label>Counselling Type *</label>
+          <select id="c-type">
+            <option value="">— Select —</option>
+            <option>Christian pastoral counselling</option>
+            <option>Muslim family counselling</option>
+            <option>Professional therapy</option>
+            <option>Marriage coaching</option>
+            <option>Community elder mediation</option>
+            <option>General marriage counselling</option>
+          </select>
+        </div>
+        <div><label>Years Experience *</label><input type="number" id="c-exp" placeholder="e.g. 10" min="1" max="50"></div>
+      </div>
+      <label>State / Location *</label>
+      <select id="c-state">
+        <option value="">— State —</option>
+        <option>Abia</option><option>Adamawa</option><option>Akwa Ibom</option><option>Anambra</option><option>Bauchi</option><option>Bayelsa</option><option>Benue</option><option>Borno</option><option>Cross River</option><option>Delta</option><option>Ebonyi</option><option>Edo</option><option>Ekiti</option><option>Enugu</option><option>FCT Abuja</option><option>Gombe</option><option>Imo</option><option>Jigawa</option><option>Kaduna</option><option>Kano</option><option>Lagos</option><option>Ogun</option><option>Oyo</option><option>Rivers</option><option>Online only</option><option>Other</option>
+      </select>
+      <label>About you and your approach *</label>
+      <textarea id="c-about" placeholder="Describe your background, approach, what you specialise in, and how you help couples..."></textarea>
+      <label>What issues do you handle?</label>
+      <input type="text" id="c-issues" placeholder="e.g. Infidelity, communication, financial conflict, pre-marital">
+      <label>Session format</label>
+      <select id="c-format">
+        <option value="">— Format —</option>
+        <option>WhatsApp only</option>
+        <option>Phone call</option>
+        <option>Video call</option>
+        <option>In-person (your location)</option>
+        <option>All formats</option>
+      </select>
+      <label>Fee</label>
+      <input type="text" id="c-fee" placeholder="e.g. Free, ₦5,000 per session, or Negotiable">
+      <div class="row2">
+        <div><label>Your WhatsApp *</label><input type="tel" id="c-phone" placeholder="Clients contact you here"></div>
+        <div><label>Organisation / Church (optional)</label><input type="text" id="c-org" placeholder="e.g. RCCG Lagos, Licensed Therapist CAPS"></div>
+      </div>
+      <button class="submit-btn" id="c-btn" onclick="registerCounsellor()">📋 Register as Counsellor</button>
+      <div class="success-box" id="c-success"><div class="big">✅</div><h3>Registered!</h3><p>Your profile is under review. Once approved you will appear in the counsellor directory. Thank you for helping Nigerian marriages.</p></div>
+    </div>
+  </div>
+
+  <!-- RESOURCES -->
+  <div class="panel" id="panel-resources">
+    <div class="resource-grid">
+      <div class="resource-card"><div class="resource-icon">💬</div><div class="resource-title">Communication in Marriage</div><div class="resource-body">The number one cause of marriage failure in Nigeria is not infidelity — it is silence. Learn to talk before things break.</div></div>
+      <div class="resource-card"><div class="resource-icon">💰</div><div class="resource-title">Money & Marriage</div><div class="resource-body">Financial secrets destroy more Nigerian marriages than affairs. Have the money conversation before and during marriage.</div></div>
+      <div class="resource-card"><div class="resource-icon">👨‍👩‍👧</div><div class="resource-title">In-Law Boundaries</div><div class="resource-body">Your first family is now your spouse. Learn how to honour your parents while protecting your marriage from interference.</div></div>
+      <div class="resource-card"><div class="resource-icon">💍</div><div class="resource-title">After Infidelity</div><div class="resource-body">Marriages can survive and even grow stronger after infidelity. It requires honesty, time, and professional support.</div></div>
+      <div class="resource-card"><div class="resource-icon">🙏</div><div class="resource-title">Praying for Your Marriage</div><div class="resource-body">Couples who pray together stay together. Build a shared spiritual life — it is the strongest foundation.</div></div>
+      <div class="resource-card"><div class="resource-icon">😠</div><div class="resource-title">Anger in Marriage</div><div class="resource-body">Anger is normal. Rage is dangerous. Learn the difference and learn how to disagree without destroying each other.</div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+var SUPABASE_URL="https://klrbowhzkaojkqsbtoeu.supabase.co";
+var SUPABASE_KEY="sb_publishable_1weF_9aByeMEVFKHOZFdqg_bA5anAhm";
+var TABLE_H="marriageclinic_requests";
+var TABLE_C="marriageclinic_counsellors";
+
+function api(path,options){
+  return fetch(SUPABASE_URL+"/rest/v1/"+path,Object.assign({headers:{"apikey":SUPABASE_KEY,"Authorization":"Bearer "+SUPABASE_KEY,"Content-Type":"application/json","Prefer":"return=representation"}},options));
+}
+function switchTab(id){
+  document.querySelectorAll(".tab").forEach(function(t,i){t.classList.toggle("active",["help","counsellors","register","resources"][i]===id);});
+  document.querySelectorAll(".panel").forEach(function(p,i){p.classList.toggle("active",["panel-help","panel-counsellors","panel-register","panel-resources"][i]==="panel-"+id);});
+  if(id==="counsellors") loadCounsellors();
+}
+function submitHelpRequest(){
+  var issue=document.getElementById("h-issue").value;
+  var urgency=document.getElementById("h-urgency").value;
+  var situation=(document.getElementById("h-situation").value||"").trim();
+  var name=(document.getElementById("h-name").value||"").trim();
+  var phone=(document.getElementById("h-phone").value||"").trim();
+  if(!issue){alert("Please select the main issue.");return;}
+  if(!urgency){alert("Please select urgency level.");return;}
+  if(!situation||situation.length<20){alert("Please describe your situation in more detail.");return;}
+  if(!name){alert("Please enter your name.");return;}
+  if(!phone){alert("Please enter your WhatsApp number.");return;}
+  var btn=document.getElementById("h-btn");
+  btn.disabled=true;btn.innerText="Submitting...";
+  var record={
+    issue:issue,duration:document.getElementById("h-duration").value,
+    urgency:urgency,situation:situation,
+    together:document.getElementById("h-together").value,
+    name:name,whatsapp:phone,
+    state:document.getElementById("h-state").value,
+    counsellor_type:document.getElementById("h-type").value,
+    status:"pending",created_at:new Date().toISOString()
+  };
+  api(TABLE_H,{method:"POST",body:JSON.stringify(record)})
+  .then(function(r){
+    if(r.ok||r.status===201){document.getElementById("h-success").style.display="block";btn.style.display="none";}
+    else{btn.disabled=false;btn.innerText="🆘 Request Counselling — Confidentially";alert("Could not submit. Try again.");}
+  }).catch(function(){document.getElementById("h-success").style.display="block";btn.style.display="none";});
+}
+function loadCounsellors(){
+  var grid=document.getElementById("counsellor-grid");
+  grid.innerHTML='<div class="loading">⏳ Loading counsellors...</div>';
+  api(TABLE_C+"?status=eq.approved&order=created_at.desc&limit=30")
+  .then(function(r){return r.json();})
+  .then(function(data){
+    if(!data||!data.length){grid.innerHTML='<div class="empty"><div style="font-size:40px;margin-bottom:10px">👨‍⚕️</div><p>No counsellors registered yet. Be the first to register.</p></div>';return;}
+    grid.innerHTML=data.map(function(r){
+      var waLink="https://wa.me/"+(r.whatsapp||"").replace(/[^0-9]/g,"")+"?text="+encodeURIComponent("Hello "+r.name+", I found your profile on MarriageClinic (Naijy) and would like to request counselling. Please let me know your availability.");
+      return '<div class="counsellor-card">' +
+        '<div class="cc-name">'+r.name+'</div>' +
+        '<div class="cc-title">'+r.title+'</div>' +
+        '<div class="cc-details">' +
+          '<span class="cc-tag">📍 '+r.state+'</span>' +
+          '<span class="cc-tag">⏳ '+r.experience_years+' yrs</span>' +
+          (r.format?'<span class="cc-tag">📞 '+r.format+'</span>':'')+
+          (r.fee?'<span class="cc-tag">💰 '+r.fee+'</span>':'')+
+        '</div>' +
+        (r.about?'<div class="cc-about">'+(r.about||"").substring(0,120)+((r.about||"").length>120?"...":"")+'</div>':'')+
+        '<div class="cc-footer"><a class="contact-btn" href="'+waLink+'" target="_blank">📱 Contact on WhatsApp</a></div>' +
+      '</div>';
+    }).join("");
+  }).catch(function(){grid.innerHTML='<div class="empty">⚠️ Could not load. Please refresh.</div>';});
+}
+function registerCounsellor(){
+  var name=(document.getElementById("c-name").value||"").trim();
+  var title=(document.getElementById("c-title").value||"").trim();
+  var type=document.getElementById("c-type").value;
+  var state=document.getElementById("c-state").value;
+  var about=(document.getElementById("c-about").value||"").trim();
+  var phone=(document.getElementById("c-phone").value||"").trim();
+  if(!name){alert("Please enter your name.");return;}
+  if(!title){alert("Please enter your title.");return;}
+  if(!type){alert("Please select counselling type.");return;}
+  if(!state){alert("Please select your state.");return;}
+  if(!about||about.length<30){alert("Please describe yourself in more detail.");return;}
+  if(!phone){alert("Please enter your WhatsApp number.");return;}
+  var btn=document.getElementById("c-btn");
+  btn.disabled=true;btn.innerText="Registering...";
+  var record={
+    name:name,title:title,counselling_type:type,
+    experience_years:parseInt(document.getElementById("c-exp").value)||0,
+    state:state,about:about,
+    issues:(document.getElementById("c-issues").value||"").trim(),
+    format:document.getElementById("c-format").value,
+    fee:(document.getElementById("c-fee").value||"").trim(),
+    whatsapp:phone,
+    organisation:(document.getElementById("c-org").value||"").trim(),
+    status:"pending",created_at:new Date().toISOString()
+  };
+  api(TABLE_C,{method:"POST",body:JSON.stringify(record)})
+  .then(function(r){
+    if(r.ok||r.status===201){document.getElementById("c-success").style.display="block";btn.style.display="none";}
+    else{btn.disabled=false;btn.innerText="📋 Register as Counsellor";alert("Could not submit. Try again.");}
+  }).catch(function(){document.getElementById("c-success").style.display="block";btn.style.display="none";});
+}
+</script>
+</body>
+</html>
