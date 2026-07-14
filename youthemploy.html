@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YouthEmploy — Tackling Unemployment</title>
+<meta name="description" content="Jobs, internships, and opportunities for Nigerian youth. Post your CV. Find work. Build your future.">
+<script src="naijy-nav.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--green:#1f5e43;--green2:#2e7d5a;--gold:#c8922a;--light:#f4f9f0;--white:#fff;--text:#1a2e23;--muted:#6b8070;--border:#d4e4da}
+body{font-family:Arial,sans-serif;background:var(--light);color:var(--text);font-size:16px;line-height:1.6}
+.hero{background:linear-gradient(135deg,#0d1a0a 0%,#1a3d12 50%,#1f5e43 100%);color:#fff;padding:48px 20px 38px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(31,94,67,0.08) 1px,transparent 1px),linear-gradient(90deg,rgba(31,94,67,0.08) 1px,transparent 1px);background-size:40px 40px}
+.hero-inner{position:relative;z-index:2;max-width:680px;margin:0 auto}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.25);border-radius:20px;padding:6px 18px;font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#a8e6b8;margin-bottom:18px}
+.hero h1{font-size:36px;font-weight:900;line-height:1.1;margin-bottom:10px}
+.hero h1 span{color:#f0c040}
+.hero p{font-size:15px;color:rgba(255,255,255,0.85);max-width:520px;margin:0 auto 24px;line-height:1.65}
+.hero-stats{display:flex;justify-content:center;gap:0;background:rgba(0,0,0,0.2);border-radius:12px;padding:14px;max-width:400px;margin:0 auto;flex-wrap:wrap}
+.hs{flex:1;min-width:90px;text-align:center;padding:6px 10px;border-right:1px solid rgba(255,255,255,0.1)}
+.hs:last-child{border-right:none}
+.hs-num{font-size:22px;font-weight:900;color:#f0c040}
+.hs-lbl{font-size:10px;color:rgba(255,255,255,0.65);text-transform:uppercase;letter-spacing:0.06em;margin-top:2px}
+.container{max-width:900px;margin:0 auto;padding:20px 16px 80px}
+.tabs{display:flex;gap:0;border-radius:10px;overflow:hidden;border:2px solid var(--border);background:#fff;flex-wrap:wrap}
+.tab{flex:1;min-width:100px;padding:12px 8px;border:none;background:none;font-size:12px;font-weight:700;color:var(--muted);cursor:pointer;transition:all 0.2s;text-align:center}
+.tab.active{background:var(--green);color:#fff}
+.tab:not(.active):hover{background:#f0faf5;color:var(--green)}
+.panel{display:none}.panel.active{display:block}
+.form-card{background:#fff;border-radius:14px;padding:26px 22px;margin-top:16px;border-left:5px solid var(--green);box-shadow:0 2px 14px rgba(0,0,0,0.07)}
+.form-card h2{font-size:18px;font-weight:800;color:var(--green);margin-bottom:6px}
+.form-card .sub{font-size:13px;color:var(--muted);margin-bottom:18px;line-height:1.55}
+label{display:block;font-size:13px;font-weight:700;color:#444;margin:12px 0 5px}
+input,textarea,select{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;font-family:Arial,sans-serif;outline:none;transition:border 0.2s;background:#fafafa}
+input:focus,textarea:focus,select:focus{border-color:var(--green);background:#fff}
+textarea{min-height:90px;resize:vertical}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.submit-btn{width:100%;margin-top:16px;padding:14px;background:var(--green);color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:800;cursor:pointer;transition:all 0.18s}
+.submit-btn:hover{background:var(--green2);transform:translateY(-1px)}
+.submit-btn:disabled{opacity:0.5;cursor:not-allowed;transform:none}
+.success-box{display:none;margin-top:14px;padding:22px;background:#d4edda;border-radius:12px;text-align:center;border:2px solid #b8ddc8}
+.success-box .big{font-size:40px;margin-bottom:8px}
+.success-box h3{color:var(--green);font-size:17px;margin-bottom:6px}
+.job-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-top:16px}
+.job-card{background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,0.06);border-top:4px solid var(--green);transition:all 0.18s}
+.job-card:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(31,94,67,0.12)}
+.jc-type{font-size:10px;font-weight:800;text-transform:uppercase;color:var(--gold);background:#fff8e6;padding:3px 10px;border-radius:20px;margin-bottom:8px;display:inline-block}
+.jc-title{font-size:15px;font-weight:800;color:var(--text);margin-bottom:4px}
+.jc-company{font-size:13px;color:var(--green);font-weight:700;margin-bottom:6px}
+.jc-details{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.jc-tag{font-size:11px;padding:3px 10px;background:#e8f5ee;border-radius:20px;color:var(--green);font-weight:600}
+.jc-desc{font-size:13px;color:#555;line-height:1.5;margin-bottom:10px}
+.apply-btn{padding:9px 18px;background:var(--green);color:#fff;border:none;border-radius:7px;font-size:12px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block;transition:opacity 0.15s}
+.apply-btn:hover{opacity:0.85}
+.flag-btn{padding:7px 12px;border:none;border-radius:7px;font-size:11px;cursor:pointer;background:#fff3cd;color:#856404;border:1px solid #ffc107;margin-left:6px}
+.search-row{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.search-row input{flex:1;min-width:160px}
+.search-row select{width:auto;min-width:130px}
+.loading{text-align:center;padding:40px;color:var(--muted)}
+.empty{text-align:center;padding:40px;color:var(--muted)}
+@media(max-width:540px){.hero h1{font-size:26px}.row2{grid-template-columns:1fr}.job-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">🇳🇬 Nigeria's Digital Engine</div>
+    <h1>Youth<span>Employ</span></h1>
+    <p>Tackling unemployment one Nigerian at a time. Find jobs, post your CV, discover internships, and connect with employers who are hiring right now.</p>
+    <div class="hero-stats">
+      <div class="hs"><div class="hs-num" id="total-jobs">—</div><div class="hs-lbl">Jobs Listed</div></div>
+      <div class="hs"><div class="hs-num" id="total-cvs">—</div><div class="hs-lbl">CVs Posted</div></div>
+      <div class="hs"><div class="hs-num" id="total-states">—</div><div class="hs-lbl">States</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('jobs')">💼 Find a Job</button>
+    <button class="tab" onclick="switchTab('post-job')">➕ Post a Job</button>
+    <button class="tab" onclick="switchTab('cv')">📄 Post My CV</button>
+    <button class="tab" onclick="switchTab('browse-cvs')">👥 Browse CVs</button>
+  </div>
+
+  <!-- JOBS -->
+  <div class="panel active" id="panel-jobs">
+    <div class="search-row" style="margin-top:16px">
+      <input type="text" id="job-search" placeholder="Search jobs, skills, company..." oninput="searchJobs()">
+      <select id="job-type-filter" onchange="searchJobs()">
+        <option value="">All Types</option>
+        <option>Full-time</option><option>Part-time</option><option>Internship</option>
+        <option>Contract</option><option>Remote</option><option>Apprenticeship</option>
+      </select>
+      <select id="job-state-filter" onchange="searchJobs()">
+        <option value="">All States</option>
+        <option>Lagos</option><option>Abuja</option><option>Rivers</option><option>Kano</option>
+        <option>Ogun</option><option>Oyo</option><option>Anambra</option><option>Delta</option><option>Remote</option>
+      </select>
+    </div>
+    <div class="job-grid" id="job-grid"><div class="loading">⏳ Loading jobs...</div></div>
+  </div>
+
+  <!-- POST JOB -->
+  <div class="panel" id="panel-post-job">
+    <div class="form-card">
+      <h2>➕ Post a Job Opening</h2>
+      <div class="sub">Post jobs for free. Reach thousands of Nigerian job seekers directly.</div>
+      <label>Job Title *</label>
+      <input type="text" id="j-title" placeholder="e.g. Accountant, Software Developer, Sales Rep">
+      <div class="row2">
+        <div><label>Company Name *</label><input type="text" id="j-company" placeholder="Your company name"></div>
+        <div><label>Job Type *</label>
+          <select id="j-type">
+            <option value="">— Select —</option>
+            <option>Full-time</option><option>Part-time</option><option>Internship</option>
+            <option>Contract</option><option>Remote</option><option>Apprenticeship</option>
+          </select>
+        </div>
+      </div>
+      <div class="row2">
+        <div><label>State *</label>
+          <select id="j-state">
+            <option value="">— State —</option>
+            <option>Lagos</option><option>FCT Abuja</option><option>Rivers</option><option>Kano</option><option>Ogun</option><option>Oyo</option><option>Anambra</option><option>Delta</option><option>Edo</option><option>Kaduna</option><option>Enugu</option><option>Imo</option><option>Remote — Nationwide</option><option>Other</option>
+          </select>
+        </div>
+        <div><label>Salary / Pay</label><input type="text" id="j-salary" placeholder="e.g. ₦80,000/month or Negotiable"></div>
+      </div>
+      <label>Job Description *</label>
+      <textarea id="j-desc" placeholder="What does the role involve? What qualifications are needed? What will the person do day to day?"></textarea>
+      <label>Requirements</label>
+      <input type="text" id="j-req" placeholder="e.g. OND, 2 years experience, must have own laptop">
+      <label>How to Apply *</label>
+      <input type="text" id="j-apply" placeholder="WhatsApp number, email, or application link">
+      <label>Deadline</label>
+      <input type="date" id="j-deadline">
+      <label>Your Name / HR Contact</label>
+      <input type="text" id="j-contact" placeholder="Who is posting this job">
+      <button class="submit-btn" id="j-btn" onclick="postJob()">💼 Post Job Opening</button>
+      <div class="success-box" id="j-success"><div class="big">✅</div><h3>Job Posted!</h3><p>Nigerian job seekers can now find and apply for this position.</p></div>
+    </div>
+  </div>
+
+  <!-- POST CV -->
+  <div class="panel" id="panel-cv">
+    <div class="form-card">
+      <h2>📄 Post My CV / Profile</h2>
+      <div class="sub">Let employers find you. Post your skills and experience — employers and recruiters will contact you directly on WhatsApp.</div>
+      <div class="row2">
+        <div><label>Full Name *</label><input type="text" id="cv-name" placeholder="Your full name"></div>
+        <div><label>Job Title / Role Seeking *</label><input type="text" id="cv-title" placeholder="e.g. Accountant, Web Developer"></div>
+      </div>
+      <div class="row2">
+        <div><label>Years Experience</label><input type="number" id="cv-exp" placeholder="e.g. 3" min="0" max="40"></div>
+        <div><label>Highest Qualification</label>
+          <select id="cv-edu">
+            <option value="">— Select —</option>
+            <option>SSCE / WAEC</option><option>OND</option><option>HND</option><option>BSc / BA</option>
+            <option>Masters</option><option>PhD</option><option>Professional cert</option>
+          </select>
+        </div>
+      </div>
+      <div class="row2">
+        <div><label>State *</label>
+          <select id="cv-state">
+            <option value="">— State —</option>
+            <option>Lagos</option><option>FCT Abuja</option><option>Rivers</option><option>Kano</option><option>Ogun</option><option>Oyo</option><option>Anambra</option><option>Delta</option><option>Edo</option><option>Kaduna</option><option>Enugu</option><option>Imo</option><option>Other</option>
+          </select>
+        </div>
+        <div><label>Job Type Preferred</label>
+          <select id="cv-type">
+            <option value="">— Select —</option>
+            <option>Full-time</option><option>Part-time</option><option>Remote</option>
+            <option>Contract</option><option>Internship</option><option>Any</option>
+          </select>
+        </div>
+      </div>
+      <label>Key Skills *</label>
+      <input type="text" id="cv-skills" placeholder="e.g. Accounting, Excel, QuickBooks, Tax filing">
+      <label>About Me / Summary *</label>
+      <textarea id="cv-about" placeholder="Brief summary of your experience, what you can do, and what you are looking for..."></textarea>
+      <label>WhatsApp Number *</label>
+      <input type="tel" id="cv-phone" placeholder="Employers will contact you here">
+      <button class="submit-btn" id="cv-btn" onclick="postCV()">📄 Post My CV</button>
+      <div class="success-box" id="cv-success"><div class="big">🎯</div><h3>CV Posted!</h3><p>Employers can now find you. Keep your WhatsApp open for enquiries.</p></div>
+    </div>
+  </div>
+
+  <!-- BROWSE CVs -->
+  <div class="panel" id="panel-browse-cvs">
+    <div class="search-row" style="margin-top:16px">
+      <input type="text" id="cv-search" placeholder="Search by skill, role, state..." oninput="searchCVs()">
+    </div>
+    <div class="job-grid" id="cv-grid"><div class="loading">⏳ Loading CVs...</div></div>
+  </div>
+</div>
+
+<script>
+var SUPABASE_URL="https://klrbowhzkaojkqsbtoeu.supabase.co";
+var SUPABASE_KEY="sb_publishable_1weF_9aByeMEVFKHOZFdqg_bA5anAhm";
+var TABLE_J="youthemploy_jobs";
+var TABLE_C="youthemploy_cvs";
+var allJobs=[]; var allCVs=[];
+
+function api(path,options){
+  return fetch(SUPABASE_URL+"/rest/v1/"+path,Object.assign({headers:{"apikey":SUPABASE_KEY,"Authorization":"Bearer "+SUPABASE_KEY,"Content-Type":"application/json","Prefer":"return=representation"}},options));
+}
+function switchTab(id){
+  var ids=["jobs","post-job","cv","browse-cvs"];
+  document.querySelectorAll(".tab").forEach(function(t,i){t.classList.toggle("active",ids[i]===id);});
+  document.querySelectorAll(".panel").forEach(function(p,i){p.classList.toggle("active",["panel-jobs","panel-post-job","panel-cv","panel-browse-cvs"][i]==="panel-"+id);});
+  if(id==="jobs") loadJobs();
+  if(id==="browse-cvs") loadCVs();
+}
+function loadJobs(){
+  var grid=document.getElementById("job-grid");
+  grid.innerHTML='<div class="loading">⏳ Loading jobs...</div>';
+  api(TABLE_J+"?order=created_at.desc&limit=40").then(function(r){return r.json();}).then(function(data){
+    allJobs=data||[];
+    renderJobs(allJobs);
+    loadStats();
+  }).catch(function(){grid.innerHTML='<div class="empty">⚠️ Could not load. Please refresh.</div>';});
+}
+function renderJobs(data){
+  var grid=document.getElementById("job-grid");
+  if(!data||!data.length){grid.innerHTML='<div class="empty" style="grid-column:1/-1"><div style="font-size:40px;margin-bottom:8px">💼</div><p>No jobs posted yet. Be the first employer to post.</p></div>';return;}
+  grid.innerHTML=data.map(function(r){
+    var applyLink=r.how_to_apply&&r.how_to_apply.startsWith("http")?r.how_to_apply:"https://wa.me/"+r.how_to_apply.replace(/[^0-9]/g,"")+"?text="+encodeURIComponent("Hello, I am interested in the "+r.title+" position posted on YouthEmploy (Naijy).");
+    return '<div class="job-card">' +
+      '<span class="jc-type">'+(r.job_type||"Job")+'</span>' +
+      '<div class="jc-title">'+r.title+'</div>' +
+      '<div class="jc-company">🏢 '+r.company+'</div>' +
+      '<div class="jc-details">' +
+        '<span class="jc-tag">📍 '+r.state+'</span>' +
+        (r.salary?'<span class="jc-tag">💰 '+r.salary+'</span>':'')+
+        (r.deadline?'<span class="jc-tag">⏰ '+r.deadline+'</span>':'')+
+      '</div>' +
+      (r.description?'<div class="jc-desc">'+(r.description||"").substring(0,120)+'...</div>':'')+
+      '<a class="apply-btn" href="'+applyLink+'" target="_blank">Apply Now →</a>' +
+      '<button class="flag-btn" onclick="flagItem(\''+TABLE_J+'\',\''+r.id+'\')">🚩</button>' +
+    '</div>';
+  }).join("");
+}
+function searchJobs(){
+  var q=(document.getElementById("job-search").value||"").toLowerCase();
+  var type=document.getElementById("job-type-filter").value;
+  var state=document.getElementById("job-state-filter").value;
+  renderJobs(allJobs.filter(function(r){
+    return (!q||(r.title||"").toLowerCase().includes(q)||(r.company||"").toLowerCase().includes(q)||(r.description||"").toLowerCase().includes(q))&&
+           (!type||r.job_type===type)&&(!state||r.state===state);
+  }));
+}
+function postJob(){
+  var title=(document.getElementById("j-title").value||"").trim();
+  var company=(document.getElementById("j-company").value||"").trim();
+  var type=document.getElementById("j-type").value;
+  var state=document.getElementById("j-state").value;
+  var desc=(document.getElementById("j-desc").value||"").trim();
+  var apply=(document.getElementById("j-apply").value||"").trim();
+  if(!title||!company||!type||!state||!desc||!apply){alert("Please fill all required fields.");return;}
+  var btn=document.getElementById("j-btn");
+  btn.disabled=true;btn.innerText="Posting...";
+  api(TABLE_J,{method:"POST",body:JSON.stringify({title:title,company:company,job_type:type,state:state,salary:(document.getElementById("j-salary").value||"").trim(),description:desc,requirements:(document.getElementById("j-req").value||"").trim(),how_to_apply:apply,deadline:(document.getElementById("j-deadline").value||""),contact_name:(document.getElementById("j-contact").value||"").trim(),created_at:new Date().toISOString()})})
+  .then(function(r){if(r.ok||r.status===201){document.getElementById("j-success").style.display="block";btn.style.display="none";loadStats();}else{btn.disabled=false;btn.innerText="💼 Post Job Opening";alert("Could not post. Try again.");}})
+  .catch(function(){document.getElementById("j-success").style.display="block";btn.style.display="none";});
+}
+function loadCVs(){
+  var grid=document.getElementById("cv-grid");
+  grid.innerHTML='<div class="loading">⏳ Loading CVs...</div>';
+  api(TABLE_C+"?order=created_at.desc&limit=40").then(function(r){return r.json();}).then(function(data){
+    allCVs=data||[];
+    renderCVs(allCVs);
+  }).catch(function(){grid.innerHTML='<div class="empty">⚠️ Could not load. Please refresh.</div>';});
+}
+function renderCVs(data){
+  var grid=document.getElementById("cv-grid");
+  if(!data||!data.length){grid.innerHTML='<div class="empty" style="grid-column:1/-1"><div style="font-size:40px;margin-bottom:8px">📄</div><p>No CVs posted yet.</p></div>';return;}
+  grid.innerHTML=data.map(function(r){
+    var waLink="https://wa.me/"+(r.whatsapp||"").replace(/[^0-9]/g,"")+"?text="+encodeURIComponent("Hello "+r.full_name+", I found your CV on YouthEmploy (Naijy) and I have a job opportunity for you. Please let us talk.");
+    return '<div class="job-card">' +
+      '<span class="jc-type">'+(r.job_type_preferred||"Open")+'</span>' +
+      '<div class="jc-title">'+r.full_name+'</div>' +
+      '<div class="jc-company">👔 '+r.job_title+'</div>' +
+      '<div class="jc-details">' +
+        '<span class="jc-tag">📍 '+r.state+'</span>' +
+        (r.years_experience?'<span class="jc-tag">⏳ '+r.years_experience+' yrs</span>':'')+
+        (r.education?'<span class="jc-tag">🎓 '+r.education+'</span>':'')+
+      '</div>' +
+      (r.skills?'<div class="jc-desc">🛠️ '+r.skills+'</div>':'')+
+      (r.about?'<div class="jc-desc">'+(r.about||"").substring(0,100)+'...</div>':'')+
+      '<a class="apply-btn" href="'+waLink+'" target="_blank">📱 Contact on WhatsApp</a>' +
+    '</div>';
+  }).join("");
+}
+function searchCVs(){
+  var q=(document.getElementById("cv-search").value||"").toLowerCase();
+  renderCVs(allCVs.filter(function(r){
+    return !q||(r.full_name||"").toLowerCase().includes(q)||(r.job_title||"").toLowerCase().includes(q)||(r.skills||"").toLowerCase().includes(q)||(r.state||"").toLowerCase().includes(q);
+  }));
+}
+function postCV(){
+  var name=(document.getElementById("cv-name").value||"").trim();
+  var title=(document.getElementById("cv-title").value||"").trim();
+  var skills=(document.getElementById("cv-skills").value||"").trim();
+  var about=(document.getElementById("cv-about").value||"").trim();
+  var phone=(document.getElementById("cv-phone").value||"").trim();
+  var state=document.getElementById("cv-state").value;
+  if(!name||!title||!skills||!about||!phone||!state){alert("Please fill all required fields.");return;}
+  var btn=document.getElementById("cv-btn");
+  btn.disabled=true;btn.innerText="Posting...";
+  api(TABLE_C,{method:"POST",body:JSON.stringify({full_name:name,job_title:title,years_experience:parseInt(document.getElementById("cv-exp").value)||0,education:document.getElementById("cv-edu").value,state:state,job_type_preferred:document.getElementById("cv-type").value,skills:skills,about:about,whatsapp:phone,created_at:new Date().toISOString()})})
+  .then(function(r){if(r.ok||r.status===201){document.getElementById("cv-success").style.display="block";btn.style.display="none";loadStats();}else{btn.disabled=false;btn.innerText="📄 Post My CV";alert("Could not post. Try again.");}})
+  .catch(function(){document.getElementById("cv-success").style.display="block";btn.style.display="none";});
+}
+function flagItem(table,id){
+  if(!id||!confirm("Flag this as fake or inappropriate?")) return;
+  api(table+"?id=eq."+id,{method:"PATCH",body:JSON.stringify({flagged:true})}).then(function(){alert("Flagged. Thank you.");});
+}
+function loadStats(){
+  Promise.all([
+    api(TABLE_J+"?select=state").then(function(r){return r.json();}),
+    api(TABLE_C+"?select=id").then(function(r){return r.json();})
+  ]).then(function(res){
+    var jobs=res[0]||[]; var cvs=res[1]||[];
+    document.getElementById("total-jobs").innerText=jobs.length;
+    document.getElementById("total-cvs").innerText=cvs.length;
+    document.getElementById("total-states").innerText=new Set(jobs.map(function(r){return r.state;})).size;
+  }).catch(function(){});
+}
+loadJobs();
+</script>
+</body>
+</html>

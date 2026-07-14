@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HusbandSchool — Learn to Be the Husband She Deserves</title>
+<meta name="description" content="8 lessons every Nigerian man needs before and during marriage. Free. Honest. Practical.">
+<script src="naijy-nav.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--blue:#1565c0;--green:#1f5e43;--gold:#c8922a;--dark:#0a1628;--light:#f0f4ff;--white:#fff;--text:#0d1a33;--muted:#5a6a8a;--border:#c5cae9}
+body{font-family:Arial,sans-serif;background:var(--light);color:var(--text);font-size:16px;line-height:1.6}
+.hero{background:linear-gradient(135deg,#020820 0%,#0a1560 55%,#1565c0 100%);color:#fff;padding:50px 20px 40px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(21,101,192,0.08) 1px,transparent 1px),linear-gradient(90deg,rgba(21,101,192,0.08) 1px,transparent 1px);background-size:40px 40px}
+.hero-inner{position:relative;z-index:2;max-width:680px;margin:0 auto}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.25);border-radius:20px;padding:6px 18px;font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#90caf9;margin-bottom:18px}
+.hero h1{font-size:38px;font-weight:900;line-height:1.1;margin-bottom:10px}
+.hero h1 span{color:#f0c040}
+.hero p{font-size:15px;color:rgba(255,255,255,0.85);max-width:520px;margin:0 auto 24px;line-height:1.65}
+.hero-quote{background:rgba(255,255,255,0.08);border-left:4px solid #f0c040;border-radius:0 8px 8px 0;padding:14px 18px;font-size:14px;color:#f0c040;font-style:italic;font-weight:600;max-width:500px;margin:0 auto;text-align:left}
+.container{max-width:860px;margin:0 auto;padding:24px 16px 80px}
+/* PROGRESS */
+.progress-bar{background:#fff;border-radius:12px;padding:20px 24px;margin-bottom:24px;box-shadow:0 2px 12px rgba(0,0,0,0.06);border-left:5px solid var(--gold)}
+.progress-bar h3{font-size:14px;font-weight:800;color:var(--text);margin-bottom:12px}
+.progress-track{background:#e8eaf6;border-radius:20px;height:10px;overflow:hidden;margin-bottom:8px}
+.progress-fill{background:linear-gradient(90deg,var(--blue),var(--gold));height:100%;border-radius:20px;transition:width 0.5s}
+.progress-text{font-size:12px;color:var(--muted);display:flex;justify-content:space-between}
+/* LESSONS */
+.lessons-grid{display:flex;flex-direction:column;gap:12px;margin-top:16px}
+.lesson-card{background:#fff;border-radius:12px;padding:0;box-shadow:0 2px 8px rgba(0,0,0,0.06);overflow:hidden;transition:box-shadow 0.15s;border:2px solid transparent}
+.lesson-card.active{border-color:var(--blue)}
+.lesson-card.completed{border-color:var(--green)}
+.lesson-header{display:flex;align-items:center;gap:14px;padding:16px 20px;cursor:pointer;transition:background 0.15s}
+.lesson-header:hover{background:#f5f7ff}
+.lesson-num{width:40px;height:40px;border-radius:50%;background:var(--blue);color:#fff;font-size:14px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.lesson-card.completed .lesson-num{background:var(--green)}
+.lesson-card.locked .lesson-num{background:#ccc}
+.lesson-info{flex:1}
+.lesson-title{font-size:15px;font-weight:800;color:var(--text);margin-bottom:2px}
+.lesson-subtitle{font-size:12px;color:var(--muted)}
+.lesson-status{font-size:12px;font-weight:700;white-space:nowrap}
+.status-done{color:var(--green)}
+.status-current{color:var(--blue)}
+.status-locked{color:#ccc}
+.lesson-body{display:none;padding:0 20px 20px}
+.lesson-body.open{display:block}
+.lesson-content{font-size:14px;color:#333;line-height:1.7;margin-bottom:16px}
+.lesson-content h4{font-size:15px;font-weight:800;color:var(--blue);margin:14px 0 6px}
+.lesson-content ul{padding-left:18px;margin:8px 0}
+.lesson-content li{margin-bottom:6px}
+.lesson-reflection{background:#f0f4ff;border-radius:8px;padding:14px;margin-bottom:14px}
+.lesson-reflection h4{font-size:13px;font-weight:800;color:var(--blue);margin-bottom:8px}
+.lesson-reflection textarea{width:100%;padding:10px;border:1.5px solid var(--border);border-radius:7px;font-size:13px;font-family:Arial,sans-serif;min-height:70px;resize:vertical;outline:none}
+.lesson-reflection textarea:focus{border-color:var(--blue)}
+.complete-btn{padding:11px 24px;background:var(--blue);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:800;cursor:pointer;transition:all 0.18s}
+.complete-btn:hover{background:#1976d2;transform:translateY(-1px)}
+/* CERTIFICATE */
+.cert-section{display:none;background:linear-gradient(135deg,#020820,#1565c0);border-radius:14px;padding:36px;text-align:center;margin-top:24px;color:#fff}
+.cert-section.show{display:block}
+.cert-icon{font-size:60px;margin-bottom:16px}
+.cert-title{font-size:24px;font-weight:900;color:#f0c040;margin-bottom:8px}
+.cert-name{font-size:18px;color:#fff;margin-bottom:16px}
+.cert-share{padding:12px 24px;background:#f0c040;color:#0a1628;border:none;border-radius:8px;font-size:14px;font-weight:800;cursor:pointer;transition:opacity 0.15s}
+.cert-share:hover{opacity:0.9}
+@media(max-width:540px){.hero h1{font-size:28px}}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">🇳🇬 Nigeria's Digital Engine — Relationships & Family</div>
+    <h1>Husband<span>School</span></h1>
+    <p>8 lessons every Nigerian man needs — before marriage and during it. Free. Honest. No religion. No sentiments. Just truth.</p>
+    <div class="hero-quote">"The best gift you can give your wife is a husband who keeps growing." — HusbandSchool</div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- PROGRESS -->
+  <div class="progress-bar">
+    <h3>👨 Your Progress — HusbandSchool</h3>
+    <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+    <div class="progress-text"><span id="progress-text">0 of 8 lessons completed</span><span id="progress-pct">0%</span></div>
+  </div>
+
+  <!-- LESSONS -->
+  <div class="lessons-grid" id="lessons-grid"></div>
+
+  <!-- CERTIFICATE -->
+  <div class="cert-section" id="cert-section">
+    <div class="cert-icon">🏆</div>
+    <div class="cert-title">HusbandSchool Certificate</div>
+    <div class="cert-name" id="cert-name">You have completed all 8 lessons</div>
+    <p style="font-size:14px;color:rgba(255,255,255,0.8);margin:12px 0 20px;line-height:1.6">You now know what most Nigerian men were never taught. Use this knowledge. Share it with other men who need it.</p>
+    <button class="cert-share" onclick="shareCert()">📱 Share My Certificate on WhatsApp</button>
+  </div>
+</div>
+
+<script>
+var LESSONS = [
+  {
+    title: "Understanding a Woman",
+    subtitle: "How she thinks, feels, and communicates",
+    content: `<h4>What most men get wrong</h4>
+    <p>Most Nigerian men enter marriage thinking a woman works like a man — that she wants solutions when she talks, that she forgets quickly, that silence means peace. This lesson corrects those assumptions.</p>
+    <h4>What you need to know</h4>
+    <ul>
+      <li><strong>She talks to connect, not just to report.</strong> When your wife tells you about her day, she is not filing a report. She wants to feel heard. Listen first. Fix later — if she asks you to.</li>
+      <li><strong>Her emotions are data, not drama.</strong> When she cries or raises her voice, something important is happening inside her. Your job is to understand it, not shut it down.</li>
+      <li><strong>She remembers everything.</strong> Not to punish you — but because relationships live in her memory. What you said three months ago still matters to her today.</li>
+      <li><strong>She needs to feel safe.</strong> Safe to speak, safe to fail, safe to be imperfect. The moment she stops talking to you is the moment she found safety somewhere else.</li>
+      <li><strong>Respect looks different to her.</strong> For a man, respect is about position. For a woman, respect is about how you speak to her in front of others — and in private.</li>
+    </ul>
+    <h4>One thing to do this week</h4>
+    <p>Ask your wife or fiancée: "What is one thing I do that makes you feel unheard?" Then listen without defending yourself.</p>`,
+    reflection: "What did I learn about women that I did not know before? What will I change?"
+  },
+  {
+    title: "Leadership in the Home",
+    subtitle: "Without dictatorship, without weakness",
+    content: `<h4>The confusion Nigerian men have about leadership</h4>
+    <p>Many Nigerian men confuse leadership with control. They think being the head of the home means their word is final, their needs come first, and their wife must obey without question. This is not leadership. This is fear wearing the mask of authority.</p>
+    <h4>What real leadership looks like</h4>
+    <ul>
+      <li><strong>A leader serves first.</strong> The man who leads his home well is the one who asks "what does my family need?" before "what do I want?"</li>
+      <li><strong>A leader creates safety.</strong> Your wife and children should feel that as long as you are there, things will be okay. Not because you have all the money — but because you have calm, direction, and commitment.</li>
+      <li><strong>A leader listens before deciding.</strong> The best decisions in your home will come from conversations with your wife, not commands issued to her.</li>
+      <li><strong>A leader takes responsibility.</strong> When things go wrong, a real leader asks "what could I have done differently?" not "who is to blame?"</li>
+      <li><strong>A leader is consistent.</strong> Your wife and children should know what to expect from you. Unpredictability is not strength — it is instability.</li>
+    </ul>
+    <h4>The balance</h4>
+    <p>Leadership does not mean you make every decision alone. It means you are accountable for the outcome of decisions made together. That is a heavier responsibility than most men realise.</p>`,
+    reflection: "In what areas am I leading well? In what areas am I being a dictator or being too passive?"
+  },
+  {
+    title: "Financial Responsibility",
+    subtitle: "Providing, planning, and being transparent",
+    content: `<h4>Money is the number one cause of marriage conflict in Nigeria</h4>
+    <p>Not infidelity. Not in-laws. Money. Because money touches everything — food, shelter, children's school fees, dignity, self-worth. A man who handles money poorly damages his marriage slowly, even if he never shouts or cheats.</p>
+    <h4>What financial responsibility means</h4>
+    <ul>
+      <li><strong>Provision is not optional.</strong> A man who consistently cannot provide — and makes no effort to change that — is failing his family. Effort matters. Giving up does not.</li>
+      <li><strong>Financial secrets destroy marriages.</strong> Hidden accounts, hidden debts, hidden income — your wife will find out eventually. The lie hurts more than the money.</li>
+      <li><strong>Plan together.</strong> A budget is not just numbers. It is a shared agreement about what your family values. Make it together.</li>
+      <li><strong>Debt is a marriage problem, not a personal one.</strong> Any debt you carry affects your wife and children. Be honest about it. Face it together.</li>
+      <li><strong>Save before you spend.</strong> Many Nigerian men spend on appearances — cars, clothes, parties — and have nothing saved. Your family's security comes before your image.</li>
+    </ul>
+    <h4>Practical steps</h4>
+    <p>Sit down with your wife this month and have a full financial conversation. Income, expenses, debts, savings goals. No secrets. No shame. Just reality — and a plan.</p>`,
+    reflection: "Am I financially transparent with my partner? What financial secret or gap am I avoiding?"
+  },
+  {
+    title: "Emotional Presence",
+    subtitle: "Being there beyond money",
+    content: `<h4>The absent husband who is always home</h4>
+    <p>Many Nigerian husbands are physically present but emotionally absent. They provide money, come home every night, and cannot understand why their wife says she feels alone. This lesson explains why.</p>
+    <h4>What emotional presence means</h4>
+    <ul>
+      <li><strong>She needs your attention, not just your presence.</strong> Sitting in the same room looking at your phone is not being with her. Put the phone down. Look at her.</li>
+      <li><strong>Ask how she is — and actually wait for the answer.</strong> "How was your day?" followed by walking away is not connection. Sit. Listen. Follow up.</li>
+      <li><strong>Remember what matters to her.</strong> Her mother's health. Her work problem she mentioned last week. Her dream she shared once. Men who remember these things are irreplaceable.</li>
+      <li><strong>Celebrate her wins.</strong> When she achieves something — a promotion, finishing a project, a personal goal — be the first to celebrate. Not just with money. With words and presence.</li>
+      <li><strong>Check in during hard times.</strong> When she is going through something difficult, she does not always need you to fix it. Sometimes she just needs you to say: "I see you. I am here."</li>
+    </ul>`,
+    reflection: "On a scale of 1-10, how emotionally present am I? What is one specific thing I can do to be more present?"
+  },
+  {
+    title: "Handling Conflict",
+    subtitle: "Without destroying what you are building",
+    content: `<h4>Every marriage has conflict. What matters is how you fight.</h4>
+    <p>The question is not whether you and your wife will disagree. You will. The question is whether your conflicts bring you closer or push you further apart.</p>
+    <h4>Rules for conflict in marriage</h4>
+    <ul>
+      <li><strong>Never fight to win.</strong> If you win the argument and hurt your wife, you have lost something more important. The goal is understanding, not victory.</li>
+      <li><strong>Attack the problem, never the person.</strong> "This situation is frustrating" is different from "you are frustrating." Never call your wife names. Never curse her. Words in anger become memories that last forever.</li>
+      <li><strong>Stay in the present.</strong> Do not drag in everything from the past. Deal with what is in front of you today.</li>
+      <li><strong>Take a break when heat rises.</strong> If either of you is shouting, nothing productive will happen. Say: "I need 30 minutes to calm down. I am not leaving — I am coming back."</li>
+      <li><strong>Apologise fully.</strong> "I am sorry you felt that way" is not an apology. "I was wrong. I am sorry. I will do better" is an apology.</li>
+      <li><strong>Never involve your parents or her parents in your conflicts.</strong> What is said between families cannot be unsaid. Protect your marriage's privacy.</li>
+    </ul>`,
+    reflection: "What is my conflict pattern? Do I shut down, explode, or stay and resolve? What needs to change?"
+  },
+  {
+    title: "Intimacy and Connection",
+    subtitle: "More than physical",
+    content: `<h4>What Nigerian men misunderstand about intimacy</h4>
+    <p>Many Nigerian men reduce intimacy to the physical. But for a woman, physical intimacy is the result of emotional intimacy — not the other way around. If your wife does not feel connected to you emotionally, physical intimacy will feel hollow to her, even if she never tells you.</p>
+    <h4>Building real intimacy</h4>
+    <ul>
+      <li><strong>Touch her without wanting something.</strong> Hold her hand. Hug her when you come home. Touch her shoulder when you pass. Non-sexual touch builds trust and connection.</li>
+      <li><strong>Talk about more than logistics.</strong> Many couples only talk about children, money, and house issues. Talk about dreams, fears, memories, and plans. That is where intimacy lives.</li>
+      <li><strong>Create rituals together.</strong> Morning prayer together. Sunday lunch. A weekly walk. Shared rituals create shared identity.</li>
+      <li><strong>Never weaponise intimacy.</strong> Withdrawing physical affection as punishment is emotional manipulation. It damages trust permanently.</li>
+      <li><strong>Ask what she needs.</strong> Every woman is different. Ask her. Then do what she says.</li>
+    </ul>`,
+    reflection: "Is our intimacy — emotional and physical — healthy? What am I contributing to it? What am I withholding?"
+  },
+  {
+    title: "Her Family, Your Home",
+    subtitle: "Honouring without losing boundaries",
+    content: `<h4>The in-law problem in Nigerian marriages</h4>
+    <p>In-law interference is one of the top reasons Nigerian marriages fail. A mother who cannot let go of her son. A wife who brings every conflict back to her parents. A husband who chooses his family over his wife consistently. These patterns destroy homes.</p>
+    <h4>What a husband must do</h4>
+    <ul>
+      <li><strong>Your wife is your first family now.</strong> This does not mean you abandon your parents. It means that when there is a conflict between your wife and your family, your first loyalty is to protect your marriage.</li>
+      <li><strong>Defend your wife — privately and publicly.</strong> If your mother disrespects your wife, address it. Not aggressively — but clearly. "Mama, I love you. But she is my wife. Please treat her with respect."</li>
+      <li><strong>Do not share your marital problems with your family.</strong> What you tell your mother about your wife becomes a permanent story in your family's mind. Keep your marriage's private matters private.</li>
+      <li><strong>Set clear boundaries about visits, money, and involvement.</strong> Boundaries are not disrespect — they are protection. A home with no boundaries is a home with no peace.</li>
+      <li><strong>Honour her family too.</strong> Visit her parents. Remember her siblings. Show her that her family matters to you.</li>
+    </ul>`,
+    reflection: "Are there in-law boundaries I have not set or enforced? What is the cost of that to my marriage?"
+  },
+  {
+    title: "Fatherhood",
+    subtitle: "Your role in raising your children",
+    content: `<h4>Nigeria's fatherhood crisis</h4>
+    <p>Too many Nigerian children grow up with a father who is present physically but absent in every other way. A man who provides school fees but never sits with his child. Who corrects but never encourages. Who is feared but not loved. This lesson is about changing that pattern.</p>
+    <h4>What your children need from you specifically</h4>
+    <ul>
+      <li><strong>Your time — not just your money.</strong> A child who grows up knowing their father sat with them, listened to them, and showed up for them carries that security for life. School fees alone cannot give that.</li>
+      <li><strong>Your words of affirmation.</strong> Nigerian men are not taught to say "I am proud of you" or "I love you" to their children. Learn to say it. It changes children.</li>
+      <li><strong>Your example, not just your instructions.</strong> Your son is watching how you treat his mother. That is the marriage he will build. Your daughter is watching how you treat her mother. That is the treatment she will accept from a man.</li>
+      <li><strong>Your presence in the small moments.</strong> School pick-up. Helping with homework. Watching their performance. Praying with them at night. These small moments are the foundation.</li>
+      <li><strong>Your correction with love.</strong> Discipline your children — but never make them feel unloved in the process. "I am correcting you because I love you and want better for you" must be felt, not just said.</li>
+    </ul>
+    <h4>Congratulations</h4>
+    <p style="font-weight:800;color:var(--blue)">You have completed all 8 lessons of HusbandSchool. What you now know, most Nigerian men were never taught. Use it. Live it. Share it.</p>`,
+    reflection: "What kind of father do I want to be? What did I miss from my own father that I will give my children?"
+  }
+];
+
+var completed = JSON.parse(localStorage.getItem('hs_completed') || '[]');
+
+function updateProgress() {
+  var pct = Math.round((completed.length / LESSONS.length) * 100);
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-text').innerText = completed.length + ' of ' + LESSONS.length + ' lessons completed';
+  document.getElementById('progress-pct').innerText = pct + '%';
+  if (completed.length === LESSONS.length) {
+    document.getElementById('cert-section').classList.add('show');
+  }
+}
+
+function buildLessons() {
+  var grid = document.getElementById('lessons-grid');
+  grid.innerHTML = LESSONS.map(function(l, i) {
+    var isDone = completed.includes(i);
+    var isFirst = i === 0;
+    var isUnlocked = isDone || i === 0 || completed.includes(i - 1);
+    var statusClass = isDone ? 'completed' : (isUnlocked ? 'active' : 'locked');
+    var statusLabel = isDone ? '<span class="lesson-status status-done">✅ Done</span>' : (isUnlocked ? '<span class="lesson-status status-current">▶ Start</span>' : '<span class="lesson-status status-locked">🔒 Locked</span>');
+    return '<div class="lesson-card ' + statusClass + '" id="lesson-' + i + '">' +
+      '<div class="lesson-header" onclick="toggleLesson(' + i + ',' + isUnlocked + ')">' +
+        '<div class="lesson-num">' + (i + 1) + '</div>' +
+        '<div class="lesson-info">' +
+          '<div class="lesson-title">' + l.title + '</div>' +
+          '<div class="lesson-subtitle">' + l.subtitle + '</div>' +
+        '</div>' +
+        statusLabel +
+      '</div>' +
+      '<div class="lesson-body" id="body-' + i + '">' +
+        '<div class="lesson-content">' + l.content + '</div>' +
+        '<div class="lesson-reflection">' +
+          '<h4>✍️ Personal Reflection</h4>' +
+          '<textarea placeholder="' + l.reflection + '" id="ref-' + i + '"></textarea>' +
+        '</div>' +
+        (isUnlocked && !isDone ? '<button class="complete-btn" onclick="completeLesson(' + i + ')">✅ Mark as Complete — Next Lesson →</button>' : '') +
+        (isDone ? '<div style="color:var(--green);font-weight:700;font-size:13px;">✅ Lesson completed</div>' : '') +
+      '</div>' +
+    '</div>';
+  }).join('');
+  updateProgress();
+}
+
+function toggleLesson(i, unlocked) {
+  if (!unlocked) { alert('Complete the previous lesson first.'); return; }
+  var body = document.getElementById('body-' + i);
+  body.classList.toggle('open');
+}
+
+function completeLesson(i) {
+  if (!completed.includes(i)) {
+    completed.push(i);
+    localStorage.setItem('hs_completed', JSON.stringify(completed));
+  }
+  buildLessons();
+  // Auto open next
+  var next = document.getElementById('body-' + (i + 1));
+  if (next) { next.classList.add('open'); next.scrollIntoView({behavior:'smooth', block:'start'}); }
+}
+
+function shareCert() {
+  window.open('https://wa.me/?text=' + encodeURIComponent('I just completed all 8 lessons of HusbandSchool on Naijy! 🏆 Every Nigerian man should take this free course: naijy.ng/husbandschool.html'), '_blank');
+}
+
+buildLessons();
+</script>
+</body>
+</html>

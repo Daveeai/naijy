@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FinanceHub — Connecting Money, Markets & People</title>
+<meta name="description" content="Nigeria's financial knowledge and community hub. Learn money, track markets, get financial advice.">
+<script src="naijy-nav.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--gold:#c8922a;--gold2:#b8821a;--green:#1f5e43;--light:#fdf8f0;--white:#fff;--text:#1a1a0a;--muted:#7a6a4a;--border:#e0c898}
+body{font-family:Arial,sans-serif;background:var(--light);color:var(--text);font-size:16px;line-height:1.6}
+.hero{background:linear-gradient(135deg,#0a0800 0%,#1a1200 50%,#3d2a00 80%,#c8922a 100%);color:#fff;padding:48px 20px 38px;text-align:center;position:relative;overflow:hidden}
+.hero-inner{position:relative;z-index:2;max-width:680px;margin:0 auto}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.25);border-radius:20px;padding:6px 18px;font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#ffe066;margin-bottom:18px}
+.hero h1{font-size:36px;font-weight:900;line-height:1.1;margin-bottom:10px}
+.hero h1 span{color:#ffe066}
+.hero p{font-size:15px;color:rgba(255,255,255,0.85);max-width:520px;margin:0 auto 20px;line-height:1.65}
+.rates-bar{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;background:rgba(0,0,0,0.3);border-radius:10px;padding:12px 16px;max-width:600px;margin:0 auto}
+.rate-item{text-align:center}
+.rate-label{font-size:10px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.07em}
+.rate-value{font-size:16px;font-weight:900;color:#ffe066}
+.container{max-width:900px;margin:0 auto;padding:20px 16px 80px}
+.tabs{display:flex;gap:0;border-radius:10px;overflow:hidden;border:2px solid var(--border);background:#fff;flex-wrap:wrap}
+.tab{flex:1;min-width:100px;padding:12px 8px;border:none;background:none;font-size:12px;font-weight:700;color:var(--muted);cursor:pointer;transition:all 0.2s;text-align:center}
+.tab.active{background:var(--gold);color:#fff}
+.tab:not(.active):hover{background:#fdf8f0;color:var(--gold)}
+.panel{display:none}.panel.active{display:block}
+.form-card{background:#fff;border-radius:14px;padding:26px 22px;margin-top:16px;border-left:5px solid var(--gold);box-shadow:0 2px 14px rgba(0,0,0,0.07)}
+.form-card h2{font-size:18px;font-weight:800;color:var(--gold);margin-bottom:6px}
+.form-card .sub{font-size:13px;color:var(--muted);margin-bottom:18px;line-height:1.55}
+label{display:block;font-size:13px;font-weight:700;color:#444;margin:12px 0 5px}
+input,textarea,select{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;font-family:Arial,sans-serif;outline:none;transition:border 0.2s;background:#fafafa}
+input:focus,textarea:focus,select:focus{border-color:var(--gold);background:#fff}
+textarea{min-height:90px;resize:vertical}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.submit-btn{width:100%;margin-top:16px;padding:14px;background:var(--gold);color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:800;cursor:pointer;transition:all 0.18s}
+.submit-btn:hover{background:var(--gold2);transform:translateY(-1px)}
+.submit-btn:disabled{opacity:0.5;cursor:not-allowed;transform:none}
+.success-box{display:none;margin-top:14px;padding:22px;background:#fff8e6;border-radius:12px;text-align:center;border:2px solid var(--gold)}
+.success-box .big{font-size:40px;margin-bottom:8px}
+.success-box h3{color:var(--gold);font-size:17px;margin-bottom:6px}
+.post-card{background:#fff;border-radius:10px;padding:16px 18px;margin-bottom:10px;box-shadow:0 2px 8px rgba(0,0,0,0.06);border-left:4px solid var(--gold)}
+.pc-cat{font-size:11px;font-weight:800;text-transform:uppercase;color:var(--gold);background:#fff8e6;padding:3px 10px;border-radius:20px;display:inline-block;margin-bottom:6px}
+.pc-title{font-size:15px;font-weight:800;color:var(--text);margin-bottom:5px}
+.pc-body{font-size:13px;color:#444;line-height:1.55;margin-bottom:8px}
+.pc-meta{font-size:12px;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+.action-btn{padding:6px 12px;border:none;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;background:#fff8e6;color:var(--gold);transition:all 0.15s}
+.action-btn:hover{background:var(--gold);color:#fff}
+.tips-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-top:16px}
+.tip-card{background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,0.06);border-top:3px solid var(--gold);text-align:center}
+.tip-icon{font-size:32px;margin-bottom:10px}
+.tip-title{font-size:14px;font-weight:800;color:var(--text);margin-bottom:6px}
+.tip-body{font-size:12px;color:var(--muted);line-height:1.55}
+.loading{text-align:center;padding:40px;color:var(--muted)}
+.filter-btn{padding:6px 14px;border-radius:20px;border:1.5px solid var(--border);background:#fff;color:var(--muted);font-size:12px;font-weight:700;cursor:pointer;transition:all 0.15s;margin:0 4px 8px 0}
+.filter-btn.active,.filter-btn:hover{background:var(--gold);color:#fff;border-color:var(--gold)}
+@media(max-width:540px){.hero h1{font-size:26px}.row2{grid-template-columns:1fr}.rates-bar{gap:10px}}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">🇳🇬 Nigeria's Digital Engine</div>
+    <h1>Finance<span>Hub</span></h1>
+    <p>Connecting money, markets and people. Learn financial wisdom, share money tips, ask questions, and build wealth the Nigerian way.</p>
+    <div class="rates-bar">
+      <div class="rate-item"><div class="rate-label">USD/NGN</div><div class="rate-value" id="usd-rate">—</div></div>
+      <div class="rate-item"><div class="rate-label">GBP/NGN</div><div class="rate-value" id="gbp-rate">—</div></div>
+      <div class="rate-item"><div class="rate-label">EUR/NGN</div><div class="rate-value" id="eur-rate">—</div></div>
+      <div class="rate-item"><div class="rate-label">Total Posts</div><div class="rate-value" id="total-posts">—</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('feed')">💬 Community</button>
+    <button class="tab" onclick="switchTab('post')">✍️ Share / Ask</button>
+    <button class="tab" onclick="switchTab('tips')">💡 Money Tips</button>
+    <button class="tab" onclick="switchTab('tools')">🔢 Tools</button>
+  </div>
+
+  <div class="panel active" id="panel-feed">
+    <div style="margin:14px 0 10px;display:flex;flex-wrap:wrap;gap:4px">
+      <button class="filter-btn active" onclick="filterFeed('all',this)">All</button>
+      <button class="filter-btn" onclick="filterFeed('Tip',this)">💡 Tips</button>
+      <button class="filter-btn" onclick="filterFeed('Question',this)">❓ Questions</button>
+      <button class="filter-btn" onclick="filterFeed('Investment',this)">📈 Investment</button>
+      <button class="filter-btn" onclick="filterFeed('Warning',this)">⚠️ Scam Alerts</button>
+    </div>
+    <div id="feed-container"><div class="loading">⏳ Loading posts...</div></div>
+  </div>
+
+  <div class="panel" id="panel-post">
+    <div class="form-card">
+      <h2>✍️ Share Financial Wisdom or Ask a Question</h2>
+      <div class="sub">Help Nigerians with money. Share what worked for you. Warn against scams. Ask what you do not know.</div>
+      <label>Title *</label>
+      <input type="text" id="p-title" placeholder="e.g. How I saved ₦500k in 6 months as a corper">
+      <div class="row2">
+        <div><label>Type *</label>
+          <select id="p-type">
+            <option value="">— Select —</option>
+            <option value="Tip">💡 Money Tip</option>
+            <option value="Question">❓ Question</option>
+            <option value="Investment">📈 Investment Insight</option>
+            <option value="Warning">⚠️ Scam Alert</option>
+            <option value="Testimony">🎉 Financial Win</option>
+          </select>
+        </div>
+        <div><label>Your Name</label><input type="text" id="p-name" placeholder="Anonymous if blank"></div>
+      </div>
+      <label>Your post *</label>
+      <textarea id="p-body" placeholder="Share your financial knowledge, question, or warning in detail..."></textarea>
+      <button class="submit-btn" id="p-btn" onclick="submitPost()">💰 Post to FinanceHub</button>
+      <div class="success-box" id="p-success"><div class="big">✅</div><h3>Posted!</h3><p>Your financial wisdom is now helping Nigerians.</p></div>
+    </div>
+  </div>
+
+  <div class="panel" id="panel-tips">
+    <div class="tips-grid">
+      <div class="tip-card"><div class="tip-icon">💰</div><div class="tip-title">Save Before You Spend</div><div class="tip-body">Pay yourself first. When salary enters, move 10–20% to savings immediately. Then live on what remains.</div></div>
+      <div class="tip-card"><div class="tip-icon">📱</div><div class="tip-title">Avoid Airtime Loans</div><div class="tip-body">Airtime advance and instant loan apps charge 30–300% interest annually. Avoid them. Build an emergency fund instead.</div></div>
+      <div class="tip-card"><div class="tip-icon">🏦</div><div class="tip-title">Diversify Your Income</div><div class="tip-body">One source of income is one disaster away from poverty. Every Nigerian should have at least two income sources.</div></div>
+      <div class="tip-card"><div class="tip-icon">⚠️</div><div class="tip-title">If It Sounds Too Good</div><div class="tip-body">No legitimate investment gives 50% monthly returns. If someone promises this, they are stealing your money. Run.</div></div>
+      <div class="tip-card"><div class="tip-icon">🏠</div><div class="tip-title">Rent vs Buy</div><div class="tip-body">In Nigeria, buying property outright is better than a mortgage in most cases. High interest rates make mortgages expensive.</div></div>
+      <div class="tip-card"><div class="tip-icon">📊</div><div class="tip-title">Track Every Naira</div><div class="tip-body">Write down every expense for one month. You will be shocked where your money goes. Awareness is the first step to control.</div></div>
+    </div>
+  </div>
+
+  <div class="panel" id="panel-tools">
+    <div class="form-card">
+      <h2>🔢 Simple Financial Tools</h2>
+      <div class="sub">Quick calculations to help you make better money decisions.</div>
+      <div style="background:#fff8e6;border-radius:10px;padding:20px;margin-bottom:16px">
+        <h3 style="font-size:15px;font-weight:800;color:var(--gold);margin-bottom:12px">💰 Savings Goal Calculator</h3>
+        <label>How much do you want to save?</label>
+        <input type="number" id="goal-amount" placeholder="e.g. 500000" oninput="calcSavings()">
+        <label>In how many months?</label>
+        <input type="number" id="goal-months" placeholder="e.g. 12" oninput="calcSavings()">
+        <div id="goal-result" style="margin-top:12px;font-size:14px;font-weight:700;color:var(--green)"></div>
+      </div>
+      <div style="background:#fff8e6;border-radius:10px;padding:20px">
+        <h3 style="font-size:15px;font-weight:800;color:var(--gold);margin-bottom:12px">💸 Budget Planner</h3>
+        <label>Monthly Income (₦)</label>
+        <input type="number" id="budget-income" placeholder="e.g. 150000" oninput="calcBudget()">
+        <div id="budget-result" style="margin-top:12px"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+var SUPABASE_URL="https://klrbowhzkaojkqsbtoeu.supabase.co";
+var SUPABASE_KEY="sb_publishable_1weF_9aByeMEVFKHOZFdqg_bA5anAhm";
+var TABLE="financehub_posts";
+var allPosts=[];
+var currentFilter="all";
+
+function api(path,options){
+  return fetch(SUPABASE_URL+"/rest/v1/"+path,Object.assign({headers:{"apikey":SUPABASE_KEY,"Authorization":"Bearer "+SUPABASE_KEY,"Content-Type":"application/json","Prefer":"return=representation"}},options));
+}
+function switchTab(id){
+  var ids=["feed","post","tips","tools"];
+  document.querySelectorAll(".tab").forEach(function(t,i){t.classList.toggle("active",ids[i]===id);});
+  document.querySelectorAll(".panel").forEach(function(p,i){p.classList.toggle("active",["panel-feed","panel-post","panel-tips","panel-tools"][i]==="panel-"+id);});
+  if(id==="feed") loadFeed();
+}
+function filterFeed(type,btn){
+  currentFilter=type;
+  document.querySelectorAll(".filter-btn").forEach(function(b){b.classList.remove("active");});
+  btn.classList.add("active");
+  loadFeed();
+}
+function timeAgo(d){var diff=(Date.now()-new Date(d))/1000;if(diff<60)return "just now";if(diff<3600)return Math.floor(diff/60)+"m ago";if(diff<86400)return Math.floor(diff/3600)+"h ago";return Math.floor(diff/86400)+"d ago";}
+function loadFeed(){
+  var c=document.getElementById("feed-container");
+  c.innerHTML='<div class="loading">⏳ Loading...</div>';
+  var url=TABLE+"?order=created_at.desc&limit=30";
+  if(currentFilter!=="all") url+="&type=eq."+currentFilter;
+  api(url).then(function(r){return r.json();}).then(function(data){
+    allPosts=data||[];
+    if(!data||!data.length){c.innerHTML='<div style="text-align:center;padding:40px;color:var(--muted)"><div style="font-size:40px;margin-bottom:8px">💰</div><p>No posts yet. Share your first financial tip.</p></div>';return;}
+    c.innerHTML=data.map(function(r,idx){
+      return '<div class="post-card">' +
+        '<span class="pc-cat">'+(r.type||"Post")+'</span>' +
+        '<div class="pc-title">'+r.title+'</div>' +
+        (r.body?'<div class="pc-body">'+(r.body||"").substring(0,200)+'...</div>':'')+
+        '<div class="pc-meta"><span>👤 '+(r.author_name||"Anonymous")+'</span><span>'+timeAgo(r.created_at)+'</span></div>' +
+        '<button class="action-btn" onclick="likePost(\''+r.id+'\','+idx+','+((r.likes||0)+1)+')">👍 '+(r.likes||0)+'</button>' +
+        '<button class="action-btn" onclick="window.open(\'https://wa.me/?text=\'+encodeURIComponent(\''+r.title+' — FinanceHub on Naijy.ng\'),\'_blank\')" style="margin-left:6px">📱 Share</button>' +
+      '</div>';
+    }).join("");
+    document.getElementById("total-posts").innerText=data.length;
+  }).catch(function(){c.innerHTML='<div style="text-align:center;padding:40px;color:var(--muted)">⚠️ Could not load. Please refresh.</div>';});
+}
+function likePost(id,idx,newLikes){
+  if(!id) return;
+  api(TABLE+"?id=eq."+id,{method:"PATCH",body:JSON.stringify({likes:newLikes})}).then(function(){
+    var btns=document.querySelectorAll(".action-btn");
+    if(btns[idx*2]) btns[idx*2].innerHTML="👍 "+newLikes;
+  });
+}
+function submitPost(){
+  var title=(document.getElementById("p-title").value||"").trim();
+  var type=document.getElementById("p-type").value;
+  var body=(document.getElementById("p-body").value||"").trim();
+  var name=(document.getElementById("p-name").value||"").trim()||"Anonymous";
+  if(!title||!type||!body){alert("Please fill all required fields.");return;}
+  var btn=document.getElementById("p-btn");
+  btn.disabled=true;btn.innerText="Posting...";
+  api(TABLE,{method:"POST",body:JSON.stringify({title:title,type:type,body:body,author_name:name,likes:0,created_at:new Date().toISOString()})})
+  .then(function(r){if(r.ok||r.status===201){document.getElementById("p-success").style.display="block";btn.style.display="none";}else{btn.disabled=false;btn.innerText="💰 Post to FinanceHub";alert("Could not post. Try again.");}})
+  .catch(function(){document.getElementById("p-success").style.display="block";btn.style.display="none";});
+}
+function calcSavings(){
+  var amount=parseFloat(document.getElementById("goal-amount").value)||0;
+  var months=parseFloat(document.getElementById("goal-months").value)||0;
+  var result=document.getElementById("goal-result");
+  if(!amount||!months){result.innerText="";return;}
+  var monthly=amount/months;
+  var weekly=amount/(months*4.33);
+  var daily=amount/(months*30);
+  result.innerHTML='To save <strong>₦'+amount.toLocaleString()+'</strong> in <strong>'+months+' months</strong>:<br>Save <strong>₦'+Math.ceil(monthly).toLocaleString()+'/month</strong> | ₦'+Math.ceil(weekly).toLocaleString()+'/week | ₦'+Math.ceil(daily).toLocaleString()+'/day';
+}
+function calcBudget(){
+  var income=parseFloat(document.getElementById("budget-income").value)||0;
+  var result=document.getElementById("budget-result");
+  if(!income){result.innerHTML="";return;}
+  var needs=income*0.5;
+  var wants=income*0.3;
+  var savings=income*0.2;
+  result.innerHTML='<div style="display:flex;flex-direction:column;gap:8px;margin-top:4px">' +
+    '<div style="background:#e8f5ee;border-radius:8px;padding:10px 14px;display:flex;justify-content:space-between"><span>🏠 Needs (rent, food, transport)</span><strong>₦'+needs.toLocaleString()+'</strong></div>' +
+    '<div style="background:#fff8e6;border-radius:8px;padding:10px 14px;display:flex;justify-content:space-between"><span>🎭 Wants (entertainment, outings)</span><strong>₦'+wants.toLocaleString()+'</strong></div>' +
+    '<div style="background:#e3f0ff;border-radius:8px;padding:10px 14px;display:flex;justify-content:space-between"><span>💰 Savings & Investment</span><strong>₦'+savings.toLocaleString()+'</strong></div>' +
+  '</div>';
+}
+// Dummy rates — update with real API later
+document.getElementById("usd-rate").innerText="₦1,580";
+document.getElementById("gbp-rate").innerText="₦1,980";
+document.getElementById("eur-rate").innerText="₦1,720";
+loadFeed();
+</script>
+</body>
+</html>

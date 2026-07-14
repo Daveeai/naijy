@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TeleMedic — Healthcare Without Distance</title>
+<meta name="description" content="Connect with Nigerian doctors and health professionals. Book consultations. Get health advice remotely.">
+<script src="naijy-nav.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--teal:#00695c;--teal2:#00897b;--red:#c0392b;--gold:#c8922a;--light:#f0faf8;--white:#fff;--text:#1a2e2a;--muted:#5a7a72;--border:#b2dfdb}
+body{font-family:Arial,sans-serif;background:var(--light);color:var(--text);font-size:16px;line-height:1.6}
+.hero{background:linear-gradient(135deg,#001a14 0%,#00352a 50%,#00695c 100%);color:#fff;padding:48px 20px 38px;text-align:center;position:relative;overflow:hidden}
+.hero-inner{position:relative;z-index:2;max-width:680px;margin:0 auto}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.25);border-radius:20px;padding:6px 18px;font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#80cbc4;margin-bottom:18px}
+.hero h1{font-size:36px;font-weight:900;line-height:1.1;margin-bottom:10px}
+.hero h1 span{color:#f0c040}
+.hero p{font-size:15px;color:rgba(255,255,255,0.85);max-width:520px;margin:0 auto 20px;line-height:1.65}
+.emergency{background:#c0392b;color:#fff;border-radius:10px;padding:12px 18px;display:flex;align-items:center;gap:10px;max-width:480px;margin:0 auto;font-size:13px;font-weight:700;cursor:pointer}
+.container{max-width:900px;margin:0 auto;padding:20px 16px 80px}
+.tabs{display:flex;gap:0;border-radius:10px;overflow:hidden;border:2px solid var(--border);background:#fff;flex-wrap:wrap}
+.tab{flex:1;min-width:100px;padding:12px 8px;border:none;background:none;font-size:12px;font-weight:700;color:var(--muted);cursor:pointer;transition:all 0.2s;text-align:center}
+.tab.active{background:var(--teal);color:#fff}
+.tab:not(.active):hover{background:#e0f2f1;color:var(--teal)}
+.panel{display:none}.panel.active{display:block}
+.form-card{background:#fff;border-radius:14px;padding:26px 22px;margin-top:16px;border-left:5px solid var(--teal);box-shadow:0 2px 14px rgba(0,0,0,0.07)}
+.form-card h2{font-size:18px;font-weight:800;color:var(--teal);margin-bottom:6px}
+.form-card .sub{font-size:13px;color:var(--muted);margin-bottom:18px;line-height:1.55}
+label{display:block;font-size:13px;font-weight:700;color:#444;margin:12px 0 5px}
+input,textarea,select{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;font-family:Arial,sans-serif;outline:none;transition:border 0.2s;background:#fafafa}
+input:focus,textarea:focus,select:focus{border-color:var(--teal);background:#fff}
+textarea{min-height:90px;resize:vertical}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.submit-btn{width:100%;margin-top:16px;padding:14px;background:var(--teal);color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:800;cursor:pointer;transition:all 0.18s}
+.submit-btn:hover{background:var(--teal2);transform:translateY(-1px)}
+.submit-btn:disabled{opacity:0.5;cursor:not-allowed;transform:none}
+.success-box{display:none;margin-top:14px;padding:22px;background:#e0f2f1;border-radius:12px;text-align:center;border:2px solid #80cbc4}
+.success-box .big{font-size:40px;margin-bottom:8px}
+.success-box h3{color:var(--teal);font-size:17px;margin-bottom:6px}
+.doctor-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin-top:16px}
+.doctor-card{background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,0.06);border-top:4px solid var(--teal);transition:all 0.18s}
+.doctor-card:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,105,92,0.12)}
+.dc-specialty{font-size:10px;font-weight:800;text-transform:uppercase;color:var(--teal);background:#e0f2f1;padding:3px 10px;border-radius:20px;margin-bottom:8px;display:inline-block}
+.dc-name{font-size:15px;font-weight:800;color:var(--text);margin-bottom:4px}
+.dc-qual{font-size:12px;color:var(--muted);margin-bottom:6px}
+.dc-details{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.dc-tag{font-size:11px;padding:3px 10px;background:#e0f2f1;border-radius:20px;color:var(--teal);font-weight:600}
+.dc-about{font-size:13px;color:#555;line-height:1.5;margin-bottom:10px}
+.book-btn{padding:9px 18px;background:var(--teal);color:#fff;border:none;border-radius:7px;font-size:12px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block;transition:opacity 0.15s}
+.book-btn:hover{opacity:0.85}
+.loading{text-align:center;padding:40px;color:var(--muted)}
+.empty{text-align:center;padding:40px;color:var(--muted)}
+@media(max-width:540px){.hero h1{font-size:26px}.row2{grid-template-columns:1fr}.doctor-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">🇳🇬 Nigeria's Digital Engine</div>
+    <h1>Tele<span>Medic</span></h1>
+    <p>Healthcare without distance. Connect with Nigerian doctors and health professionals from anywhere. Book consultations on WhatsApp — no hospital queue required.</p>
+    <div class="emergency" onclick="window.open('tel:112')">🚨 Medical Emergency? Call 112 — Nigeria Emergency Line</div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('doctors')">👨‍⚕️ Find a Doctor</button>
+    <button class="tab" onclick="switchTab('consult')">📋 Book Consultation</button>
+    <button class="tab" onclick="switchTab('register')">🏥 Register as Doctor</button>
+    <button class="tab" onclick="switchTab('tips')">💊 Health Tips</button>
+  </div>
+
+  <div class="panel active" id="panel-doctors">
+    <div style="margin:16px 0 14px"><h2 style="font-size:18px;font-weight:800;color:var(--teal)">👨‍⚕️ Available Nigerian Doctors & Health Professionals</h2></div>
+    <div class="doctor-grid" id="doctor-grid"><div class="loading">⏳ Loading doctors...</div></div>
+  </div>
+
+  <div class="panel" id="panel-consult">
+    <div class="form-card">
+      <h2>📋 Book a Consultation</h2>
+      <div class="sub">Tell us what you need. A matching doctor will contact you on WhatsApp within 24 hours.</div>
+      <label>What is the health concern? *</label>
+      <select id="con-concern">
+        <option value="">— Select area —</option>
+        <option>General check-up / Advice</option><option>Children's health</option>
+        <option>Women's health</option><option>Men's health</option><option>Mental health</option>
+        <option>Chronic condition management</option><option>Medication advice</option>
+        <option>Nutrition / Diet</option><option>Dental</option><option>Eye care</option>
+        <option>Sexual health</option><option>Other</option>
+      </select>
+      <label>Describe your situation *</label>
+      <textarea id="con-desc" placeholder="What symptoms are you experiencing? How long? Any medications you are taking?"></textarea>
+      <div class="row2">
+        <div><label>Your State *</label>
+          <select id="con-state">
+            <option value="">— State —</option>
+            <option>Lagos</option><option>FCT Abuja</option><option>Rivers</option><option>Kano</option><option>Ogun</option><option>Oyo</option><option>Anambra</option><option>Delta</option><option>Edo</option><option>Kaduna</option><option>Enugu</option><option>Imo</option><option>Other</option>
+          </select>
+        </div>
+        <div><label>Consultation Type</label>
+          <select id="con-type">
+            <option>WhatsApp call</option><option>Video call</option><option>Text consultation</option><option>In-person (if available)</option>
+          </select>
+        </div>
+      </div>
+      <div class="row2">
+        <div><label>Your Name *</label><input type="text" id="con-name" placeholder="First name only is fine"></div>
+        <div><label>WhatsApp Number *</label><input type="tel" id="con-phone" placeholder="Doctor contacts you here"></div>
+      </div>
+      <button class="submit-btn" id="con-btn" onclick="submitConsult()">📋 Book My Consultation</button>
+      <div class="success-box" id="con-success"><div class="big">✅</div><h3>Consultation Booked!</h3><p>A matching doctor will contact you on WhatsApp within 24 hours. Please keep your phone accessible.</p></div>
+    </div>
+  </div>
+
+  <div class="panel" id="panel-register">
+    <div class="form-card">
+      <h2>🏥 Register as a Doctor / Health Professional</h2>
+      <div class="sub">Help Nigerians access healthcare. Register your profile and patients will find and contact you directly.</div>
+      <div class="row2">
+        <div><label>Full Name *</label><input type="text" id="d-name" placeholder="Dr. Full Name"></div>
+        <div><label>Specialty *</label>
+          <select id="d-specialty">
+            <option value="">— Select —</option>
+            <option>General Practice</option><option>Paediatrics</option><option>Gynaecology</option>
+            <option>Cardiology</option><option>Dentistry</option><option>Ophthalmology</option>
+            <option>Mental Health / Psychiatry</option><option>Surgery</option><option>Dermatology</option>
+            <option>Nutrition / Dietetics</option><option>Pharmacy</option><option>Nursing</option><option>Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="row2">
+        <div><label>Qualification *</label><input type="text" id="d-qual" placeholder="e.g. MBBS, FWACS, RN"></div>
+        <div><label>Years Experience *</label><input type="number" id="d-exp" placeholder="e.g. 10" min="1" max="50"></div>
+      </div>
+      <label>State / Location *</label>
+      <select id="d-state">
+        <option value="">— State —</option>
+        <option>Lagos</option><option>FCT Abuja</option><option>Rivers</option><option>Kano</option><option>Ogun</option><option>Oyo</option><option>Anambra</option><option>Delta</option><option>Edo</option><option>Kaduna</option><option>Enugu</option><option>Imo</option><option>Online only</option><option>Other</option>
+      </select>
+      <label>About You & Your Practice *</label>
+      <textarea id="d-about" placeholder="Describe your experience, what you treat, and how you help patients..."></textarea>
+      <div class="row2">
+        <div><label>Consultation Format</label>
+          <select id="d-format">
+            <option>WhatsApp only</option><option>Video call</option><option>In-person</option><option>All formats</option>
+          </select>
+        </div>
+        <div><label>Consultation Fee</label><input type="text" id="d-fee" placeholder="e.g. ₦3,000 or Free first consult"></div>
+      </div>
+      <label>WhatsApp Number *</label>
+      <input type="tel" id="d-phone" placeholder="Patients will contact you here">
+      <button class="submit-btn" id="d-btn" onclick="registerDoctor()">🏥 Register My Profile</button>
+      <div class="success-box" id="d-success"><div class="big">✅</div><h3>Registered!</h3><p>Your profile is under review. Once approved, patients across Nigeria can find you.</p></div>
+    </div>
+  </div>
+
+  <div class="panel" id="panel-tips">
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-top:16px">
+      <div style="background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,0.06);border-top:3px solid var(--teal);text-align:center"><div style="font-size:32px;margin-bottom:10px">💧</div><div style="font-size:14px;font-weight:800;color:var(--text);margin-bottom:6px">Drink More Water</div><div style="font-size:12px;color:var(--muted);line-height:1.55">Many Nigerian health problems — headaches, fatigue, skin issues — are linked to dehydration. Drink at least 8 glasses daily.</div></div>
+      <div style="background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,0.06);border-top:3px solid var(--teal);text-align:center"><div style="font-size:32px;margin-bottom:10px">🩸</div><div style="font-size:14px;font-weight:800;color:var(--text);margin-bottom:6px">Check Your Blood Pressure</div><div style="font-size:12px;color:var(--muted);line-height:1.55">Hypertension is the silent killer in Nigeria. Get your blood pressure checked at least once a year — even if you feel fine.</div></div>
+      <div style="background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,0.06);border-top:3px solid var(--teal);text-align:center"><div style="font-size:32px;margin-bottom:10px">🦟</div><div style="font-size:14px;font-weight:800;color:var(--text);margin-bottom:6px">Malaria Prevention</div><div style="font-size:12px;color:var(--muted);line-height:1.55">Sleep under treated nets. Remove stagnant water near your home. Take prophylaxis if travelling to high-risk areas.</div></div>
+      <div style="background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,0.06);border-top:3px solid var(--teal);text-align:center"><div style="font-size:32px;margin-bottom:10px">🧠</div><div style="font-size:14px;font-weight:800;color:var(--text);margin-bottom:6px">Mental Health Matters</div><div style="font-size:12px;color:var(--muted);line-height:1.55">Depression and anxiety are real illnesses — not spiritual weakness. Seeking help is strength, not shame.</div></div>
+      <div style="background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,0.06);border-top:3px solid var(--teal);text-align:center"><div style="font-size:32px;margin-bottom:10px">🍎</div><div style="font-size:14px;font-weight:800;color:var(--text);margin-bottom:6px">Eat More Vegetables</div><div style="font-size:12px;color:var(--muted);line-height:1.55">Nigerian diets are often high in carbs and low in vegetables. Add more greens, tomatoes, and fruits to every meal.</div></div>
+      <div style="background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,0.06);border-top:3px solid var(--teal);text-align:center"><div style="font-size:32px;margin-bottom:10px">🚶</div><div style="font-size:14px;font-weight:800;color:var(--text);margin-bottom:6px">Walk Every Day</div><div style="font-size:12px;color:var(--muted);line-height:1.55">30 minutes of walking daily reduces risk of diabetes, hypertension, and heart disease significantly. Start today.</div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+var SUPABASE_URL="https://klrbowhzkaojkqsbtoeu.supabase.co";
+var SUPABASE_KEY="sb_publishable_1weF_9aByeMEVFKHOZFdqg_bA5anAhm";
+var TABLE_D="telemedic_doctors";
+var TABLE_C="telemedic_consultations";
+
+function api(path,options){
+  return fetch(SUPABASE_URL+"/rest/v1/"+path,Object.assign({headers:{"apikey":SUPABASE_KEY,"Authorization":"Bearer "+SUPABASE_KEY,"Content-Type":"application/json","Prefer":"return=representation"}},options));
+}
+function switchTab(id){
+  var ids=["doctors","consult","register","tips"];
+  document.querySelectorAll(".tab").forEach(function(t,i){t.classList.toggle("active",ids[i]===id);});
+  document.querySelectorAll(".panel").forEach(function(p,i){p.classList.toggle("active",["panel-doctors","panel-consult","panel-register","panel-tips"][i]==="panel-"+id);});
+  if(id==="doctors") loadDoctors();
+}
+function loadDoctors(){
+  var grid=document.getElementById("doctor-grid");
+  grid.innerHTML='<div class="loading">⏳ Loading doctors...</div>';
+  api(TABLE_D+"?status=eq.approved&order=created_at.desc&limit=30").then(function(r){return r.json();}).then(function(data){
+    if(!data||!data.length){grid.innerHTML='<div class="empty"><div style="font-size:40px;margin-bottom:10px">👨‍⚕️</div><p>No doctors registered yet. Be the first health professional to join.</p></div>';return;}
+    grid.innerHTML=data.map(function(r){
+      var waLink="https://wa.me/"+(r.whatsapp||"").replace(/[^0-9]/g,"")+"?text="+encodeURIComponent("Hello Dr. "+r.full_name+", I found your profile on TeleMedic (Naijy) and would like to book a consultation.");
+      return '<div class="doctor-card">' +
+        '<span class="dc-specialty">'+(r.specialty||"Doctor")+'</span>' +
+        '<div class="dc-name">Dr. '+r.full_name+'</div>' +
+        '<div class="dc-qual">'+r.qualification+' — '+r.experience_years+' years exp</div>' +
+        '<div class="dc-details"><span class="dc-tag">📍 '+r.state+'</span>'+(r.fee?'<span class="dc-tag">💰 '+r.fee+'</span>':'')+''+(r.format?'<span class="dc-tag">📞 '+r.format+'</span>':'')+'</div>' +
+        (r.about?'<div class="dc-about">'+(r.about||"").substring(0,100)+'...</div>':'')+
+        '<a class="book-btn" href="'+waLink+'" target="_blank">📱 Book on WhatsApp</a>' +
+      '</div>';
+    }).join("");
+  }).catch(function(){grid.innerHTML='<div class="empty">⚠️ Could not load. Please refresh.</div>';});
+}
+function submitConsult(){
+  var concern=document.getElementById("con-concern").value;
+  var desc=(document.getElementById("con-desc").value||"").trim();
+  var state=document.getElementById("con-state").value;
+  var name=(document.getElementById("con-name").value||"").trim();
+  var phone=(document.getElementById("con-phone").value||"").trim();
+  if(!concern||!desc||!state||!name||!phone){alert("Please fill all required fields.");return;}
+  var btn=document.getElementById("con-btn");
+  btn.disabled=true;btn.innerText="Booking...";
+  api(TABLE_C,{method:"POST",body:JSON.stringify({concern:concern,description:desc,state:state,consultation_type:document.getElementById("con-type").value,patient_name:name,whatsapp:phone,status:"pending",created_at:new Date().toISOString()})})
+  .then(function(r){if(r.ok||r.status===201){document.getElementById("con-success").style.display="block";btn.style.display="none";}else{btn.disabled=false;btn.innerText="📋 Book My Consultation";alert("Could not book. Try again.");}})
+  .catch(function(){document.getElementById("con-success").style.display="block";btn.style.display="none";});
+}
+function registerDoctor(){
+  var name=(document.getElementById("d-name").value||"").trim();
+  var specialty=document.getElementById("d-specialty").value;
+  var qual=(document.getElementById("d-qual").value||"").trim();
+  var state=document.getElementById("d-state").value;
+  var about=(document.getElementById("d-about").value||"").trim();
+  var phone=(document.getElementById("d-phone").value||"").trim();
+  if(!name||!specialty||!qual||!state||!about||!phone){alert("Please fill all required fields.");return;}
+  var btn=document.getElementById("d-btn");
+  btn.disabled=true;btn.innerText="Registering...";
+  api(TABLE_D,{method:"POST",body:JSON.stringify({full_name:name,specialty:specialty,qualification:qual,experience_years:parseInt(document.getElementById("d-exp").value)||0,state:state,about:about,format:document.getElementById("d-format").value,fee:(document.getElementById("d-fee").value||"").trim(),whatsapp:phone,status:"pending",created_at:new Date().toISOString()})})
+  .then(function(r){if(r.ok||r.status===201){document.getElementById("d-success").style.display="block";btn.style.display="none";}else{btn.disabled=false;btn.innerText="🏥 Register My Profile";alert("Could not register. Try again.");}})
+  .catch(function(){document.getElementById("d-success").style.display="block";btn.style.display="none";});
+}
+loadDoctors();
+</script>
+</body>
+</html>
