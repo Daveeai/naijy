@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>All Platforms — Naijy</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --green: #1f5e43;
+    --green-light: #e8f5ee;
+    --gold: #c8922a;
+    --offwhite: #f4f7f5;
+    --text: #1a2e23;
+    --muted: #6b8070;
+    --border: #d4e4da;
+    --radius: 10px;
+  }
+  body { font-family: 'DM Sans', sans-serif; background: var(--offwhite); color: var(--text); min-height: 100vh; }
+  header { background: #1a2e23; color: #fff; padding: 22px 20px; text-align: center; }
+  header h1 { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; color: var(--gold); }
+  header p { font-size: 13px; color: rgba(255,255,255,0.7); margin-top: 4px; }
+  main { max-width: 900px; margin: 0 auto; padding: 24px 16px 60px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+  a.card {
+    display: block; background: #fff; border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 16px; text-decoration: none; color: var(--text); box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    transition: border-color 0.15s, transform 0.15s;
+  }
+  a.card:hover { border-color: var(--green); transform: translateY(-2px); }
+  a.card .name { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 15px; color: var(--green); }
+  a.card .desc { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .count { text-align: center; font-size: 13px; color: var(--muted); margin-bottom: 18px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Naijy — All Platforms</h1>
+  <p>One account, every platform</p>
+</header>
+
+<main>
+  <div class="count">18 platforms live</div>
+  <div class="grid" id="platform-grid"></div>
+</main>
+
+<script>
+  // Add a new platform by adding one line here — the page updates itself.
+  var platforms = [
+    { name: "AgriConet",       file: "agriconet.html",       desc: "Agriculture marketplace" },
+    { name: "CampusRepublic",  file: "campusrepublic.html",  desc: "Student community & opportunities" },
+    { name: "ElectConnect",    file: "electconnect.html",    desc: "Electricity & utilities" },
+    { name: "FinanceHub",      file: "financehub.html",      desc: "Finance & business" },
+    { name: "FlowStream",      file: "flowstream.html",      desc: "Community feed" },
+    { name: "GomentWatch",     file: "gomentwatch.html",     desc: "Government accountability reports" },
+    { name: "HusbandSchool",   file: "husbandschool.html",   desc: "Marriage & relationships" },
+    { name: "IboPrentice",     file: "iboprentice.html",     desc: "Apprenticeship & skills" },
+    { name: "LoveStories",     file: "lovestories.html",     desc: "Community stories" },
+    { name: "MarriageClinic",  file: "marriageclinic.html",  desc: "Counselling & support" },
+    { name: "MarriageMatch",   file: "marriagematch.html",   desc: "Matchmaking" },
+    { name: "MediaLane",       file: "medialane.html",       desc: "News & citizen journalism" },
+    { name: "NaijyParent",     file: "naijyparent.html",     desc: "Parenting community" },
+    { name: "NamyArea",        file: "namyarea.html",        desc: "Local area info" },
+    { name: "SafeNation",      file: "safenation.html",      desc: "Safety & incident reports" },
+    { name: "TeleMedic",       file: "telemedic.html",       desc: "Telemedicine" },
+    { name: "WifeSchool",      file: "wifeschool.html",      desc: "Marriage & relationships" },
+    { name: "YouthEmploy",     file: "youthemploy.html",     desc: "Jobs for young people" }
+  ];
+
+  var grid = document.getElementById("platform-grid");
+  platforms.forEach(function(p) {
+    var a = document.createElement("a");
+    a.className = "card";
+    a.href = p.file;
+    a.innerHTML = '<div class="name">' + p.name + '</div><div class="desc">' + p.desc + '</div>';
+    grid.appendChild(a);
+  });
+</script>
+
+</body>
+</html>
