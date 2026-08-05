@@ -24,7 +24,7 @@ const categories = [
       { name:"TradeCentre",      tag:"Where Commerce Meets Opportunity",   status:"Coming Soon" },
       { name:"RetaileX",         tag:"The Future of Retail",               status:"Coming Soon" },
       { name:"BusinessMap",      tag:"Mapping Every Business",             status:"Coming Soon" },
-      { name:"FinanceHub",       tag:"Connecting Money, Markets & People", status:"Coming Soon" },
+      { name:"FinanceHub",       tag:"Connecting Money, Markets & People", status:"Active / Growing" },
       { name:"RemiteX",          tag:"Sending Money Without Borders",      status:"Coming Soon" },
       { name:"DigitalPays Hub",  tag:"Powering Digital Money",             status:"Coming Soon" },
       { name:"HausaWealth",      tag:"Empowering Hausa Prosperity",        status:"Coming Soon" },
@@ -39,8 +39,8 @@ const categories = [
     platforms:[
       { name:"YouthSpace",        tag:"Building Nigeria's Future in Space",    status:"Coming Soon" },
       { name:"SpaceKids",         tag:"Exploring Space the Fun Way",           status:"Coming Soon" },
-      { name:"YouthEmploy",       tag:"Tackling Unemployment",                 status:"Coming Soon" },
-      { name:"Iboprentice",       tag:"Training, Skills, Building the Future", status:"Coming Soon" },
+      { name:"YouthEmploy",       tag:"Tackling Unemployment",                 status:"Active / Growing" },
+      { name:"Iboprentice",       tag:"Training, Skills, Building the Future", status:"Active / Growing" },
       { name:"Naijy GameCraft",   tag:"Play. Build. Invent.",                  status:"Coming Soon" },
       { name:"Naijy ScienceTech", tag:"Learn. Experiment. Build the future.",  status:"Coming Soon" }
     ]},
@@ -48,6 +48,7 @@ const categories = [
   { name:"Education & Leadership", description:"Platforms that improve learning, connect schools, and help develop future leaders.",
     platforms:[
       { name:"EducaHub",         tag:"Education by Everyone, for Everyone",  status:"Coming Soon" },
+      { name:"CampusRepublic",   tag:"Student Community & Opportunities",    status:"Active / Growing" },
       { name:"VersitiesConnect", tag:"Connecting Campus Life Digitally",      status:"Coming Soon" },
       { name:"LeadersArena",     tag:"Training Tomorrow's Leaders Today",     status:"Coming Soon" },
       { name:"DiasporaLink",     tag:"Connecting Naijy Talents Worldwide",    status:"Coming Soon" }
@@ -55,7 +56,7 @@ const categories = [
 
   { name:"Health", description:"Platforms that support healthcare, medical knowledge, and better health services for citizens.",
     platforms:[
-      { name:"TeleMedic",     tag:"Healthcare Without Distance",  status:"Coming Soon" },
+      { name:"TeleMedic",     tag:"Healthcare Without Distance",  status:"Active / Growing" },
       { name:"HealthPro",     tag:"Prevention Before Cure",       status:"Coming Soon" },
       { name:"PharmaBiotech", tag:"Where Science Meets Health",   status:"Coming Soon" },
       { name:"RetireesHub",   tag:"Care After Service",           status:"Coming Soon" },
@@ -64,7 +65,7 @@ const categories = [
 
   { name:"Agriculture", description:"Platforms helping farmers grow food, access markets, and improve farming across the country.",
     platforms:[
-      { name:"AgricoNet",   tag:"Connecting Farms to Markets",                      status:"Coming Soon" },
+      { name:"AgricoNet",   tag:"Connecting Farms to Markets",                      status:"Active / Growing" },
       { name:"FarmConet",   tag:"Powering Farmers Digitally",                       status:"Coming Soon" },
       { name:"FoodHub",     tag:"Healthy Food, Healthy Nation",                     status:"Coming Soon" },
       { name:"FulaConnect", tag:"Herding, Culture, Social Network & Digital Market",status:"Coming Soon" }
@@ -126,7 +127,7 @@ const categories = [
 
   { name:"Technology", description:"Platforms driving digital innovation, technology development, and Nigeria's tech ecosystem.",
     platforms:[
-      { name:"NaMyArea",       tag:"Your Community, Digitally Connected",                    status:"Coming Soon" },
+      { name:"NaMyArea",       tag:"Your Community, Digitally Connected",                    status:"Active / Growing" },
       { name:"BlockchainNet",  tag:"Powering the Digital Economy",                           status:"Coming Soon" },
       { name:"InnovateLab",    tag:"Where Ideas Become Solutions",                           status:"Coming Soon" },
       { name:"BreaktruAfrica", tag:"Africa's Success, Amplified",                            status:"Coming Soon" },
@@ -140,9 +141,9 @@ const categories = [
   { name:"Governance", description:"Platforms that make government more open, transparent, and connected with citizens.",
     platforms:[
       { name:"CivService",    tag:"Serving Smarter, Serving Better",          status:"Coming Soon" },
-      { name:"GomentWatch",   tag:"Power to the People to Watch Power",       status:"Coming Soon" },
+      { name:"GomentWatch",   tag:"Power to the People to Watch Power",       status:"Active / Growing" },
       { name:"PolicyDecoded", tag:"Government Made Simple",                   status:"Coming Soon" },
-      { name:"ElectConnect",  tag:"Connecting the Electoral System",          status:"Coming Soon" },
+      { name:"ElectConnect",  tag:"Connecting the Electoral System",          status:"Active / Growing" },
       { name:"CivicPolitics", tag:"Where Citizens Meet Power",                status:"Coming Soon" },
       { name:"LegacyHub",     tag:"Your Legacy, Secured Forever",             status:"Coming Soon" },
       { name:"LocaGov",       tag:"Governance at Your Doorstep",              status:"Coming Soon" },
@@ -162,9 +163,19 @@ const categories = [
       { name:"InvestUp",       tag:"Where Capital Meets Opportunity",      status:"Coming Soon" }
     ]},
 
+  { name:"Relationships & Family", description:"Platforms supporting marriage, family life, parenting, and human connection.",
+    platforms:[
+      { name:"MarriageClinic", tag:"Counselling & Marriage Support",        status:"Active / Growing" },
+      { name:"MarriageMatch",  tag:"Matchmaking Done Right",                status:"Active / Growing" },
+      { name:"LoveStories",    tag:"Real Nigerian Love Stories",            status:"Active / Growing" },
+      { name:"HusbandSchool",  tag:"Raising Better Husbands",               status:"Active / Growing" },
+      { name:"WifeSchool",     tag:"Raising Better Wives",                  status:"Active / Growing" },
+      { name:"NaijyParent",    tag:"Parenting, Nigerian Style",             status:"Active / Growing" }
+    ]},
+
   { name:"Say Something", description:"Simple platforms where people can quickly share thoughts, ideas, and opinions.",
     platforms:[
-      { name:"FlowStream", tag:"See thoughts as they flow",  status:"Coming Soon" },
+      { name:"FlowStream", tag:"See thoughts as they flow",  status:"Active / Growing" },
       { name:"FlashBoard", tag:"Quick ideas, gone fast",     status:"Coming Soon" },
       { name:"HideIt",     tag:"Hide, Say Before You Do",    status:"Coming Soon" },
       { name:"ProjectX",   tag:"Ideas Into Action",          status:"Coming Soon" },
@@ -178,7 +189,7 @@ const categories = [
 //  SPECIAL PLATFORMS  (4)
 // ============================================================
 const corePlatforms = [
-  { name:"MediaLane",  line1:"National Media Visibility & Public Record",      line2:"Expanding the Fourth Estate",       status:"Coming Soon" },
+  { name:"MediaLane",  line1:"National Media Visibility & Public Record",      line2:"Expanding the Fourth Estate",       status:"Active / Growing" },
   { name:"ProfsLane",  line1:"Professorial Excellence & Knowledge Impact",     line2:"From classrooms to global impact",  status:"Coming Soon" },
   { name:"InfluenceX", line1:"Nigerian Influencers & Creators Network",        line2:"Influence, united and amplified",   status:"Coming Soon" },
   { name:"LeaderTics", line1:"Political Visibility & Leadership Legacy",       line2:"Politics, records and Public trust",status:"Coming Soon" }
