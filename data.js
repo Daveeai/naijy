@@ -21,7 +21,7 @@ const categories = [
 
   { name:"Business & Economy", description:"Platforms that support businesses, jobs, trade, and money flow across Nigeria.",
     platforms:[
-      { name:"TradeCentre",      tag:"Where Commerce Meets Opportunity",   status:"Coming Soon" },
+      { name:"TradeCentre",      tag:"Where Commerce Meets Opportunity",   status:"Active / Growing" },
       { name:"RetaileX",         tag:"The Future of Retail",               status:"Coming Soon" },
       { name:"BusinessMap",      tag:"Mapping Every Business",             status:"Coming Soon" },
       { name:"FinanceHub",       tag:"Connecting Money, Markets & People", status:"Active / Growing" },
@@ -47,7 +47,7 @@ const categories = [
 
   { name:"Education & Leadership", description:"Platforms that improve learning, connect schools, and help develop future leaders.",
     platforms:[
-      { name:"EducaHub",         tag:"Education by Everyone, for Everyone",  status:"Coming Soon" },
+      { name:"EducaHub",         tag:"Education by Everyone, for Everyone",  status:"Active / Growing" },
       { name:"CampusRepublic",   tag:"Student Community & Opportunities",    status:"Active / Growing" },
       { name:"VersitiesConnect", tag:"Connecting Campus Life Digitally",      status:"Coming Soon" },
       { name:"LeadersArena",     tag:"Training Tomorrow's Leaders Today",     status:"Coming Soon" },
@@ -57,7 +57,7 @@ const categories = [
   { name:"Health", description:"Platforms that support healthcare, medical knowledge, and better health services for citizens.",
     platforms:[
       { name:"TeleMedic",     tag:"Healthcare Without Distance",  status:"Active / Growing" },
-      { name:"HealthPro",     tag:"Prevention Before Cure",       status:"Coming Soon" },
+      { name:"HealthPro",     tag:"Prevention Before Cure",       status:"Active / Growing" },
       { name:"PharmaBiotech", tag:"Where Science Meets Health",   status:"Coming Soon" },
       { name:"RetireesHub",   tag:"Care After Service",           status:"Coming Soon" },
       { name:"SendMe",        tag:"Help, Instantly",              status:"Coming Soon" }
@@ -67,7 +67,7 @@ const categories = [
     platforms:[
       { name:"AgricoNet",   tag:"Connecting Farms to Markets",                      status:"Active / Growing" },
       { name:"FarmConet",   tag:"Powering Farmers Digitally",                       status:"Coming Soon" },
-      { name:"FoodHub",     tag:"Healthy Food, Healthy Nation",                     status:"Coming Soon" },
+      { name:"FoodHub",     tag:"Healthy Food, Healthy Nation",                     status:"Active / Growing" },
       { name:"FulaConnect", tag:"Herding, Culture, Social Network & Digital Market",status:"Coming Soon" }
     ]},
 
@@ -82,7 +82,7 @@ const categories = [
 
   { name:"Housing", description:"Platforms helping people find homes, manage property, and build smarter cities.",
     platforms:[
-      { name:"HomeConnect",   tag:"Connecting Homes & People",           status:"Coming Soon" },
+      { name:"HomeConnect",   tag:"Connecting Homes & People",           status:"Active / Growing" },
       { name:"PropertyHub",   tag:"Property Made Simple",                status:"Coming Soon" },
       { name:"SmartCities",   tag:"Building the Cities of Tomorrow",     status:"Coming Soon" },
       { name:"UrbanDataGrid", tag:"Data for Smarter Cities",             status:"Coming Soon" },
