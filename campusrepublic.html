@@ -70,6 +70,8 @@ textarea{min-height:90px;resize:vertical}
 .empty{text-align:center;padding:40px;color:var(--muted)}
 @media(max-width:540px){.hero h1{font-size:26px}.row2{grid-template-columns:1fr}}
 </style>
+<script src="core.js" defer></script>
+<script src="auth.js" defer></script>
 </head>
 <body>
 <div class="hero">
@@ -259,7 +261,7 @@ function submitPost(){
   if(!body||body.length<20){alert("Please write more in your post.");return;}
   var btn=document.getElementById("p-btn");
   btn.disabled=true;btn.innerText="Posting...";
-  api(TABLE_P,{method:"POST",body:JSON.stringify({title:title,type:type,body:body,author_name:name,school:(document.getElementById("p-school").value||"").trim(),likes:0,created_at:new Date().toISOString()})})
+  api(TABLE_P,{method:"POST",body:JSON.stringify({user_id:(typeof getCurrentNaijyUser==="function"&&getCurrentNaijyUser())?getCurrentNaijyUser().id:null,title:title,type:type,body:body,author_name:name,school:(document.getElementById("p-school").value||"").trim(),likes:0,created_at:new Date().toISOString()})})
   .then(function(r){
     if(r.ok||r.status===201){document.getElementById("p-success").style.display="block";btn.style.display="none";loadStats();}
     else{btn.disabled=false;btn.innerText="📰 Post to CampusRepublic";alert("Could not post. Try again.");}
@@ -273,7 +275,7 @@ function submitOpportunity(){
   if(!title||!type||!org||!body){alert("Please fill all required fields.");return;}
   var btn=document.getElementById("o-btn");
   btn.disabled=true;btn.innerText="Submitting...";
-  api(TABLE_O,{method:"POST",body:JSON.stringify({title:title,type:type,organisation:org,body:body,deadline:(document.getElementById("o-deadline").value||""),link:(document.getElementById("o-link").value||"").trim(),submitted_by:(document.getElementById("o-name").value||"").trim(),created_at:new Date().toISOString()})})
+  api(TABLE_O,{method:"POST",body:JSON.stringify({user_id:(typeof getCurrentNaijyUser==="function"&&getCurrentNaijyUser())?getCurrentNaijyUser().id:null,title:title,type:type,organisation:org,body:body,deadline:(document.getElementById("o-deadline").value||""),link:(document.getElementById("o-link").value||"").trim(),submitted_by:(document.getElementById("o-name").value||"").trim(),created_at:new Date().toISOString()})})
   .then(function(r){
     if(r.ok||r.status===201){document.getElementById("o-success").style.display="block";btn.style.display="none";}
     else{btn.disabled=false;btn.innerText="🎯 Submit Opportunity";alert("Could not submit. Try again.");}

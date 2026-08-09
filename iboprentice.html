@@ -79,6 +79,8 @@ textarea{min-height:90px;resize:vertical}
 @media(max-width:540px){.hero h1{font-size:24px}.row2{grid-template-columns:1fr}.steps{grid-template-columns:1fr 1fr}}
 </style>
 <script src="naijy-nav.js"></script>
+<script src="core.js" defer></script>
+<script src="auth.js" defer></script>
 </head>
 <body>
 
@@ -421,7 +423,9 @@ function postProfile(type){
   if(!phone){alert("Please enter your WhatsApp number.");return;}
   var btn=document.getElementById(isMaster?"teach-btn":"learn-btn");
   btn.disabled=true; btn.innerText="Registering...";
+  var NAIJY_UID=(typeof getCurrentNaijyUser==="function"&&getCurrentNaijyUser())?getCurrentNaijyUser().id:null;
   var record={
+    user_id:NAIJY_UID,
     type:type, title:title, category:trade, state:state,
     lga:getVal(isMaster?"t-market":"").trim(),
     description:desc,

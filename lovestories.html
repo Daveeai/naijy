@@ -80,6 +80,8 @@ textarea{min-height:140px;resize:vertical}
 @media(max-width:540px){.hero h1{font-size:22px}.row2{grid-template-columns:1fr}}
 </style>
 <script src="naijy-nav.js"></script>
+<script src="core.js" defer></script>
+<script src="auth.js" defer></script>
 </head>
 <body>
 
@@ -233,7 +235,8 @@ function submitStory(){
   lastTitle=title;
   var btn=document.getElementById("story-btn");
   btn.disabled=true; btn.innerText="Sharing your story...";
-  var record={type:storyType,title:title,where_met:where,state:state,years_together:years?parseInt(years):null,story:body,author_name:name,hearts:0,created_at:new Date().toISOString()};
+  var NAIJY_UID=(typeof getCurrentNaijyUser==="function"&&getCurrentNaijyUser())?getCurrentNaijyUser().id:null;
+  var record={user_id:NAIJY_UID,type:storyType,title:title,where_met:where,state:state,years_together:years?parseInt(years):null,story:body,author_name:name,hearts:0,created_at:new Date().toISOString()};
   api(TABLE,{method:"POST",body:JSON.stringify(record)})
   .then(function(r){
     if(r.ok||r.status===201){

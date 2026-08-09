@@ -71,6 +71,8 @@ textarea{min-height:160px;resize:vertical}
 @media(max-width:600px){.story-grid{grid-template-columns:1fr}.story-featured{grid-column:auto}.masthead h1{font-size:26px}.row2{grid-template-columns:1fr}}
 </style>
 <script src="naijy-nav.js"></script>
+<script src="core.js" defer></script>
+<script src="auth.js" defer></script>
 </head>
 <body>
 
@@ -315,7 +317,9 @@ function submitStory(){
   if(!body||body.length<100){alert("Please write your full story (at least 100 characters).");return;}
   var btn=document.getElementById("submit-btn");
   btn.disabled=true; btn.innerText="Submitting...";
+  var NAIJY_UID=(typeof getCurrentNaijyUser==="function"&&getCurrentNaijyUser())?getCurrentNaijyUser().id:null;
   var record={
+    user_id:NAIJY_UID,
     title:title, category:cat, state:state, body:body,
     evidence:(document.getElementById("s-evidence").value||"").trim(),
     author_name:(document.getElementById("s-name").value||"").trim()||"Citizen Reporter",
@@ -339,7 +343,9 @@ function submitTip(){
   if(!body||body.length<20){alert("Please describe your tip in more detail.");return;}
   var btn=document.getElementById("tip-btn");
   btn.disabled=true; btn.innerText="Sending securely...";
+  var NAIJY_UID=(typeof getCurrentNaijyUser==="function"&&getCurrentNaijyUser())?getCurrentNaijyUser().id:null;
   var record={
+    user_id:NAIJY_UID,
     category:cat, body:body,
     state:(document.getElementById("tip-state").value||""),
     contact:(document.getElementById("tip-contact").value||"").trim(),

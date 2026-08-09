@@ -86,6 +86,8 @@ textarea{min-height:90px;resize:vertical}
 .feed-header h2{font-size:18px;font-weight:800;color:var(--pink)}
 @media(max-width:540px){.hero h1{font-size:26px}.row2,.row3{grid-template-columns:1fr}.hs{min-width:80px}}
 </style>
+<script src="core.js" defer></script>
+<script src="auth.js" defer></script>
 </head>
 <body>
 <div class="hero">
@@ -370,7 +372,9 @@ function registerProfile(){
   var btn=document.getElementById("reg-btn");
   btn.disabled=true; btn.innerText="Submitting...";
   var ref="NJY-MM-"+Math.floor(10000+Math.random()*90000);
+  var NAIJY_UID=(typeof getCurrentNaijyUser==="function"&&getCurrentNaijyUser())?getCurrentNaijyUser().id:null;
   var record={
+    user_id:NAIJY_UID,
     ref:ref, first_name:firstname, gender:gender, age:parseInt(age),
     state:state, tribe:(document.getElementById("r-tribe").value||"").trim(),
     religion:religion,

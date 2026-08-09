@@ -71,6 +71,8 @@ textarea{min-height:90px;resize:vertical}
 @media(max-width:540px){.hero h1{font-size:24px}.row2,.row3{grid-template-columns:1fr}.product-grid{grid-template-columns:1fr 1fr}}
 </style>
 <script src="naijy-nav.js"></script>
+<script src="core.js" defer></script>
+<script src="auth.js" defer></script>
 </head>
 <body>
 
@@ -371,7 +373,9 @@ function postListing(){
   if(!phone){alert("Please enter your WhatsApp number.");return;}
   var btn=document.getElementById("post-btn");
   btn.disabled=true; btn.innerText="Posting...";
+  var NAIJY_UID=(typeof getCurrentNaijyUser==="function"&&getCurrentNaijyUser())?getCurrentNaijyUser().id:null;
   var record={
+    user_id:NAIJY_UID,
     produce_name:name, category:cat, unit:unit, price:price,
     quantity_available:(document.getElementById("p-qty").value||"").trim(),
     state:state, lga:(document.getElementById("p-lga").value||"").trim(),
@@ -410,7 +414,9 @@ function submitOrder(){
   if(!phone){alert("Please enter your WhatsApp number.");return;}
   var btn=document.getElementById("order-btn");
   btn.disabled=true; btn.innerText="Posting order...";
+  var NAIJY_UID=(typeof getCurrentNaijyUser==="function"&&getCurrentNaijyUser())?getCurrentNaijyUser().id:null;
   var record={
+    user_id:NAIJY_UID,
     item_needed:item, quantity:qty, budget:(document.getElementById("o-budget").value||"").trim(),
     delivery_state:state, needed_by:(document.getElementById("o-date").value||""),
     notes:(document.getElementById("o-notes").value||"").trim(),
