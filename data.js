@@ -22,7 +22,7 @@ const categories = [
   { name:"Business & Economy", description:"Platforms that support businesses, jobs, trade, and money flow across Nigeria.",
     platforms:[
       { name:"TradeCentre",      tag:"Where Commerce Meets Opportunity",   status:"Active / Growing" },
-      { name:"RetaileX",         tag:"The Future of Retail",               status:"Coming Soon" },
+      { name:"RetaileX",         tag:"The Future of Retail",               status:"Active / Growing" },
       { name:"BusinessMap",      tag:"Mapping Every Business",             status:"Coming Soon" },
       { name:"FinanceHub",       tag:"Connecting Money, Markets & People", status:"Active / Growing" },
       { name:"RemiteX",          tag:"Sending Money Without Borders",      status:"Coming Soon" },
@@ -32,7 +32,7 @@ const categories = [
       { name:"WesternWealth",    tag:"Driving Western Growth",             status:"Coming Soon" },
       { name:"NigerDeltaWealth", tag:"Empowering Niger Delta Prosperity",  status:"Coming Soon" },
       { name:"NigerBenueWealth", tag:"Uniting Middle Belt Prosperity",     status:"Coming Soon" },
-      { name:"WorkGlobal",       tag:"Work Without Borders",               status:"Coming Soon" }
+      { name:"WorkGlobal",       tag:"Work Without Borders",               status:"Active / Growing" }
     ]},
 
   { name:"Youth", description:"Platforms created for young Nigerians to learn, grow skills, find opportunities, and build the future.",
@@ -51,16 +51,16 @@ const categories = [
       { name:"CampusRepublic",   tag:"Student Community & Opportunities",    status:"Active / Growing" },
       { name:"VersitiesConnect", tag:"Connecting Campus Life Digitally",      status:"Coming Soon" },
       { name:"LeadersArena",     tag:"Training Tomorrow's Leaders Today",     status:"Coming Soon" },
-      { name:"DiasporaLink",     tag:"Connecting Naijy Talents Worldwide",    status:"Coming Soon" }
+      { name:"DiasporaLink",     tag:"Connecting Naijy Talents Worldwide",    status:"Active / Growing" }
     ]},
 
   { name:"Health", description:"Platforms that support healthcare, medical knowledge, and better health services for citizens.",
     platforms:[
       { name:"TeleMedic",     tag:"Healthcare Without Distance",  status:"Active / Growing" },
       { name:"HealthPro",     tag:"Prevention Before Cure",       status:"Active / Growing" },
-      { name:"PharmaBiotech", tag:"Where Science Meets Health",   status:"Coming Soon" },
-      { name:"RetireesHub",   tag:"Care After Service",           status:"Coming Soon" },
-      { name:"SendMe",        tag:"Help, Instantly",              status:"Coming Soon" }
+      { name:"PharmaBiotech", tag:"Where Science Meets Health",   status:"Active / Growing" },
+      { name:"RetireesHub",   tag:"Care After Service",           status:"Active / Growing" },
+      { name:"SendMe",        tag:"Help, Instantly",              status:"Active / Growing" }
     ]},
 
   { name:"Agriculture", description:"Platforms helping farmers grow food, access markets, and improve farming across the country.",
@@ -83,7 +83,7 @@ const categories = [
   { name:"Housing", description:"Platforms helping people find homes, manage property, and build smarter cities.",
     platforms:[
       { name:"HomeConnect",   tag:"Connecting Homes & People",           status:"Active / Growing" },
-      { name:"PropertyHub",   tag:"Property Made Simple",                status:"Coming Soon" },
+      { name:"PropertyHub",   tag:"Property Made Simple",                status:"Active / Growing" },
       { name:"SmartCities",   tag:"Building the Cities of Tomorrow",     status:"Coming Soon" },
       { name:"UrbanDataGrid", tag:"Data for Smarter Cities",             status:"Coming Soon" },
       { name:"MoveCity",      tag:"Smarter Movement for Smarter Cities", status:"Coming Soon" }
@@ -102,7 +102,7 @@ const categories = [
   { name:"Media", description:"Platforms for storytelling, creativity, digital content, and sharing Nigerian voices.",
     platforms:[
       { name:"MediaWatch", tag:"Watching the Media for the People",                   status:"Coming Soon" },
-      { name:"CreativeX",  tag:"Where Creativity Becomes Industry",                   status:"Coming Soon" },
+      { name:"CreativeX",  tag:"Where Creativity Becomes Industry",                   status:"Active / Growing" },
       { name:"FilmHub",    tag:"Stories to the World",                                status:"Coming Soon" },
       { name:"WifeyMet",   tag:"How I Met My Husband - And I finally did",            status:"Coming Soon" },
       { name:"HusbyMet",   tag:"How I Met My Wife - And Life Till Now",               status:"Coming Soon" },
@@ -120,8 +120,8 @@ const categories = [
   { name:"Hospitality", description:"Platforms that promote travel, tourism, events, and experiences across Nigeria.",
     platforms:[
       { name:"TraveleX",   tag:"Explore. Connect. Experience",  status:"Coming Soon" },
-      { name:"Hotels360",  tag:"Discover. Book. Experience",    status:"Coming Soon" },
-      { name:"EventsHub",  tag:"Discover What's Happening",     status:"Coming Soon" },
+      { name:"Hotels360",  tag:"Discover. Book. Experience",    status:"Active / Growing" },
+      { name:"EventsHub",  tag:"Discover What's Happening",     status:"Active / Growing" },
       { name:"Tourism360", tag:"Experience the Nation",         status:"Coming Soon" }
     ]},
 
