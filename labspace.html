@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LabSpace — Where Ideas Become Reality</title>
+<meta name="description" content="Where Ideas Become Reality. Part of Naijy, Nigeria's National Digital Engine.">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--green:#1f5e43;--green2:#2e7d5a;--earth:#8B4513;--gold:#c8922a;--light:#f4f9f0;--white:#fff;--text:#1a2e23;--muted:#5a7a5a;--border:#c8ddc0}
+body{font-family:Arial,sans-serif;background:var(--light);color:var(--text);font-size:16px;line-height:1.6}
+.hero{background:linear-gradient(135deg,#0d2b0a 0%,#1f5e43 55%,#2e7d5a 100%);color:#fff;padding:40px 20px 36px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:"💻";position:absolute;font-size:140px;opacity:0.07;right:-20px;top:-10px}
+.hero::after{content:"🤖";position:absolute;font-size:100px;opacity:0.06;left:-10px;bottom:-20px}
+.hero .badge{display:inline-block;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);border-radius:20px;padding:5px 16px;font-size:12px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#a8e6b8;margin-bottom:16px}
+.hero h1{font-size:32px;font-weight:900;margin-bottom:8px}
+.hero h1 span{color:#f0c040}
+.hero p{font-size:15px;color:#e8f5ee;max-width:520px;margin:0 auto 24px;line-height:1.6}
+.hero-stats{display:flex;justify-content:center;gap:32px;flex-wrap:wrap}
+.stat .num{font-size:28px;font-weight:900;color:#ffe066}
+.stat .lbl{font-size:11px;color:#fff;font-weight:600;text-transform:uppercase;letter-spacing:0.07em}
+.container{max-width:900px;margin:0 auto;padding:20px 16px 60px}
+.tabs{display:flex;gap:0;margin:20px 0 0;border-radius:10px;overflow:hidden;border:2px solid var(--border);background:#fff}
+.tab{flex:1;padding:13px 10px;border:none;background:none;font-size:14px;font-weight:700;color:var(--muted);cursor:pointer;transition:all 0.2s;text-align:center}
+.tab.active{background:var(--green);color:#fff}
+.tab:not(.active):hover{background:#f0faf5;color:var(--green)}
+.panel{display:none}.panel.active{display:block}
+.form-card{background:#fff;border-radius:14px;padding:28px 24px;margin-top:16px;border-left:5px solid var(--gold);box-shadow:0 2px 14px rgba(0,0,0,0.07)}
+.form-card h2{font-size:18px;font-weight:800;color:var(--green);margin-bottom:6px}
+.form-card .sub{font-size:13px;color:var(--muted);margin-bottom:20px}
+label{display:block;font-size:13px;font-weight:700;color:#444;margin:14px 0 5px}
+input,textarea,select{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;font-family:Arial,sans-serif;outline:none;transition:border 0.2s;background:#fafefa}
+input:focus,textarea:focus,select:focus{border-color:var(--green);background:#fff}
+textarea{min-height:90px;resize:vertical}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.submit-btn{width:100%;margin-top:18px;padding:15px;background:var(--green);color:#fff;border:none;border-radius:10px;font-size:16px;font-weight:800;cursor:pointer;transition:all 0.18s}
+.submit-btn:hover{background:var(--green2);transform:translateY(-1px)}
+.submit-btn:disabled{opacity:0.5;cursor:not-allowed;transform:none}
+.success-box{display:none;margin-top:16px;padding:22px;background:#d4edda;border-radius:12px;text-align:center;border:2px solid #b8ddc8}
+.success-box .big{font-size:40px;margin-bottom:8px}
+.success-box h3{color:var(--green);font-size:17px;margin-bottom:6px}
+.market-header{display:flex;align-items:center;justify-content:space-between;margin:20px 0 14px;flex-wrap:wrap;gap:10px}
+.market-header h2{font-size:18px;font-weight:800;color:var(--green)}
+.search-row{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.search-row input{flex:1;min-width:180px}
+.search-row select{width:auto;min-width:140px}
+.product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.product-card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,0.07);transition:all 0.18s;border:1px solid var(--border)}
+.product-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(31,94,67,0.14)}
+.pc-img{background:linear-gradient(135deg,#e8f5ee,#d4edda);height:100px;display:flex;align-items:center;justify-content:center;font-size:48px}
+.pc-body{padding:14px}
+.pc-name{font-size:15px;font-weight:800;color:var(--text);margin-bottom:3px}
+.pc-price{font-size:16px;font-weight:900;color:var(--gold);margin-bottom:4px}
+.pc-desc{font-size:12px;color:var(--muted);margin-bottom:8px;line-height:1.4}
+.pc-meta{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px}
+.pc-loc{font-size:11px;color:var(--muted)}
+.pc-contact{padding:7px 14px;background:var(--green);color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;transition:opacity 0.15s;text-decoration:none;display:inline-block}
+.pc-contact:hover{opacity:0.85}
+.pc-category{font-size:10px;font-weight:800;text-transform:uppercase;background:#e8f5ee;color:var(--green);padding:2px 8px;border-radius:10px;margin-bottom:6px;display:inline-block}
+.share-row{display:flex;gap:5px;margin-top:8px}
+.share-btn{padding:5px 10px;border:none;border-radius:5px;font-size:11px;font-weight:700;cursor:pointer;transition:opacity 0.15s}
+.share-btn:hover{opacity:0.82}
+.s-wa{background:#25D366;color:#fff}.s-copy{background:#6c757d;color:#fff}
+.s-flag{background:#fff3cd;color:#856404;border:1px solid #ffc107}.s-flag:hover{background:#ffc107;color:#000}
+.loading{text-align:center;padding:40px;color:var(--muted)}
+.empty{text-align:center;padding:40px;color:var(--muted)}
+@media(max-width:540px){.hero h1{font-size:24px}.row2,.row3{grid-template-columns:1fr}.product-grid{grid-template-columns:1fr 1fr}}
+</style>
+<script src="naijy-nav.js"></script>
+<script src="core.js" defer></script>
+<script src="auth.js" defer></script>
+</head>
+<body>
+
+<div class="hero">
+  <div class="badge">🇳🇬 Nigeria's Digital Engine</div>
+  <h1>LabSpace</h1>
+  <p>Where Ideas Become Reality. Connect, discover, and take part — direct, on Naijy.</p>
+  <div class="hero-stats">
+    <div class="stat"><div class="num" id="total-listings">—</div><div class="lbl">Active listings</div></div>
+    <div class="stat"><div class="num" id="total-providers">—</div><div class="lbl">Contributors</div></div>
+    <div class="stat"><div class="num" id="total-states">—</div><div class="lbl">States covered</div></div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('market')">💻 Browse</button>
+    <button class="tab" onclick="switchTab('post')">🚀 Post / Contribute</button>
+  </div>
+
+  <div class="panel active" id="panel-market">
+    <div class="market-header">
+      <h2>💻 Browse LabSpace</h2>
+    </div>
+    <div class="search-row">
+      <input type="text" id="search-input" placeholder="Search, filter, discover..." oninput="searchListings()">
+      <select id="cat-filter" onchange="searchListings()">
+        <option value="">All Categories</option>
+        <option>Software Development</option><option>AI & Robotics</option><option>Blockchain & Fintech</option><option>Innovation Support</option><option>Defense Tech</option><option>Research & Development</option><option>Consulting</option><option>Other</option>
+      </select>
+    </div>
+    <div class="product-grid" id="product-grid"><div class="loading">⏳ Loading...</div></div>
+  </div>
+
+  <div class="panel" id="panel-post">
+    <div class="form-card">
+      <h2>🚀 Post on LabSpace</h2>
+      <div class="sub">Contribute directly to the LabSpace community.</div>
+
+      <label>Title *</label>
+      <input type="text" id="p-name" placeholder="e.g. What are you sharing or offering?">
+
+      <div class="row2">
+        <div>
+          <label>Category *</label>
+          <select id="p-cat">
+            <option value="">— Select category —</option>
+            <option>Software Development</option><option>AI & Robotics</option><option>Blockchain & Fintech</option><option>Innovation Support</option><option>Defense Tech</option><option>Research & Development</option><option>Consulting</option><option>Other</option>
+          </select>
+        </div>
+        <div>
+          <label>Details</label>
+          <input type="text" id="p-field2" placeholder="Additional detail">
+        </div>
+      </div>
+
+      <div class="row2">
+        <div>
+          <label>Price / Cost (₦, if any)</label>
+          <input type="text" id="p-price" placeholder="e.g. Free or 5,000">
+        </div>
+        <div>
+          <label>State *</label>
+          <select id="p-state">
+            <option value="">— State —</option>
+            <option>Abia</option><option>Adamawa</option><option>Akwa Ibom</option><option>Anambra</option><option>Bauchi</option><option>Bayelsa</option><option>Benue</option><option>Borno</option><option>Cross River</option><option>Delta</option><option>Ebonyi</option><option>Edo</option><option>Ekiti</option><option>Enugu</option><option>FCT Abuja</option><option>Gombe</option><option>Imo</option><option>Jigawa</option><option>Kaduna</option><option>Kano</option><option>Katsina</option><option>Kebbi</option><option>Kogi</option><option>Kwara</option><option>Lagos</option><option>Nasarawa</option><option>Niger</option><option>Ogun</option><option>Ondo</option><option>Osun</option><option>Oyo</option><option>Plateau</option><option>Rivers</option><option>Sokoto</option><option>Taraba</option><option>Yobe</option><option>Zamfara</option>
+          </select>
+        </div>
+      </div>
+
+      <label>Description</label>
+      <textarea id="p-desc" placeholder="Describe it in more detail..."></textarea>
+
+      <div class="row2">
+        <div>
+          <label>Your Name *</label>
+          <input type="text" id="p-provider" placeholder="Your name">
+        </div>
+        <div>
+          <label>WhatsApp Number *</label>
+          <input type="tel" id="p-phone" placeholder="How people will contact you">
+        </div>
+      </div>
+
+      <button class="submit-btn" id="post-btn" onclick="postListing()">🚀 Post on LabSpace</button>
+
+      <div class="success-box" id="post-success">
+        <div class="big">✅</div>
+        <h3>Your post is live!</h3>
+        <p>Your contribution is now visible to the LabSpace community across Nigeria.</p>
+        <div style="display:flex;gap:8px;justify-content:center;margin-top:14px">
+          <button class="share-btn s-wa" onclick="shareListing('wa')" style="padding:10px 18px;font-size:13px">📱 Share on WhatsApp</button>
+          <button class="share-btn s-copy" onclick="shareListing('copy')" style="padding:10px 18px;font-size:13px">🔗 Copy Link</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+var SUPABASE_URL = "https://klrbowhzkaojkqsbtoeu.supabase.co";
+var SUPABASE_KEY = "sb_publishable_1weF_9aByeMEVFKHOZFdqg_bA5anAhm";
+var TABLE_L = "labspace_listings";
+var allListings = [];
+
+var EMOJI = {"Software Development":"💻","AI & Robotics":"🤖","Blockchain & Fintech":"⛓️","Innovation Support":"💡","Defense Tech":"🛰️","Research & Development":"🔬","Consulting":"💼","Other":"💻"};
+
+function api(path,options){
+  return fetch(SUPABASE_URL+"/rest/v1/"+path,Object.assign({
+    headers:{"apikey":SUPABASE_KEY,"Authorization":"Bearer "+SUPABASE_KEY,"Content-Type":"application/json","Prefer":"return=representation"}
+  },options));
+}
+
+function switchTab(id){
+  document.querySelectorAll(".tab").forEach(function(t,i){ t.classList.toggle("active",["market","post"][i]===id); });
+  document.querySelectorAll(".panel").forEach(function(p,i){ p.classList.toggle("active",["panel-market","panel-post"][i]==="panel-"+id); });
+  if(id==="market") loadListings();
+}
+
+function loadListings(){
+  var grid=document.getElementById("product-grid");
+  grid.innerHTML='<div class="loading">⏳ Loading...</div>';
+  api(TABLE_L+"?order=created_at.desc&limit=50&is_available=eq.true")
+  .then(function(r){return r.json();})
+  .then(function(data){
+    allListings=data||[];
+    renderGrid(allListings);
+    loadStats();
+  })
+  .catch(function(){ grid.innerHTML='<div class="empty">⚠️ Could not load listings. Please refresh.</div>'; });
+}
+
+function renderGrid(data){
+  var grid=document.getElementById("product-grid");
+  if(!data||!data.length){
+    grid.innerHTML='<div class="empty" style="grid-column:1/-1"><div style="font-size:48px;margin-bottom:10px">💻</div><p>No listings yet. Be the first to post.</p></div>';
+    return;
+  }
+  grid.innerHTML=data.map(function(r){
+    var emoji=EMOJI[r.category]||"💻";
+    var shareText=encodeURIComponent("💻 "+r.item_name+" from "+r.provider_name+" in "+r.state+" on LabSpace (Naijy) | naijy.ng");
+    var waLink="https://wa.me/"+(r.whatsapp||"").replace(/[^0-9]/g,"")+"?text="+encodeURIComponent("Hello, I saw your "+r.item_name+" listing on LabSpace (Naijy). I am interested. Please tell me more.");
+    return '<div class="product-card">' +
+      '<div class="pc-img">'+emoji+'</div>' +
+      '<div class="pc-body">' +
+        '<div class="pc-category">'+(r.category||"General")+'</div>' +
+        '<div class="pc-name">'+(r.item_name||"")+'</div>' +
+        (r.price?'<div class="pc-price">'+r.price+'</div>':'') +
+        (r.field2?'<div class="pc-desc">'+r.field2+'</div>':'') +
+        (r.description?'<div class="pc-desc">'+(r.description||"").substring(0,80)+'</div>':'') +
+        '<div class="pc-meta">' +
+          '<span class="pc-loc">📍 '+(r.state||"")+'</span>' +
+        '</div>' +
+        '<div class="pc-meta" style="margin-top:8px">' +
+          '<span style="font-size:12px;color:var(--muted)">🧑 '+(r.provider_name||"")+'</span>' +
+          '<a class="pc-contact" href="'+waLink+'" target="_blank">📱 Contact</a>' +
+        '</div>' +
+        '<div class="share-row">' +
+          '<button class="share-btn s-wa" onclick="window.open(\'https://wa.me/?text='+shareText+'\',\'_blank\')">📱 Share</button>' +
+          '<button class="share-btn s-copy" onclick="navigator.clipboard.writeText(window.location.href).then(function(){alert(\'Link copied!\')})">🔗 Copy</button>' +
+          '<button class="share-btn s-flag" onclick="flagListing(\''+r.id+'\')">🚩</button>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  }).join("");
+}
+
+function searchListings(){
+  var q=(document.getElementById("search-input").value||"").toLowerCase();
+  var cat=document.getElementById("cat-filter").value;
+  var filtered=allListings.filter(function(r){
+    var matchQ=!q||(r.item_name||"").toLowerCase().includes(q)||(r.provider_name||"").toLowerCase().includes(q)||(r.state||"").toLowerCase().includes(q);
+    var matchC=!cat||r.category===cat;
+    return matchQ&&matchC;
+  });
+  renderGrid(filtered);
+}
+
+function postListing(){
+  var name=(document.getElementById("p-name").value||"").trim();
+  var cat=document.getElementById("p-cat").value;
+  var field2=(document.getElementById("p-field2").value||"").trim();
+  var price=(document.getElementById("p-price").value||"").trim();
+  var state=document.getElementById("p-state").value;
+  var provider=(document.getElementById("p-provider").value||"").trim();
+  var phone=(document.getElementById("p-phone").value||"").trim();
+  if(!name){alert("Please fill in the required field: Title");return;}
+  if(!cat){alert("Please select a category.");return;}
+  if(!state){alert("Please select your state.");return;}
+  if(!provider){alert("Please enter your name.");return;}
+  if(!phone){alert("Please enter your WhatsApp number.");return;}
+  var btn=document.getElementById("post-btn");
+  btn.disabled=true; btn.innerText="Posting...";
+  var currentUid = (typeof getCurrentNaijyUser==="function" && getCurrentNaijyUser()) ? getCurrentNaijyUser().id : null;
+  var record={
+    item_name:name, category:cat, field2:field2, price:price,
+    state:state, description:(document.getElementById("p-desc").value||"").trim(),
+    provider_name:provider, whatsapp:phone, is_available:true,
+    user_id: currentUid,
+    created_at:new Date().toISOString()
+  };
+  api(TABLE_L,{method:"POST",body:JSON.stringify(record)})
+  .then(function(r){
+    if(r.ok||r.status===201){
+      document.getElementById("post-success").style.display="block";
+      btn.style.display="none";
+      loadStats();
+    } else { btn.disabled=false; btn.innerText="🚀 Post on LabSpace"; alert("Could not post. Try again."); }
+  })
+  .catch(function(){ document.getElementById("post-success").style.display="block"; btn.style.display="none"; });
+}
+
+function shareListing(type){
+  var name=(document.getElementById("p-name")||{}).value||"Listing";
+  var text="💻 "+name+" on LabSpace (Naijy)! "+window.location.href;
+  if(type==="wa") window.open("https://wa.me/?text="+encodeURIComponent(text),"_blank");
+  if(type==="copy") navigator.clipboard.writeText(window.location.href).then(function(){alert("Link copied!");});
+}
+
+function flagListing(id){
+  if(!id) return;
+  if(!confirm("Flag this listing as false or abusive?")) return;
+  api(TABLE_L+"?id=eq."+id,{method:"PATCH",body:JSON.stringify({flagged:true})})
+  .then(function(){ alert("Flagged. Our team will review it. Thank you."); })
+  .catch(function(){ alert("Could not flag. Please try again."); });
+}
+
+function loadStats(){
+  api(TABLE_L+"?select=provider_name,state,is_available").then(function(r){return r.json();}).then(function(data){
+    if(!data) return;
+    document.getElementById("total-listings").innerText=data.filter(function(r){return r.is_available;}).length;
+    document.getElementById("total-providers").innerText=new Set(data.map(function(r){return r.provider_name;})).size;
+    document.getElementById("total-states").innerText=new Set(data.map(function(r){return r.state;})).size;
+  }).catch(function(){});
+}
+
+loadListings();
+</script>
+</body>
+</html>
