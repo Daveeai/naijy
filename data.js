@@ -10,47 +10,47 @@ const categories = [
   { name:"Security & Justice", description:"Platforms that help keep people safe, protect rights, and make justice easier for everyone.",
     platforms:[
       { name:"SafeNation",    tag:"Public Safety & Emergency Reporting",  status:"Active / Growing" },
-      { name:"JusticeNow",   tag:"Justice for Every Citizen",             status:"Coming Soon" },
-      { name:"LegalSure",    tag:"Your Law, Your Shield",                 status:"Coming Soon" },
-      { name:"LawSimple",    tag:"Law Without Confusion",                 status:"Coming Soon" },
-      { name:"JudicialBar",  tag:"Where Justice Connects Digitally",      status:"Coming Soon" },
-      { name:"CyberNet",     tag:"Securing the Digital Nation",           status:"Coming Soon" },
-      { name:"DigitalRights",tag:"Your Data, Your Right",                 status:"Coming Soon" },
-      { name:"LawSimplify",  tag:"Makes complex laws simple for all",     status:"Coming Soon" }
+      { name:"JusticeNow",   tag:"Justice for Every Citizen",             status:"Active / Growing" },
+      { name:"LegalSure",    tag:"Your Law, Your Shield",                 status:"Active / Growing" },
+      { name:"LawSimple",    tag:"Law Without Confusion",                 status:"Active / Growing" },
+      { name:"JudicialBar",  tag:"Where Justice Connects Digitally",      status:"Active / Growing" },
+      { name:"CyberNet",     tag:"Securing the Digital Nation",           status:"Active / Growing" },
+      { name:"DigitalRights",tag:"Your Data, Your Right",                 status:"Active / Growing" },
+      { name:"LawSimplify",  tag:"Makes complex laws simple for all",     status:"Active / Growing" }
     ]},
 
   { name:"Business & Economy", description:"Platforms that support businesses, jobs, trade, and money flow across Nigeria.",
     platforms:[
       { name:"TradeCentre",      tag:"Where Commerce Meets Opportunity",   status:"Active / Growing" },
       { name:"RetaileX",         tag:"The Future of Retail",               status:"Active / Growing" },
-      { name:"BusinessMap",      tag:"Mapping Every Business",             status:"Coming Soon" },
+      { name:"BusinessMap",      tag:"Mapping Every Business",             status:"Active / Growing" },
       { name:"FinanceHub",       tag:"Connecting Money, Markets & People", status:"Active / Growing" },
-      { name:"RemiteX",          tag:"Sending Money Without Borders",      status:"Coming Soon" },
-      { name:"DigitalPays Hub",  tag:"Powering Digital Money",             status:"Coming Soon" },
-      { name:"HausaWealth",      tag:"Empowering Hausa Prosperity",        status:"Coming Soon" },
-      { name:"EasternWealth",    tag:"Building Eastern Prosperity",        status:"Coming Soon" },
-      { name:"WesternWealth",    tag:"Driving Western Growth",             status:"Coming Soon" },
-      { name:"NigerDeltaWealth", tag:"Empowering Niger Delta Prosperity",  status:"Coming Soon" },
-      { name:"NigerBenueWealth", tag:"Uniting Middle Belt Prosperity",     status:"Coming Soon" },
+      { name:"RemiteX",          tag:"Sending Money Without Borders",      status:"Active / Growing" },
+      { name:"DigitalPays Hub",  tag:"Powering Digital Money",             status:"Active / Growing" },
+      { name:"HausaWealth",      tag:"Empowering Hausa Prosperity",        status:"Active / Growing" },
+      { name:"EasternWealth",    tag:"Building Eastern Prosperity",        status:"Active / Growing" },
+      { name:"WesternWealth",    tag:"Driving Western Growth",             status:"Active / Growing" },
+      { name:"NigerDeltaWealth", tag:"Empowering Niger Delta Prosperity",  status:"Active / Growing" },
+      { name:"NigerBenueWealth", tag:"Uniting Middle Belt Prosperity",     status:"Active / Growing" },
       { name:"WorkGlobal",       tag:"Work Without Borders",               status:"Active / Growing" }
     ]},
 
   { name:"Youth", description:"Platforms created for young Nigerians to learn, grow skills, find opportunities, and build the future.",
     platforms:[
-      { name:"YouthSpace",        tag:"Building Nigeria's Future in Space",    status:"Coming Soon" },
-      { name:"SpaceKids",         tag:"Exploring Space the Fun Way",           status:"Coming Soon" },
+      { name:"YouthSpace",        tag:"Building Nigeria's Future in Space",    status:"Active / Growing" },
+      { name:"SpaceKids",         tag:"Exploring Space the Fun Way",           status:"Active / Growing" },
       { name:"YouthEmploy",       tag:"Tackling Unemployment",                 status:"Active / Growing" },
       { name:"Iboprentice",       tag:"Training, Skills, Building the Future", status:"Active / Growing" },
-      { name:"Naijy GameCraft",   tag:"Play. Build. Invent.",                  status:"Coming Soon" },
-      { name:"Naijy ScienceTech", tag:"Learn. Experiment. Build the future.",  status:"Coming Soon" }
+      { name:"Naijy GameCraft",   tag:"Play. Build. Invent.",                  status:"Active / Growing" },
+      { name:"Naijy ScienceTech", tag:"Learn. Experiment. Build the future.",  status:"Active / Growing" }
     ]},
 
   { name:"Education & Leadership", description:"Platforms that improve learning, connect schools, and help develop future leaders.",
     platforms:[
       { name:"EducaHub",         tag:"Education by Everyone, for Everyone",  status:"Active / Growing" },
       { name:"CampusRepublic",   tag:"Student Community & Opportunities",    status:"Active / Growing" },
-      { name:"VersitiesConnect", tag:"Connecting Campus Life Digitally",      status:"Coming Soon" },
-      { name:"LeadersArena",     tag:"Training Tomorrow's Leaders Today",     status:"Coming Soon" },
+      { name:"VersitiesConnect", tag:"Connecting Campus Life Digitally",      status:"Active / Growing" },
+      { name:"LeadersArena",     tag:"Training Tomorrow's Leaders Today",     status:"Active / Growing" },
       { name:"DiasporaLink",     tag:"Connecting Naijy Talents Worldwide",    status:"Active / Growing" }
     ]},
 
@@ -66,101 +66,101 @@ const categories = [
   { name:"Agriculture", description:"Platforms helping farmers grow food, access markets, and improve farming across the country.",
     platforms:[
       { name:"AgricoNet",   tag:"Connecting Farms to Markets",                      status:"Active / Growing" },
-      { name:"FarmConet",   tag:"Powering Farmers Digitally",                       status:"Coming Soon" },
+      { name:"FarmConet",   tag:"Powering Farmers Digitally",                       status:"Active / Growing" },
       { name:"FoodHub",     tag:"Healthy Food, Healthy Nation",                     status:"Active / Growing" },
-      { name:"FulaConnect", tag:"Herding, Culture, Social Network & Digital Market",status:"Coming Soon" }
+      { name:"FulaConnect", tag:"Herding, Culture, Social Network & Digital Market",status:"Active / Growing" }
     ]},
 
   { name:"Energy & Environment", description:"Platforms focused on energy resources, environmental protection, and sustainable development.",
     platforms:[
-      { name:"360Energy",        tag:"Powering the Nation Digitally",  status:"Coming Soon" },
-      { name:"Petro360",         tag:"Energy Knowledge for All",        status:"Coming Soon" },
-      { name:"OilKnowledge Hub", tag:"Energy Knowledge for Citizens",   status:"Coming Soon" },
-      { name:"Environmental",    tag:"Act for the Earth",               status:"Coming Soon" },
-      { name:"WaterConnect",     tag:"Clean Water, Healthy Life",       status:"Coming Soon" }
+      { name:"360Energy",        tag:"Powering the Nation Digitally",  status:"Active / Growing" },
+      { name:"Petro360",         tag:"Energy Knowledge for All",        status:"Active / Growing" },
+      { name:"OilKnowledge Hub", tag:"Energy Knowledge for Citizens",   status:"Active / Growing" },
+      { name:"Environmental",    tag:"Act for the Earth",               status:"Active / Growing" },
+      { name:"WaterConnect",     tag:"Clean Water, Healthy Life",       status:"Active / Growing" }
     ]},
 
   { name:"Housing", description:"Platforms helping people find homes, manage property, and build smarter cities.",
     platforms:[
       { name:"HomeConnect",   tag:"Connecting Homes & People",           status:"Active / Growing" },
       { name:"PropertyHub",   tag:"Property Made Simple",                status:"Active / Growing" },
-      { name:"SmartCities",   tag:"Building the Cities of Tomorrow",     status:"Coming Soon" },
-      { name:"UrbanDataGrid", tag:"Data for Smarter Cities",             status:"Coming Soon" },
-      { name:"MoveCity",      tag:"Smarter Movement for Smarter Cities", status:"Coming Soon" }
+      { name:"SmartCities",   tag:"Building the Cities of Tomorrow",     status:"Active / Growing" },
+      { name:"UrbanDataGrid", tag:"Data for Smarter Cities",             status:"Active / Growing" },
+      { name:"MoveCity",      tag:"Smarter Movement for Smarter Cities", status:"Active / Growing" }
     ]},
 
   { name:"Culture & Faith", description:"Platforms celebrating Nigerian culture, traditions, faith communities, and national identity.",
     platforms:[
-      { name:"EthnicHub",         tag:"Preserving Identity Digitally",       status:"Coming Soon" },
-      { name:"TransEthnic",       tag:"Connecting Families Beyond Tribe",    status:"Coming Soon" },
-      { name:"NigerianCreed",     tag:"One Nation, One Identity",            status:"Coming Soon" },
-      { name:"DeenConnect",       tag:"Faith, Knowledge, Unity",             status:"Coming Soon" },
-      { name:"ChurchTestimonies", tag:"Sharing Evidence of Faith",           status:"Coming Soon" },
-      { name:"RiseNigeria",       tag:"Rising for Nation, Rising for Self",  status:"Coming Soon" }
+      { name:"EthnicHub",         tag:"Preserving Identity Digitally",       status:"Active / Growing" },
+      { name:"TransEthnic",       tag:"Connecting Families Beyond Tribe",    status:"Active / Growing" },
+      { name:"NigerianCreed",     tag:"One Nation, One Identity",            status:"Active / Growing" },
+      { name:"DeenConnect",       tag:"Faith, Knowledge, Unity",             status:"Active / Growing" },
+      { name:"ChurchTestimonies", tag:"Sharing Evidence of Faith",           status:"Active / Growing" },
+      { name:"RiseNigeria",       tag:"Rising for Nation, Rising for Self",  status:"Active / Growing" }
     ]},
 
   { name:"Media", description:"Platforms for storytelling, creativity, digital content, and sharing Nigerian voices.",
     platforms:[
-      { name:"MediaWatch", tag:"Watching the Media for the People",                   status:"Coming Soon" },
+      { name:"MediaWatch", tag:"Watching the Media for the People",                   status:"Active / Growing" },
       { name:"CreativeX",  tag:"Where Creativity Becomes Industry",                   status:"Active / Growing" },
-      { name:"FilmHub",    tag:"Stories to the World",                                status:"Coming Soon" },
-      { name:"WifeyMet",   tag:"How I Met My Husband - And I finally did",            status:"Coming Soon" },
-      { name:"HusbyMet",   tag:"How I Met My Wife - And Life Till Now",               status:"Coming Soon" },
-      { name:"JJCstory",   tag:"The Newcomer's Story - Journey, Mistakes and Fun",    status:"Coming Soon" }
+      { name:"FilmHub",    tag:"Stories to the World",                                status:"Active / Growing" },
+      { name:"WifeyMet",   tag:"How I Met My Husband - And I finally did",            status:"Active / Growing" },
+      { name:"HusbyMet",   tag:"How I Met My Wife - And Life Till Now",               status:"Active / Growing" },
+      { name:"JJCstory",   tag:"The Newcomer's Story - Journey, Mistakes and Fun",    status:"Active / Growing" }
     ]},
 
   { name:"SporTertainment", description:"Platforms combining sports, gaming, entertainment, and talent discovery.",
     platforms:[
-      { name:"EntertainmentX", tag:"Entertainment, Reimagined",     status:"Coming Soon" },
-      { name:"CelebHub",       tag:"Leveraging Fame for Impact",    status:"Coming Soon" },
-      { name:"SportsEco",      tag:"Where Sports Lives Digitally",  status:"Coming Soon" },
-      { name:"GameArena",      tag:"Play. Predict. Win.",           status:"Coming Soon" }
+      { name:"EntertainmentX", tag:"Entertainment, Reimagined",     status:"Active / Growing" },
+      { name:"CelebHub",       tag:"Leveraging Fame for Impact",    status:"Active / Growing" },
+      { name:"SportsEco",      tag:"Where Sports Lives Digitally",  status:"Active / Growing" },
+      { name:"GameArena",      tag:"Play. Predict. Win.",           status:"Active / Growing" }
     ]},
 
   { name:"Hospitality", description:"Platforms that promote travel, tourism, events, and experiences across Nigeria.",
     platforms:[
-      { name:"TraveleX",   tag:"Explore. Connect. Experience",  status:"Coming Soon" },
+      { name:"TraveleX",   tag:"Explore. Connect. Experience",  status:"Active / Growing" },
       { name:"Hotels360",  tag:"Discover. Book. Experience",    status:"Active / Growing" },
       { name:"EventsHub",  tag:"Discover What's Happening",     status:"Active / Growing" },
-      { name:"Tourism360", tag:"Experience the Nation",         status:"Coming Soon" }
+      { name:"Tourism360", tag:"Experience the Nation",         status:"Active / Growing" }
     ]},
 
   { name:"Technology", description:"Platforms driving digital innovation, technology development, and Nigeria's tech ecosystem.",
     platforms:[
       { name:"NaMyArea",       tag:"Your Community, Digitally Connected",                    status:"Active / Growing" },
-      { name:"BlockchainNet",  tag:"Powering the Digital Economy",                           status:"Coming Soon" },
-      { name:"InnovateLab",    tag:"Where Ideas Become Solutions",                           status:"Coming Soon" },
-      { name:"BreaktruAfrica", tag:"Africa's Success, Amplified",                            status:"Coming Soon" },
-      { name:"DigitalNation",  tag:"One Nation, One Digital Network",                        status:"Coming Soon" },
-      { name:"RobotAI",        tag:"Nigeria's AI & Robotics Future",                         status:"Coming Soon" },
-      { name:"DefenTech",      tag:"Nigeria's Defense Industry & Military Technology Platform", status:"Coming Soon" },
-      { name:"RoboTech",       tag:"Building the Future",                                    status:"Coming Soon" },
-      { name:"LabSpace",       tag:"Where Ideas Become Reality",                             status:"Coming Soon" }
+      { name:"BlockchainNet",  tag:"Powering the Digital Economy",                           status:"Active / Growing" },
+      { name:"InnovateLab",    tag:"Where Ideas Become Solutions",                           status:"Active / Growing" },
+      { name:"BreaktruAfrica", tag:"Africa's Success, Amplified",                            status:"Active / Growing" },
+      { name:"DigitalNation",  tag:"One Nation, One Digital Network",                        status:"Active / Growing" },
+      { name:"RobotAI",        tag:"Nigeria's AI & Robotics Future",                         status:"Active / Growing" },
+      { name:"DefenTech",      tag:"Nigeria's Defense Industry & Military Technology Platform", status:"Active / Growing" },
+      { name:"RoboTech",       tag:"Building the Future",                                    status:"Active / Growing" },
+      { name:"LabSpace",       tag:"Where Ideas Become Reality",                             status:"Active / Growing" }
     ]},
 
   { name:"Governance", description:"Platforms that make government more open, transparent, and connected with citizens.",
     platforms:[
-      { name:"CivService",    tag:"Serving Smarter, Serving Better",          status:"Coming Soon" },
+      { name:"CivService",    tag:"Serving Smarter, Serving Better",          status:"Active / Growing" },
       { name:"GomentWatch",   tag:"Power to the People to Watch Power",       status:"Active / Growing" },
-      { name:"PolicyDecoded", tag:"Government Made Simple",                   status:"Coming Soon" },
+      { name:"PolicyDecoded", tag:"Government Made Simple",                   status:"Active / Growing" },
       { name:"ElectConnect",  tag:"Connecting the Electoral System",          status:"Active / Growing" },
-      { name:"CivicPolitics", tag:"Where Citizens Meet Power",                status:"Coming Soon" },
-      { name:"LegacyHub",     tag:"Your Legacy, Secured Forever",             status:"Coming Soon" },
-      { name:"LocaGov",       tag:"Governance at Your Doorstep",              status:"Coming Soon" },
-      { name:"EasyGov",       tag:"Government, Simplified",                   status:"Coming Soon" }
+      { name:"CivicPolitics", tag:"Where Citizens Meet Power",                status:"Active / Growing" },
+      { name:"LegacyHub",     tag:"Your Legacy, Secured Forever",             status:"Active / Growing" },
+      { name:"LocaGov",       tag:"Governance at Your Doorstep",              status:"Active / Growing" },
+      { name:"EasyGov",       tag:"Government, Simplified",                   status:"Active / Growing" }
     ]},
 
   { name:"Industry", description:"Platforms supporting manufacturing, logistics, transportation, and national industrial growth.",
     platforms:[
-      { name:"SteelHub",       tag:"Making Engineering Fun & Accessible",  status:"Coming Soon" },
-      { name:"MakersHub",      tag:"Building What Builds the Nation",      status:"Coming Soon" },
-      { name:"MarineHub",      tag:"Powering the Blue Economy",            status:"Coming Soon" },
-      { name:"MinesHub",       tag:"Unlocking Natural Wealth",             status:"Coming Soon" },
-      { name:"Transport360",   tag:"Moving People, Goods & Economies",     status:"Coming Soon" },
-      { name:"LogisticsChain", tag:"Moving Supply Seamlessly",             status:"Coming Soon" },
-      { name:"AirspaceHub",    tag:"Naijy Aviation & Aerospace Future",    status:"Coming Soon" },
-      { name:"IndusLead",      tag:"Powering National Industry",           status:"Coming Soon" },
-      { name:"InvestUp",       tag:"Where Capital Meets Opportunity",      status:"Coming Soon" }
+      { name:"SteelHub",       tag:"Making Engineering Fun & Accessible",  status:"Active / Growing" },
+      { name:"MakersHub",      tag:"Building What Builds the Nation",      status:"Active / Growing" },
+      { name:"MarineHub",      tag:"Powering the Blue Economy",            status:"Active / Growing" },
+      { name:"MinesHub",       tag:"Unlocking Natural Wealth",             status:"Active / Growing" },
+      { name:"Transport360",   tag:"Moving People, Goods & Economies",     status:"Active / Growing" },
+      { name:"LogisticsChain", tag:"Moving Supply Seamlessly",             status:"Active / Growing" },
+      { name:"AirspaceHub",    tag:"Naijy Aviation & Aerospace Future",    status:"Active / Growing" },
+      { name:"IndusLead",      tag:"Powering National Industry",           status:"Active / Growing" },
+      { name:"InvestUp",       tag:"Where Capital Meets Opportunity",      status:"Active / Growing" }
     ]},
 
   { name:"Relationships & Family", description:"Platforms supporting marriage, family life, parenting, and human connection.",
@@ -176,10 +176,10 @@ const categories = [
   { name:"Say Something", description:"Simple platforms where people can quickly share thoughts, ideas, and opinions.",
     platforms:[
       { name:"FlowStream", tag:"See thoughts as they flow",  status:"Active / Growing" },
-      { name:"FlashBoard", tag:"Quick ideas, gone fast",     status:"Coming Soon" },
-      { name:"HideIt",     tag:"Hide, Say Before You Do",    status:"Coming Soon" },
-      { name:"ProjectX",   tag:"Ideas Into Action",          status:"Coming Soon" },
-      { name:"NGOHub",     tag:"Connecting Impact",          status:"Coming Soon" }
+      { name:"FlashBoard", tag:"Quick ideas, gone fast",     status:"Active / Growing" },
+      { name:"HideIt",     tag:"Hide, Say Before You Do",    status:"Active / Growing" },
+      { name:"ProjectX",   tag:"Ideas Into Action",          status:"Active / Growing" },
+      { name:"NGOHub",     tag:"Connecting Impact",          status:"Active / Growing" }
     ]}
 
 ];
