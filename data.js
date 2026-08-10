@@ -190,9 +190,9 @@ const categories = [
 // ============================================================
 const corePlatforms = [
   { name:"MediaLane",  line1:"National Media Visibility & Public Record",      line2:"Expanding the Fourth Estate",       status:"Active / Growing" },
-  { name:"ProfsLane",  line1:"Professorial Excellence & Knowledge Impact",     line2:"From classrooms to global impact",  status:"Coming Soon" },
-  { name:"InfluenceX", line1:"Nigerian Influencers & Creators Network",        line2:"Influence, united and amplified",   status:"Coming Soon" },
-  { name:"LeaderTics", line1:"Political Visibility & Leadership Legacy",       line2:"Politics, records and Public trust",status:"Coming Soon" }
+  { name:"ProfsLane",  line1:"Professorial Excellence & Knowledge Impact",     line2:"From classrooms to global impact",  status:"Active / Growing" },
+  { name:"InfluenceX", line1:"Nigerian Influencers & Creators Network",        line2:"Influence, united and amplified",   status:"Active / Growing" },
+  { name:"LeaderTics", line1:"Political Visibility & Leadership Legacy",       line2:"Politics, records and Public trust",status:"Active / Growing" }
 ];
 
 
@@ -200,12 +200,12 @@ const corePlatforms = [
 //  STRATEGIC PLATFORMS  (6)
 // ============================================================
 const strategicPlatforms = [
-  { name:"NaijyShield",    line1:"National Security & Protection Platform",        line2:"Protecting Nigeria, One Step Ahead",   status:"Coming Soon" },
-  { name:"NaijyPulse",     line1:"Real-Time National Monitoring & Smart Cities",   line2:"Seeing the Nation in Real Time",        status:"Coming Soon" },
-  { name:"NaijyPolicy",    line1:"Policy, Governance & Public Decisions Platform", line2:"Governance in the open",                status:"Coming Soon" },
-  { name:"RevenueMap",     line1:"Nigeria Public Revenue Map",                     line2:"See where Nigeria's money comes from",  status:"Coming Soon" },
-  { name:"ExpenditureMap", line1:"National Expenditure Map of Nigeria",            line2:"Transparent National Spending",         status:"Coming Soon" },
-  { name:"InfraAssets",    line1:"National Assets & Infrastructure Reality Map",   line2:"What exists. Where it is. What works", status:"Coming Soon" }
+  { name:"NaijyShield",    line1:"National Security & Protection Platform",        line2:"Protecting Nigeria, One Step Ahead",   status:"Active / Growing" },
+  { name:"NaijyPulse",     line1:"Real-Time National Monitoring & Smart Cities",   line2:"Seeing the Nation in Real Time",        status:"Active / Growing" },
+  { name:"NaijyPolicy",    line1:"Policy, Governance & Public Decisions Platform", line2:"Governance in the open",                status:"Active / Growing" },
+  { name:"RevenueMap",     line1:"Nigeria Public Revenue Map",                     line2:"See where Nigeria's money comes from",  status:"Active / Growing" },
+  { name:"ExpenditureMap", line1:"National Expenditure Map of Nigeria",            line2:"Transparent National Spending",         status:"Active / Growing" },
+  { name:"InfraAssets",    line1:"National Assets & Infrastructure Reality Map",   line2:"What exists. Where it is. What works", status:"Active / Growing" }
 ];
 
 
