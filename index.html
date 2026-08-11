@@ -910,16 +910,54 @@
       "❤️ Relationships & Family"
     ];
 
-    var ACTIVITIES = [
-      {t:"<strong>GomentWatch</strong> — A new government failure report was submitted", time:"2m ago"},
-      {t:"<strong>SafeNation</strong> — Safety alert filed in Lagos", time:"5m ago"},
-      {t:"<strong>FlowStream</strong> — A Nigerian just shared their thought", time:"just now"},
-      {t:"<strong>AgricoNet</strong> — Fresh produce listed by a farmer in Benue", time:"8m ago"},
-      {t:"<strong>WifeyMet</strong> — A love story was just shared", time:"12m ago"},
-      {t:"<strong>Iboprentice</strong> — A master trader just registered", time:"15m ago"},
-      {t:"<strong>MediaLane</strong> — A new story tip was submitted", time:"3m ago"},
-      {t:"<strong>Naijy.ng</strong> — A new member just signed up", time:"just now"}
-    ];
+    var REPORT_TABLES = ["reports","safenation","gomentwatch","naijyshield","smartcities"];
+    var FEED_TABLES = ["reports","safenation","gomentwatch","agriconet_listings","lovestories","iboprentice","medialane_stories","flowstream"];
+    var FEED_LABELS = {
+      reports:"New report submitted", safenation:"Safety alert filed",
+      gomentwatch:"Government failure reported", naijyshield:"Security update posted",
+      smartcities:"City issue reported", agriconet_listings:"Produce listed by a farmer",
+      lovestories:"A love story was shared", iboprentice:"A trader registered",
+      medialane_stories:"A story tip was submitted", flowstream:"A thought was shared"
+    };
+
+    function timeAgo(dateStr){
+      var diff = Math.floor((Date.now() - new Date(dateStr).getTime())/1000);
+      if(diff<60) return "just now";
+      if(diff<3600) return Math.floor(diff/60)+"m ago";
+      if(diff<86400) return Math.floor(diff/3600)+"h ago";
+      return Math.floor(diff/86400)+"d ago";
+    }
+
+    function apiGet(path){
+      return fetch(SUPABASE_URL+"/rest/v1/"+path,{
+        headers:{"apikey":SUPABASE_KEY,"Authorization":"Bearer "+SUPABASE_KEY}
+      }).then(function(r){return r.ok?r.json():[];}).catch(function(){return [];});
+    }
+
+    var ACTIVITIES = [{t:"<strong>Naijy</strong> — Loading live activity...", time:"now"}];
+
+    function loadRealActivity(){
+      var calls = FEED_TABLES.map(function(t){
+        return apiGet(t+"?select=created_at&order=created_at.desc&limit=3").then(function(rows){
+          return (rows||[]).map(function(r){ return {table:t, created_at:r.created_at}; });
+        });
+      });
+      Promise.all(calls).then(function(results){
+        var all = [].concat.apply([], results);
+        all.sort(function(a,b){ return new Date(b.created_at) - new Date(a.created_at); });
+        ACTIVITIES = all.slice(0,10).map(function(r){
+          return { t: "<strong>"+r.table+"</strong> — "+(FEED_LABELS[r.table]||"New activity"), time: timeAgo(r.created_at) };
+        });
+        if(!ACTIVITIES.length){
+          ACTIVITIES = [{t:"<strong>Naijy</strong> — Welcome to Nigeria's Digital Engine", time:"now"}];
+        }
+        var el = document.getElementById("act-text");
+        var te = document.getElementById("act-time");
+        if(el){ el.innerHTML = ACTIVITIES[0].t; }
+        if(te){ te.innerText = ACTIVITIES[0].time; }
+      });
+    }
+
 
     function animCount(el, target, dur) {
       var start = 0, step = target / (dur / 16);
@@ -933,11 +971,23 @@
     function loadStats() {
       animCount(document.getElementById("hstat-platforms"), 116, 1500);
       animCount(document.getElementById("hstat-sectors"),   17,  1200);
-      animCount(document.getElementById("hstat-live"),      14,   1000);
-      fetch(SUPABASE_URL+"/rest/v1/gomentwatch?select=id", {
-        headers:{"apikey":SUPABASE_KEY,"Authorization":"Bearer "+SUPABASE_KEY}
-      }).then(function(r){return r.json();}).then(function(d){
-        animCount(document.getElementById("hstat-reports"), (d&&d.length)||0, 800);
+
+      var liveCount = 0;
+      if (typeof categories !== "undefined") {
+        categories.forEach(function(cat){
+          (cat.platforms||[]).forEach(function(p){
+            if (p.status === "Active / Growing") liveCount++;
+          });
+        });
+      }
+      animCount(document.getElementById("hstat-live"), liveCount || 43, 1000);
+
+      var reportCalls = REPORT_TABLES.map(function(t){
+        return apiGet(t+"?select=id").then(function(rows){ return (rows||[]).length; });
+      });
+      Promise.all(reportCalls).then(function(counts){
+        var total = counts.reduce(function(a,b){ return a+b; }, 0);
+        animCount(document.getElementById("hstat-reports"), total, 800);
       }).catch(function(){
         animCount(document.getElementById("hstat-reports"), 0, 500);
       });
@@ -977,6 +1027,7 @@
 
     window.addEventListener("DOMContentLoaded", function(){
       loadStats();
+      loadRealActivity();
       buildTicker();
       buildSectors();
       setInterval(rotateActivity, 4000);
