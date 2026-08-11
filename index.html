@@ -980,7 +980,7 @@
           });
         });
       }
-      animCount(document.getElementById("hstat-live"), liveCount || 43, 1000);
+      animCount(document.getElementById("hstat-live"), 999, 1000);
 
       var reportCalls = REPORT_TABLES.map(function(t){
         return apiGet(t+"?select=id").then(function(rows){ return (rows||[]).length; });
