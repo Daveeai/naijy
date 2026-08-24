@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <title>Naijy – Nigeria's National Digital Engine</title>
+  <!-- VERSION-MARKER-116xxx -- if you can search-find this text in View Page Source, this exact file is what's live -->
+  <!-- TEST-MARKER-999xxx -- another unique marker, same purpose -->
+  <meta name="naijy-build-marker" content="116xxx">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="icon" href="images/favicon.png" type="image/png">
@@ -980,7 +983,7 @@
           });
         });
       }
-      animCount(document.getElementById("hstat-live"), 999, 1000);
+      animCount(document.getElementById("hstat-live"), liveCount || 43, 1000);
 
       var reportCalls = REPORT_TABLES.map(function(t){
         return apiGet(t+"?select=id").then(function(rows){ return (rows||[]).length; });
