@@ -983,6 +983,12 @@
           });
         });
       }
+      if (typeof corePlatforms !== "undefined") {
+        corePlatforms.forEach(function(p){ if (p.status === "Active / Growing") liveCount++; });
+      }
+      if (typeof strategicPlatforms !== "undefined") {
+        strategicPlatforms.forEach(function(p){ if (p.status === "Active / Growing") liveCount++; });
+      }
       animCount(document.getElementById("hstat-live"), liveCount || 43, 1000);
 
       var reportCalls = REPORT_TABLES.map(function(t){
