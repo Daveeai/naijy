@@ -975,20 +975,21 @@
       animCount(document.getElementById("hstat-platforms"), 116, 1500);
       animCount(document.getElementById("hstat-sectors"),   17,  1200);
 
-      var liveCount = 0;
+      var liveNames = {};
       if (typeof categories !== "undefined") {
         categories.forEach(function(cat){
           (cat.platforms||[]).forEach(function(p){
-            if (p.status === "Active / Growing") liveCount++;
+            if (p.status === "Active / Growing") liveNames[p.name] = true;
           });
         });
       }
       if (typeof corePlatforms !== "undefined") {
-        corePlatforms.forEach(function(p){ if (p.status === "Active / Growing") liveCount++; });
+        corePlatforms.forEach(function(p){ if (p.status === "Active / Growing") liveNames[p.name] = true; });
       }
       if (typeof strategicPlatforms !== "undefined") {
-        strategicPlatforms.forEach(function(p){ if (p.status === "Active / Growing") liveCount++; });
+        strategicPlatforms.forEach(function(p){ if (p.status === "Active / Growing") liveNames[p.name] = true; });
       }
+      var liveCount = Object.keys(liveNames).length;
       animCount(document.getElementById("hstat-live"), liveCount || 43, 1000);
 
       var reportCalls = REPORT_TABLES.map(function(t){
