@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Naijy Wallet</title>
+<script src="https://checkout.flutterwave.com/v3.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="auth.js"></script>
+<script src="core.js"></script>
+<script src="naijy-nav.js"></script>
+<style>
+  :root{--bg:#0b0e14;--panel:#141925;--accent:#2ecc71;--text:#e8ecf1;--muted:#8b95a7;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,Segoe UI,Roboto,sans-serif;}
+  .wrap{max-width:480px;margin:0 auto;padding:24px 16px 80px;}
+  h1{font-size:20px;margin-bottom:4px;}
+  .sub{color:var(--muted);font-size:14px;margin-bottom:24px;}
+  .balance-card{background:linear-gradient(135deg,#1b2333,#141925);border:1px solid #232b3d;border-radius:16px;padding:24px;margin-bottom:24px;}
+  .balance-label{color:var(--muted);font-size:13px;}
+  .balance-amount{font-size:32px;font-weight:700;margin-top:6px;}
+  .panel{background:var(--panel);border:1px solid #232b3d;border-radius:14px;padding:20px;margin-bottom:16px;}
+  label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px;}
+  input,select{width:100%;padding:12px;border-radius:10px;border:1px solid #2a3346;background:#0f1420;color:var(--text);font-size:16px;margin-bottom:14px;}
+  .fee-note{font-size:13px;color:var(--muted);margin-bottom:14px;}
+  .fee-note b{color:var(--text);}
+  button{width:100%;padding:14px;border:none;border-radius:10px;background:var(--accent);color:#04140a;font-weight:700;font-size:16px;cursor:pointer;}
+  button:disabled{opacity:.5;cursor:not-allowed;}
+  .quick-amounts{display:flex;gap:8px;margin-bottom:14px;}
+  .quick-amounts button{background:#1c2436;color:var(--text);font-weight:500;font-size:14px;padding:10px;}
+  .status{margin-top:14px;font-size:14px;text-align:center;}
+  .txlist{margin-top:8px;}
+  .tx{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #1e2536;font-size:14px;}
+  .tx small{color:var(--muted);display:block;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Naijy Wallet</h1>
+  <div class="sub">Fund your wallet to pay, trade, and buy airtime across every Naijy platform.</div>
+
+  <div class="balance-card">
+    <div class="balance-label">Available Balance</div>
+    <div class="balance-amount" id="balanceDisplay">₦0.00</div>
+  </div>
+
+  <div class="panel">
+    <label>Amount to fund (₦)</label>
+    <div class="quick-amounts">
+      <button type="button" onclick="setAmount(500)">₦500</button>
+      <button type="button" onclick="setAmount(1000)">₦1,000</button>
+      <button type="button" onclick="setAmount(5000)">₦5,000</button>
+    </div>
+    <input type="number" id="amountInput" placeholder="Enter amount" min="100" oninput="updateFeePreview()">
+    <div class="fee-note" id="feePreview">Fee is added on top — you always receive the full amount you enter.</div>
+    <button id="fundBtn" onclick="startFunding()">Fund Wallet</button>
+    <div class="status" id="statusMsg"></div>
+  </div>
+
+  <div class="panel">
+    <div class="sub" style="margin-bottom:10px;">Recent Transactions</div>
+    <div class="txlist" id="txList">Loading...</div>
+  </div>
+</div>
+
+<script>
+// ---- Config: replace with live keys before going live ----
+const FLW_PUBLIC_KEY = "FLWPUBK_TEST-xxxxxxxxxxxxxxxxxxxxx-X";
+const FEE_RATE = 0.014; // Flutterwave's approx card rate — confirm in your dashboard
+
+let currentUser = null;
+
+async function init() {
+  currentUser = await getCurrentUser(); // provided by auth.js
+  if (!currentUser) { window.location.href = "login.html"; return; }
+  await refreshBalance();
+  await loadTransactions();
+}
+
+function setAmount(v) {
+  document.getElementById("amountInput").value = v;
+  updateFeePreview();
+}
+
+function updateFeePreview() {
+  const amt = parseFloat(document.getElementById("amountInput").value) || 0;
+  const fee = Math.ceil(amt * FEE_RATE);
+  const total = amt + fee;
+  document.getElementById("feePreview").innerHTML =
+    amt > 0 ? `You'll be charged <b>₦${total.toLocaleString()}</b> (₦${amt.toLocaleString()} + ₦${fee.toLocaleString()} fee). Your wallet is credited the full <b>₦${amt.toLocaleString()}</b>.` :
+    "Fee is added on top — you always receive the full amount you enter.";
+}
+
+async function refreshBalance() {
+  const { data } = await supabaseClient.from("wallets").select("balance").eq("user_id", currentUser.id).single();
+  document.getElementById("balanceDisplay").textContent = `₦${(data?.balance ?? 0).toLocaleString()}`;
+}
+
+async function loadTransactions() {
+  const { data } = await supabaseClient
+    .from("wallet_transactions")
+    .select("*")
+    .eq("user_id", currentUser.id)
+    .order("created_at", { ascending: false })
+    .limit(10);
+  const list = document.getElementById("txList");
+  if (!data || data.length === 0) { list.innerHTML = "<div class='sub'>No transactions yet.</div>"; return; }
+  list.innerHTML = data.map(t => `
+    <div class="tx">
+      <div>${t.type.replace('_',' ')}<small>${new Date(t.created_at).toLocaleString()}</small></div>
+      <div>${t.type === 'fund' ? '+' : '-'}₦${Number(t.amount).toLocaleString()}</div>
+    </div>`).join("");
+}
+
+function startFunding() {
+  const amount = parseFloat(document.getElementById("amountInput").value);
+  if (!amount || amount < 100) { alert("Enter a valid amount (min ₦100)"); return; }
+  const fee = Math.ceil(amount * FEE_RATE);
+  const chargeAmount = amount + fee;
+  const tx_ref = `naijy-${currentUser.id}-${Date.now()}`;
+
+  document.getElementById("fundBtn").disabled = true;
+  document.getElementById("statusMsg").textContent = "Opening secure checkout...";
+
+  FlutterwaveCheckout({
+    public_key: FLW_PUBLIC_KEY,
+    tx_ref,
+    amount: chargeAmount,
+    currency: "NGN",
+    payment_options: "card, banktransfer, ussd",
+    customer: { email: currentUser.email },
+    meta: { wallet_credit_amount: amount },
+    customizations: {
+      title: "Naijy Wallet Funding",
+      description: `Fund wallet with ₦${amount.toLocaleString()}`,
+      logo: "https://naijy.ng/logo.png",
+    },
+    callback: async function (data) {
+      document.getElementById("statusMsg").textContent = "Verifying payment...";
+      const res = await fetch(`${SUPABASE_URL}/functions/v1/verify-transaction`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ transaction_id: data.transaction_id, tx_ref, user_id: currentUser.id }),
+      });
+      const result = await res.json();
+      document.getElementById("fundBtn").disabled = false;
+      if (result.ok) {
+        document.getElementById("statusMsg").textContent = "✅ Wallet funded successfully.";
+        await refreshBalance();
+        await loadTransactions();
+      } else {
+        document.getElementById("statusMsg").textContent = "❌ Verification failed. Contact support if you were charged.";
+      }
+    },
+    onclose: function () {
+      document.getElementById("fundBtn").disabled = false;
+    },
+  });
+}
+
+init();
+</script>
+</body>
+</html>

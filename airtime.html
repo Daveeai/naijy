@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Naijy Airtime</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="auth.js"></script>
+<script src="core.js"></script>
+<script src="naijy-nav.js"></script>
+<style>
+  :root{--bg:#0b0e14;--panel:#141925;--accent:#2ecc71;--text:#e8ecf1;--muted:#8b95a7;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,Segoe UI,Roboto,sans-serif;}
+  .wrap{max-width:480px;margin:0 auto;padding:24px 16px 80px;}
+  h1{font-size:20px;margin-bottom:4px;}
+  .sub{color:var(--muted);font-size:14px;margin-bottom:20px;}
+  .panel{background:var(--panel);border:1px solid #232b3d;border-radius:14px;padding:20px;margin-bottom:16px;}
+  label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px;}
+  input,select{width:100%;padding:12px;border-radius:10px;border:1px solid #2a3346;background:#0f1420;color:var(--text);font-size:16px;margin-bottom:14px;}
+  .networks{display:flex;gap:8px;margin-bottom:14px;}
+  .net-btn{flex:1;padding:12px 0;text-align:center;border-radius:10px;border:1px solid #2a3346;background:#0f1420;cursor:pointer;font-size:14px;}
+  .net-btn.active{border-color:var(--accent);background:#123322;}
+  .quick-amounts{display:flex;gap:8px;margin-bottom:14px;}
+  .quick-amounts button{flex:1;background:#1c2436;border:none;color:var(--text);font-weight:500;font-size:14px;padding:10px;border-radius:10px;}
+  button.primary{width:100%;padding:14px;border:none;border-radius:10px;background:var(--accent);color:#04140a;font-weight:700;font-size:16px;cursor:pointer;}
+  button.primary:disabled{opacity:.5;cursor:not-allowed;}
+  .balance-row{display:flex;justify-content:space-between;font-size:14px;color:var(--muted);margin-bottom:16px;}
+  .status{margin-top:14px;font-size:14px;text-align:center;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Buy Airtime</h1>
+  <div class="sub">Pay instantly from your Naijy wallet — no separate checkout.</div>
+
+  <div class="balance-row">
+    <span>Wallet Balance</span>
+    <span id="balanceDisplay">₦0.00</span>
+  </div>
+
+  <div class="panel">
+    <label>Network</label>
+    <div class="networks" id="networkPicker">
+      <div class="net-btn" data-net="MTN" onclick="selectNetwork('MTN')">MTN</div>
+      <div class="net-btn" data-net="GLO" onclick="selectNetwork('GLO')">Glo</div>
+      <div class="net-btn" data-net="AIRTEL" onclick="selectNetwork('AIRTEL')">Airtel</div>
+      <div class="net-btn" data-net="9MOBILE" onclick="selectNetwork('9MOBILE')">9mobile</div>
+    </div>
+
+    <label>Phone Number</label>
+    <input type="tel" id="phoneInput" placeholder="080XXXXXXXX">
+
+    <label>Amount (₦)</label>
+    <div class="quick-amounts">
+      <button type="button" onclick="setAmount(100)">₦100</button>
+      <button type="button" onclick="setAmount(200)">₦200</button>
+      <button type="button" onclick="setAmount(500)">₦500</button>
+      <button type="button" onclick="setAmount(1000)">₦1,000</button>
+    </div>
+    <input type="number" id="amountInput" placeholder="Enter amount" min="50">
+
+    <button class="primary" id="buyBtn" onclick="buyAirtime()">Buy Airtime</button>
+    <div class="status" id="statusMsg"></div>
+  </div>
+</div>
+
+<script>
+let currentUser = null;
+let selectedNetwork = null;
+
+async function init() {
+  currentUser = await getCurrentUser();
+  if (!currentUser) { window.location.href = "login.html"; return; }
+  await refreshBalance();
+}
+
+async function refreshBalance() {
+  const { data } = await supabaseClient.from("wallets").select("balance").eq("user_id", currentUser.id).single();
+  document.getElementById("balanceDisplay").textContent = `₦${(data?.balance ?? 0).toLocaleString()}`;
+}
+
+function selectNetwork(net) {
+  selectedNetwork = net;
+  document.querySelectorAll(".net-btn").forEach(el => el.classList.toggle("active", el.dataset.net === net));
+}
+
+function setAmount(v) {
+  document.getElementById("amountInput").value = v;
+}
+
+async function buyAirtime() {
+  const phone = document.getElementById("phoneInput").value.trim();
+  const amount = parseFloat(document.getElementById("amountInput").value);
+  const statusEl = document.getElementById("statusMsg");
+
+  if (!selectedNetwork) { alert("Select a network"); return; }
+  if (!/^0\d{10}$/.test(phone)) { alert("Enter a valid 11-digit phone number"); return; }
+  if (!amount || amount < 50) { alert("Enter a valid amount (min ₦50)"); return; }
+
+  document.getElementById("buyBtn").disabled = true;
+  statusEl.textContent = "Processing...";
+
+  const res = await fetch(`${SUPABASE_URL}/functions/v1/buy-airtime`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ user_id: currentUser.id, network: selectedNetwork, phone_number: phone, amount }),
+  });
+  const result = await res.json();
+  document.getElementById("buyBtn").disabled = false;
+
+  if (result.ok) {
+    statusEl.textContent = `✅ ₦${amount.toLocaleString()} airtime sent to ${phone}.`;
+    await refreshBalance();
+  } else if (result.reason === "insufficient_balance") {
+    statusEl.innerHTML = `❌ Insufficient balance. <a href="wallet.html" style="color:#2ecc71;">Fund wallet</a>`;
+  } else {
+    statusEl.textContent = "❌ Purchase failed. Please try again.";
+  }
+}
+
+init();
+</script>
+</body>
+</html>

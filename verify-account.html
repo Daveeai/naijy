@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verify Your Naijy Account</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="auth.js"></script>
+<script src="core.js"></script>
+<style>
+  :root{--bg:#0b0e14;--panel:#141925;--accent:#2ecc71;--text:#e8ecf1;--muted:#8b95a7;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,Segoe UI,Roboto,sans-serif;}
+  .wrap{max-width:420px;margin:0 auto;padding:32px 16px 80px;}
+  h1{font-size:20px;margin-bottom:4px;}
+  .sub{color:var(--muted);font-size:14px;margin-bottom:24px;}
+  .step{background:var(--panel);border:1px solid #232b3d;border-radius:14px;padding:20px;margin-bottom:16px;opacity:.4;pointer-events:none;}
+  .step.active{opacity:1;pointer-events:auto;border-color:#2a3a2e;}
+  .step.done{opacity:.6;pointer-events:none;}
+  .step-title{font-size:15px;font-weight:700;margin-bottom:4px;}
+  .step-sub{font-size:13px;color:var(--muted);margin-bottom:14px;}
+  input{width:100%;padding:12px;border-radius:10px;border:1px solid #2a3346;background:#0f1420;color:var(--text);font-size:16px;margin-bottom:12px;}
+  button{width:100%;padding:13px;border:none;border-radius:10px;background:var(--accent);color:#04140a;font-weight:700;font-size:15px;cursor:pointer;}
+  button:disabled{opacity:.5;cursor:not-allowed;}
+  .status{margin-top:10px;font-size:13px;text-align:center;}
+  .privacy-note{font-size:12px;color:var(--muted);margin-top:10px;line-height:1.5;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Verify Your Account</h1>
+  <div class="sub">Wallet and airtime features require a quick, one-time verification. This is what keeps Naijy free of fake accounts.</div>
+
+  <div class="step active" id="stepPhone">
+    <div class="step-title">1. Verify Phone Number</div>
+    <div class="step-sub">One phone number = one Naijy account.</div>
+    <input type="tel" id="phoneInput" placeholder="080XXXXXXXX">
+    <button id="sendOtpBtn" onclick="sendOtp()">Send Code</button>
+    <div id="phoneStatus" class="status"></div>
+  </div>
+
+  <div class="step" id="stepOtp">
+    <div class="step-title">2. Enter Code</div>
+    <div class="step-sub">Sent via SMS, valid for 10 minutes.</div>
+    <input type="text" id="otpInput" placeholder="6-digit code" maxlength="6">
+    <button onclick="verifyOtp()">Verify Code</button>
+    <div id="otpStatus" class="status"></div>
+  </div>
+
+  <div class="step" id="stepBvn">
+    <div class="step-title">3. Identity Verification (BVN)</div>
+    <div class="step-sub">Required to activate your wallet. Confirms you're a real, unique person — required by Nigerian financial regulation for wallet services.</div>
+    <input type="text" id="bvnInput" placeholder="11-digit BVN" maxlength="11">
+    <button onclick="verifyBvn()">Verify Identity</button>
+    <div id="bvnStatus" class="status"></div>
+    <div class="privacy-note">Your BVN is sent directly to our licensed payment partner for verification and is never stored on Naijy's servers — only a verified/not-verified result is kept.</div>
+  </div>
+
+  <div class="step" id="stepDisplayName">
+    <div class="step-title">4. Choose Your Public Display Name</div>
+    <div class="step-sub">This is what other users see — it does not have to be your legal name.</div>
+    <input type="text" id="displayNameInput" placeholder="e.g. Chidi_Lagos, TradeKing24">
+    <button onclick="saveDisplayName()">Finish Setup</button>
+    <div id="displayStatus" class="status"></div>
+  </div>
+</div>
+
+<script>
+let currentUser = null;
+let verifiedPhone = null;
+
+async function init() {
+  currentUser = await getCurrentUser();
+  if (!currentUser) { window.location.href = "login.html"; return; }
+}
+
+function advanceTo(stepId, doneId) {
+  if (doneId) { document.getElementById(doneId).classList.remove("active"); document.getElementById(doneId).classList.add("done"); }
+  document.getElementById(stepId).classList.add("active");
+}
+
+async function sendOtp() {
+  const phone = document.getElementById("phoneInput").value.trim();
+  if (!/^0\d{10}$/.test(phone)) { alert("Enter a valid 11-digit phone number"); return; }
+  document.getElementById("sendOtpBtn").disabled = true;
+  document.getElementById("phoneStatus").textContent = "Sending code...";
+
+  const res = await fetch(`${SUPABASE_URL}/functions/v1/send-otp`, {
+    method: "POST", headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ phone, purpose: "signup" }),
+  });
+  const result = await res.json();
+  document.getElementById("sendOtpBtn").disabled = false;
+
+  if (result.ok) {
+    verifiedPhone = phone;
+    document.getElementById("phoneStatus").textContent = "✅ Code sent.";
+    advanceTo("stepOtp", "stepPhone");
+  } else {
+    document.getElementById("phoneStatus").textContent = "❌ Could not send code. Try again.";
+  }
+}
+
+async function verifyOtp() {
+  const code = document.getElementById("otpInput").value.trim();
+  const res = await fetch(`${SUPABASE_URL}/functions/v1/verify-otp`, {
+    method: "POST", headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ user_id: currentUser.id, phone: verifiedPhone, code }),
+  });
+  const result = await res.json();
+
+  if (result.ok) {
+    document.getElementById("otpStatus").textContent = "✅ Phone verified.";
+    advanceTo("stepBvn", "stepOtp");
+  } else if (result.reason === "phone_already_registered") {
+    document.getElementById("otpStatus").textContent = "❌ This number is already linked to another Naijy account.";
+  } else {
+    document.getElementById("otpStatus").textContent = "❌ Invalid or expired code.";
+  }
+}
+
+async function verifyBvn() {
+  const bvn = document.getElementById("bvnInput").value.trim();
+  if (!/^\d{11}$/.test(bvn)) { alert("Enter a valid 11-digit BVN"); return; }
+  document.getElementById("bvnStatus").textContent = "Verifying...";
+
+  const res = await fetch(`${SUPABASE_URL}/functions/v1/verify-bvn`, {
+    method: "POST", headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ user_id: currentUser.id, bvn, account_name: currentUser.email }),
+  });
+  const result = await res.json();
+
+  if (result.ok) {
+    document.getElementById("bvnStatus").textContent = "✅ Identity verified. Wallet unlocked.";
+    advanceTo("stepDisplayName", "stepBvn");
+  } else {
+    document.getElementById("bvnStatus").textContent = "❌ Could not verify. Check the number and try again.";
+  }
+}
+
+async function saveDisplayName() {
+  const name = document.getElementById("displayNameInput").value.trim();
+  if (!name) { alert("Enter a display name"); return; }
+  await supabaseClient.from("profiles").update({ display_name: name }).eq("user_id", currentUser.id);
+  document.getElementById("displayStatus").textContent = "✅ All set — redirecting...";
+  setTimeout(() => window.location.href = "wallet.html", 1200);
+}
+
+init();
+</script>
+</body>
+</html>

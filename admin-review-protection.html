@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Review Protection Requests — Naijy Admin</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="auth.js"></script>
+<script src="core.js"></script>
+<style>
+  :root{--bg:#0b0e14;--panel:#141925;--accent:#2ecc71;--danger:#e74c3c;--text:#e8ecf1;--muted:#8b95a7;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,Segoe UI,Roboto,sans-serif;}
+  .wrap{max-width:640px;margin:0 auto;padding:24px 16px 80px;}
+  h1{font-size:20px;margin-bottom:4px;}
+  .sub{color:var(--muted);font-size:14px;margin-bottom:20px;}
+  .card{background:var(--panel);border:1px solid #232b3d;border-radius:14px;padding:18px;margin-bottom:18px;}
+  .card h3{margin:0 0 4px;font-size:16px;}
+  .meta{color:var(--muted);font-size:13px;margin-bottom:10px;}
+  .info-box{background:#0f1420;border-radius:10px;padding:12px;font-size:14px;margin-bottom:14px;line-height:1.5;}
+  .info-box b{color:var(--text);}
+  .checklist-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid #1e2536;}
+  .checklist-item:last-child{border-bottom:none;}
+  .checklist-item input[type=checkbox]{width:20px;height:20px;margin-top:2px;flex-shrink:0;}
+  .checklist-text{font-size:14px;}
+  .checklist-text small{display:block;color:var(--muted);font-size:12px;margin-top:2px;}
+  textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #2a3346;background:#0f1420;color:var(--text);font-size:14px;min-height:60px;margin-top:10px;}
+  .btn-row{display:flex;gap:10px;margin-top:14px;}
+  button{flex:1;padding:12px;border:none;border-radius:10px;font-weight:700;font-size:14px;cursor:pointer;}
+  .approve-btn{background:var(--accent);color:#04140a;}
+  .reject-btn{background:var(--danger);color:#fff;}
+  .status-note{font-size:13px;text-align:center;margin-top:8px;}
+  .age-ok{color:var(--accent);}
+  .age-bad{color:var(--danger);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Review Protection Requests</h1>
+  <div class="sub">Go through each box below in plain language. Only approve if everything checks out — payment alone is never enough.</div>
+  <div id="requestList">Loading...</div>
+</div>
+
+<script>
+let adminUser = null;
+
+async function init() {
+  adminUser = await getCurrentUser();
+  if (!adminUser) { window.location.href = "login.html"; return; }
+
+  const { data: requests } = await supabaseClient
+    .from("protected_status_requests")
+    .select("*")
+    .eq("payment_status", "paid")
+    .eq("status", "pending")
+    .order("created_at", { ascending: true });
+
+  const list = document.getElementById("requestList");
+  if (!requests || requests.length === 0) {
+    list.innerHTML = "<div class='sub'>No requests waiting for review right now.</div>";
+    return;
+  }
+
+  list.innerHTML = "";
+  for (const req of requests) {
+    const { data: profile } = await supabaseClient.from("profiles").select("*").eq("user_id", req.user_id).single();
+    const { data: ageDays } = await supabaseClient.rpc("account_verified_days", { uid: req.user_id });
+    list.innerHTML += renderCard(req, profile, ageDays);
+  }
+}
+
+function renderCard(req, profile, ageDays) {
+  const ageOk = ageDays !== null && ageDays >= 30;
+  return `
+  <div class="card" id="card-${req.id}">
+    <h3>${req.claimed_role}</h3>
+    <div class="meta">Requested ${new Date(req.created_at).toLocaleDateString()} · Plan: ${req.tier === 'premium_protected' ? 'Premium' : 'Standard'} · Paid ₦${Number(req.amount_paid).toLocaleString()}</div>
+
+    <div class="info-box">
+      <b>What they told us:</b><br>${req.supporting_info}
+      <br><br><b>Name on their ID check:</b> ${profile?.kyc_verified_name || 'Not verified yet'}
+      <br><b>Account verified for:</b> <span class="${ageOk ? 'age-ok' : 'age-bad'}">${ageDays !== null ? ageDays + ' days' : 'Unknown'}</span>
+    </div>
+
+    <div class="checklist-item">
+      <input type="checkbox" id="proof-${req.id}">
+      <div class="checklist-text">Their proof is real
+        <small>Does the link or info they gave come from an actual government, church, or company website — not just a social media post?</small>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <input type="checkbox" id="name-${req.id}">
+      <div class="checklist-text">The name matches
+        <small>Is the name on their ID check the same as (or clearly matches) the name in their proof?</small>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <input type="checkbox" id="age-${req.id}" ${ageOk ? "checked" : ""}>
+      <div class="checklist-text">Account is old enough
+        <small>Has this account been verified for at least 30 days? (auto-checked above)</small>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <input type="checkbox" id="fraud-${req.id}">
+      <div class="checklist-text">No warning signs
+        <small>Has this account never been flagged for fraud, chargebacks, or suspicious wallet activity?</small>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <input type="checkbox" id="repeat-${req.id}">
+      <div class="checklist-text">Not a repeat attempt
+        <small>Is this the only protection request from this person or device — not several accounts trying the same thing?</small>
+      </div>
+    </div>
+
+    <textarea id="notes-${req.id}" placeholder="Write a short note about your decision (optional but helpful later)"></textarea>
+
+    <div class="btn-row">
+      <button class="approve-btn" onclick="decide('${req.id}', '${req.user_id}', 'approved')">Approve</button>
+      <button class="reject-btn" onclick="decide('${req.id}', '${req.user_id}', 'rejected')">Reject</button>
+    </div>
+    <div class="status-note" id="status-${req.id}"></div>
+  </div>`;
+}
+
+async function decide(requestId, userId, decision) {
+  const checks = {
+    check_real_proof: document.getElementById(`proof-${requestId}`).checked,
+    check_name_match: document.getElementById(`name-${requestId}`).checked,
+    check_account_age: document.getElementById(`age-${requestId}`).checked,
+    check_no_fraud_flags: document.getElementById(`fraud-${requestId}`).checked,
+    check_not_repeated: document.getElementById(`repeat-${requestId}`).checked,
+  };
+  const notes = document.getElementById(`notes-${requestId}`).value.trim();
+  const statusEl = document.getElementById(`status-${requestId}`);
+
+  if (decision === "approved" && Object.values(checks).some(v => v === false)) {
+    statusEl.textContent = "❌ Every box must be checked before you can approve.";
+    return;
+  }
+
+  await supabaseClient.from("protected_status_requests").update({
+    ...checks,
+    reviewer_notes: notes,
+    status: decision,
+    reviewed_by: adminUser.id,
+    reviewed_at: new Date().toISOString(),
+  }).eq("id", requestId);
+
+  if (decision === "approved") {
+    await supabaseClient.from("profiles").update({ privacy_tier: "protected" }).eq("user_id", userId);
+  }
+
+  statusEl.textContent = decision === "approved" ? "✅ Approved — protection is now active." : "❌ Rejected.";
+  setTimeout(() => document.getElementById(`card-${requestId}`).remove(), 1500);
+}
+
+init();
+</script>
+</body>
+</html>
