@@ -68,11 +68,28 @@
 const FLW_PUBLIC_KEY = "FLWPUBK_TEST-9fc0b501837c022eb10a10de59291dab-X";
 const FEE_RATE = 0.014; // Flutterwave's approx card rate — confirm in your dashboard
 
-currentUser = null;
+// NOTE: currentUser is created and populated by core.js + auth.js.
+// Do NOT reassign it here (that was overwriting the shared object with null
+// and breaking sign-in state). We just wait for auth.js to fill it in.
+
+async function waitForSignIn(maxTries) {
+  return new Promise(function (resolve) {
+    var tries = 0;
+    var t = setInterval(function () {
+      tries++;
+      var signedIn = typeof currentUser !== "undefined" && currentUser &&
+                     currentUser.id && currentUser.id !== "user_001";
+      if (signedIn || tries >= maxTries) {
+        clearInterval(t);
+        resolve(signedIn);
+      }
+    }, 200);
+  });
+}
 
 async function init() {
-  currentUser = await getCurrentUser(); // provided by auth.js
-  if (!currentUser) { window.location.href = "login.html"; return; }
+  var signedIn = await waitForSignIn(25); // waits up to 5 seconds for auth.js
+  if (!signedIn) { window.location.href = "login.html"; return; }
   await refreshBalance();
   await loadTransactions();
 }
@@ -92,12 +109,12 @@ function updateFeePreview() {
 }
 
 async function refreshBalance() {
-  const { data } = await supabaseClient.from("wallets").select("balance").eq("user_id", currentUser.id).single();
+  const { data } = await sb.from("wallets").select("balance").eq("user_id", currentUser.id).single();
   document.getElementById("balanceDisplay").textContent = `₦${(data?.balance ?? 0).toLocaleString()}`;
 }
 
 async function loadTransactions() {
-  const { data } = await supabaseClient
+  const { data } = await sb
     .from("wallet_transactions")
     .select("*")
     .eq("user_id", currentUser.id)
