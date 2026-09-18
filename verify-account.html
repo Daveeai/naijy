@@ -28,15 +28,15 @@
   .wrap .privacy-note{font-size:12px;color:var(--muted) !important;margin-top:10px;line-height:1.5;background:transparent !important;}
 </style>
 </head>
-  <h1>Verify Your Account
 <body>
-<div class="wrap"></h1>
+<div class="wrap">
+  <h1>Verify Your Account</h1>
   <div class="sub">Wallet and airtime features require a quick, one-time verification. This is what keeps Naijy free of fake accounts.</div>
 
   <div class="step active" id="stepPhone">
     <div class="step-title">1. Verify Phone Number</div>
     <div class="step-sub">One phone number = one Naijy account.</div>
-    <input type="tel" id="phoneInput" placeholder="080XXXXXXX8">
+    <input type="tel" id="phoneInput" placeholder="080XXXXXXXX">
     <button id="sendOtpBtn" onclick="sendOtp()">Send Code</button>
     <div id="phoneStatus" class="status"></div>
   </div>
