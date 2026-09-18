@@ -3,12 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark">
 <title>Verify Your Naijy Account</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="auth.js"></script>
 <script src="core.js"></script>
 <style>
-  :root{--bg:#0b0e14;--panel:#141925;--accent:#2ecc71;--text:#e8ecf1;--muted:#8b95a7;}
+  :root{--bg:#0b0e14;--panel:#141925;--accent:#2ecc71;--text:#e8ecf1;--muted:#8b95a7;color-scheme:dark;}
   *{box-sizing:border-box;}
   body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,Segoe UI,Roboto,sans-serif;}
   .wrap{max-width:420px;margin:0 auto;padding:32px 16px 80px;}
@@ -20,6 +21,7 @@
   .step-title{font-size:15px;font-weight:700;margin-bottom:4px;}
   .step-sub{font-size:13px;color:var(--muted);margin-bottom:14px;}
   input{width:100%;padding:12px;border-radius:10px;border:1px solid #2a3346;background:#0f1420;color:var(--text);font-size:16px;margin-bottom:12px;}
+  input::placeholder{color:var(--muted);opacity:1;}
   button{width:100%;padding:13px;border:none;border-radius:10px;background:var(--accent);color:#04140a;font-weight:700;font-size:15px;cursor:pointer;}
   button:disabled{opacity:.5;cursor:not-allowed;}
   .status{margin-top:10px;font-size:13px;text-align:center;}
@@ -66,12 +68,29 @@
 </div>
 
 <script>
-let currentUser = null;
+// NOTE: currentUser is created and populated by core.js + auth.js.
+// Do NOT redeclare it here — that overwrites the shared object and
+// breaks sign-in state (same bug that was in wallet.html).
 let verifiedPhone = null;
 
+async function waitForSignIn(maxTries) {
+  return new Promise(function (resolve) {
+    var tries = 0;
+    var t = setInterval(function () {
+      tries++;
+      var signedIn = typeof currentUser !== "undefined" && currentUser &&
+                     currentUser.id && currentUser.id !== "user_001";
+      if (signedIn || tries >= maxTries) {
+        clearInterval(t);
+        resolve(signedIn);
+      }
+    }, 200);
+  });
+}
+
 async function init() {
-  currentUser = await getCurrentUser();
-  if (!currentUser) { window.location.href = "login.html"; return; }
+  var signedIn = await waitForSignIn(25); // waits up to 5 seconds for auth.js
+  if (!signedIn) { window.location.href = "login.html"; return; }
 }
 
 function advanceTo(stepId, doneId) {
@@ -141,7 +160,7 @@ async function verifyBvn() {
 async function saveDisplayName() {
   const name = document.getElementById("displayNameInput").value.trim();
   if (!name) { alert("Enter a display name"); return; }
-  await supabaseClient.from("profiles").update({ display_name: name }).eq("user_id", currentUser.id);
+  await sb.from("profiles").update({ display_name: name }).eq("user_id", currentUser.id);
   document.getElementById("displayStatus").textContent = "✅ All set — redirecting...";
   setTimeout(() => window.location.href = "wallet.html", 1200);
 }
