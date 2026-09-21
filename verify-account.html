@@ -105,7 +105,7 @@ async function sendOtp() {
   document.getElementById("phoneStatus").textContent = "Sending code...";
 
   const res = await fetch(`${SUPABASE_URL}/functions/v1/send-otp`, {
-    method: "POST", headers: { "Content-Type": "application/json" },
+    method: "POST", headers: { "Content-Type": "application/json", "Authorization": `Bearer ${SUPABASE_KEY}`, "apikey": SUPABASE_KEY },
     body: JSON.stringify({ phone, purpose: "signup" }),
   });
   const result = await res.json();
@@ -123,7 +123,7 @@ async function sendOtp() {
 async function verifyOtp() {
   const code = document.getElementById("otpInput").value.trim();
   const res = await fetch(`${SUPABASE_URL}/functions/v1/verify-otp`, {
-    method: "POST", headers: { "Content-Type": "application/json" },
+    method: "POST", headers: { "Content-Type": "application/json", "Authorization": `Bearer ${SUPABASE_KEY}`, "apikey": SUPABASE_KEY },
     body: JSON.stringify({ user_id: currentUser.id, phone: verifiedPhone, code }),
   });
   const result = await res.json();
@@ -144,7 +144,7 @@ async function verifyBvn() {
   document.getElementById("bvnStatus").textContent = "Verifying...";
 
   const res = await fetch(`${SUPABASE_URL}/functions/v1/verify-bvn`, {
-    method: "POST", headers: { "Content-Type": "application/json" },
+    method: "POST", headers: { "Content-Type": "application/json", "Authorization": `Bearer ${SUPABASE_KEY}`, "apikey": SUPABASE_KEY },
     body: JSON.stringify({ user_id: currentUser.id, bvn, account_name: currentUser.email }),
   });
   const result = await res.json();
